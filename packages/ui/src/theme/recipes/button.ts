@@ -4,46 +4,46 @@ export const buttonRecipe = defineRecipe({
   variants: {
     variant: {
       outline: {
-        bg: "bg",
+        bg: "bg.control",
         borderColor: "border",
         color: "fg",
         _hover: {
-          bg: "bg.subtle",
+          bg: "bg.hover",
         },
         _expanded: {
-          bg: "bg.subtle",
+          bg: "bg.hover",
         },
       },
       surface: {
-        bg: "bg.subtle",
+        bg: "bg.muted",
         borderColor: "border",
         color: "fg",
         _hover: {
-          bg: "bg.muted",
+          bg: "bg.emphasized",
         },
         _expanded: {
-          bg: "bg.muted",
+          bg: "bg.emphasized",
         },
         boxShadow: "none",
       },
       ghost: {
         color: "fg",
         _hover: {
-          bg: "bg.subtle",
+          bg: "bg.hover",
         },
         _expanded: {
-          bg: "bg.subtle",
+          bg: "bg.hover",
         },
       },
       "ghost-outline": {
         color: "fg",
         borderColor: "border",
         _hover: {
-          bg: "bg.subtle",
+          bg: "bg.hover",
           borderColor: "border",
         },
         _expanded: {
-          bg: "bg.subtle",
+          bg: "bg.hover",
           borderColor: "border",
         },
       },

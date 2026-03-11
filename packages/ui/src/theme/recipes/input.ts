@@ -4,7 +4,7 @@ export const inputRecipe = defineRecipe({
   variants: {
     variant: {
       outline: {
-        bg: "bg",
+        bg: "bg.control",
       },
       flushed: {
         borderBottomWidth: "0px",

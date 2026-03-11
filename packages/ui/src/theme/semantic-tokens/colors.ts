@@ -32,6 +32,18 @@ export const colors = defineSemanticTokens.colors({
         _dark: "{colors.gray.50}",
       },
     },
+    control: {
+      value: {
+        _light: "white",
+        _dark: "{colors.gray.700}",
+      },
+    },
+    hover: {
+      value: {
+        _light: "{colors.gray.50}",
+        _dark: "{colors.gray.600}",
+      },
+    },
   },
   fg: {
     DEFAULT: {
