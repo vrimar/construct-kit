@@ -10,6 +10,7 @@ export * from "./Checkbox";
 export * from "./CheckboxCard";
 export * from "./Clipboard";
 export * from "./Collapsible";
+export * from "./ContextMenu";
 export * from "./DataTable";
 export * from "./DatePicker";
 export * from "./DebugFontSwitcher";
