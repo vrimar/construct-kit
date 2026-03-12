@@ -30,21 +30,10 @@ export const buttonRecipe = defineRecipe({
         color: "fg",
         _hover: {
           bg: "bg.hover",
-        },
-        _expanded: {
-          bg: "bg.hover",
-        },
-      },
-      "ghost-outline": {
-        color: "fg",
-        borderColor: "border",
-        _hover: {
-          bg: "bg.hover",
           borderColor: "border",
         },
         _expanded: {
           bg: "bg.hover",
-          borderColor: "border",
         },
       },
     },
