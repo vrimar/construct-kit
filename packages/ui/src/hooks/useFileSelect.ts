@@ -48,9 +48,9 @@ export function useFileSelect<TMultiple extends boolean = false>(
       }));
 
       if (multiple) {
-        onSelect?.(parsed as any);
+        (onSelect as (files: ParsedFile[]) => void)?.(parsed);
       } else {
-        onSelect?.((parsed[0] ?? null) as any);
+        (onSelect as (file: ParsedFile | null) => void)?.(parsed[0] ?? null);
       }
 
       input.value = "";

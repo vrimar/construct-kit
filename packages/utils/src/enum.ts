@@ -21,12 +21,14 @@ export function enumValueToKey<T extends object>(
   value: T[keyof T],
 ): keyof T | undefined {
   // For numeric enums, a reverse lookup works (enums have both directions)
-  if (typeof value === "number" && (enumSrc as any)[value] !== undefined) {
-    return (enumSrc as any)[value] as keyof T;
+  if (typeof value === "number" && (enumSrc as Record<number, unknown>)[value] !== undefined) {
+    return (enumSrc as Record<number, unknown>)[value] as keyof T;
   }
 
   // For string enums (no reverse mapping), we search manually
-  return Object.keys(enumSrc).find((key) => (enumSrc as any)[key] === value) as keyof T | undefined;
+  return Object.keys(enumSrc).find((key) => (enumSrc as Record<string, unknown>)[key] === value) as
+    | keyof T
+    | undefined;
 }
 
 export function enumToEntries<T extends object>(enumSrc: T): [keyof T, T[keyof T]][] {

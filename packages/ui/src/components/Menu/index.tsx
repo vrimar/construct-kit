@@ -126,7 +126,7 @@ function MenuTriggerItem({ ref, startIcon, children, ...rest }: MenuTriggerItemP
       {...rest}
     >
       {startIcon}
-      {children}
+      <Box flex="1">{children}</Box>
       <LuChevronRight />
     </ChakraMenu.TriggerItem>
   );

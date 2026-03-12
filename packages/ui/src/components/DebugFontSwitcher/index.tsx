@@ -246,8 +246,8 @@ export function DebugFontSwitcher({ defaultFont = "Inter Variable" }: DebugFontS
   return (
     <Box
       position="fixed"
-      bottom="4"
-      left="4"
+      bottom="7"
+      right="200px"
       zIndex="9999"
     >
       <Popover.Root

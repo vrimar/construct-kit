@@ -25,7 +25,10 @@ export function ScrollArea({
       overflow="hidden"
       {...props}
     >
-      <ScrollAreaPrimitive.Root type={type} scrollHideDelay={scrollHideDelay}>
+      <ScrollAreaPrimitive.Root
+        type={type}
+        scrollHideDelay={scrollHideDelay}
+      >
         <Box
           asChild
           width="100%"
@@ -39,7 +42,6 @@ export function ScrollArea({
             },
           }}
         >
-          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           <ScrollAreaPrimitive.Viewport ref={ref as any}>{children}</ScrollAreaPrimitive.Viewport>
         </Box>
         {verticalEnabled && (

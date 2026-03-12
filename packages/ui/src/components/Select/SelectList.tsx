@@ -1,6 +1,6 @@
 import type { BoxProps } from "@chakra-ui/react";
 import { Box, HStack, Stack, Text } from "@chakra-ui/react";
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useDebounce } from "react-use";
 import { Virtuoso } from "react-virtuoso";
 
@@ -52,6 +52,9 @@ export const SelectList = <T, V extends SelectValue>({
   virtual,
 }: SelectListProps<T, V>) => {
   const [scrollParent, setScrollParent] = useState<HTMLElement | undefined>();
+  const scrollParentRef = useCallback((el: HTMLDivElement | null) => {
+    setScrollParent(el ?? undefined);
+  }, []);
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebounceQuery] = useState(searchQuery ?? "");
   const [lastActiveIndex, setLastActiveIndex] = useState<number>(0);
@@ -159,7 +162,7 @@ export const SelectList = <T, V extends SelectValue>({
         )}
         <ScrollArea
           width="100%"
-          ref={setScrollParent as any}
+          ref={scrollParentRef}
         >
           {virtual ? (
             <Virtuoso

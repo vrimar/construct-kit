@@ -28,6 +28,7 @@ export const ColumnSearchInput = ({ name, value, onChange }: Props) => {
   return (
     <SearchInput
       size="sm"
+      autoComplete="off"
       onClear={handleClear}
       onChange={(e) => setTempValue(e.target.value)}
       placeholder={`Search by ${name}`}

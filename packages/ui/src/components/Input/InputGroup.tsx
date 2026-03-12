@@ -10,34 +10,41 @@ export interface InputGroupProps extends BoxProps {
   children: React.ReactElement;
 }
 
-export function InputGroup({ ref, startElement, startElementProps, endElement, endElementProps, children, ...rest }: InputGroupProps & { ref?: React.Ref<HTMLDivElement> }) {
-
-    return (
-      <Group
-        ref={ref}
-        {...rest}
-      >
-        {startElement && (
-          <InputElement
-            pointerEvents="none"
-            {...startElementProps}
-          >
-            {startElement}
-          </InputElement>
-        )}
-        {cloneElement(children, {
-          ...(startElement && { ps: "calc(var(--input-height) - 6px)" }),
-          ...(endElement && { pe: "calc(var(--input-height) - 6px)" }),
-          ...(children as any).props,
-        })}
-        {endElement && (
-          <InputElement
-            placement="end"
-            {...endElementProps}
-          >
-            {endElement}
-          </InputElement>
-        )}
-      </Group>
-    );
+export function InputGroup({
+  ref,
+  startElement,
+  startElementProps,
+  endElement,
+  endElementProps,
+  children,
+  ...rest
+}: InputGroupProps & { ref?: React.Ref<HTMLDivElement> }) {
+  return (
+    <Group
+      ref={ref}
+      {...rest}
+    >
+      {startElement && (
+        <InputElement
+          pointerEvents="none"
+          {...startElementProps}
+        >
+          {startElement}
+        </InputElement>
+      )}
+      {cloneElement(children, {
+        ...(startElement && { ps: "calc(var(--input-height) - 6px)" }),
+        ...(endElement && { pe: "calc(var(--input-height) - 6px)" }),
+        ...(children.props as Record<string, unknown>),
+      })}
+      {endElement && (
+        <InputElement
+          placement="end"
+          {...endElementProps}
+        >
+          {endElement}
+        </InputElement>
+      )}
+    </Group>
+  );
 }
