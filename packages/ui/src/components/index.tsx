@@ -37,6 +37,7 @@ export * from "./Popover";
 export * from "./Provider";
 export * from "./Radio";
 export * from "./RadioCard";
+export * from "./Splitter";
 export * from "./ScrollArea";
 export * from "./Select";
 export * from "./Slider";
