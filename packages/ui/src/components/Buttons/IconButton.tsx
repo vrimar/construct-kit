@@ -8,14 +8,23 @@ export interface IconButtonProps extends ChakraButtonProps {
   loading?: boolean;
 }
 
-export function IconButton({ ref, icon, loading, ...props }: IconButtonProps & { ref?: React.Ref<HTMLButtonElement> }) {
+export function IconButton({
+  ref,
+  icon,
+  loading,
+  ...props
+}: IconButtonProps & { ref?: React.Ref<HTMLButtonElement> }) {
   return (
     <ChakraIconButton
       variant="ghost"
       ref={ref}
       {...props}
     >
-      {loading ? <Spinner size={props.size as any} /> : <Icon size="inherit">{icon}</Icon>}
+      {loading ? (
+        <Spinner size={props.size as "xs" | "sm" | "md" | "lg" | "xl"} />
+      ) : (
+        <Icon size="inherit">{icon}</Icon>
+      )}
     </ChakraIconButton>
   );
 }
