@@ -93,7 +93,7 @@ export const Select = <T, V extends SelectValue>({
             ref={buttonRef}
             {...triggerProps}
             hasValue={hasSelected}
-            label={getTriggerLabel ? getTriggerLabel(label) : label}
+            label={triggerProps?.label ?? (getTriggerLabel ? getTriggerLabel(label) : label)}
             sublabel={triggerProps?.sublabel}
           />
         )}

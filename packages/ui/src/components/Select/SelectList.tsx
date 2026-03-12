@@ -1,5 +1,5 @@
 import type { BoxProps } from "@chakra-ui/react";
-import { Box, Stack, Text } from "@chakra-ui/react";
+import { Box, HStack, Stack, Text } from "@chakra-ui/react";
 import React, { useMemo, useState } from "react";
 import { useDebounce } from "react-use";
 import { Virtuoso } from "react-virtuoso";
@@ -24,6 +24,7 @@ export interface SelectListProps<T, V extends SelectValue> {
   onSearchQueryChange?: (value: string) => unknown;
   searchFilter?: (item: T, query: string) => boolean;
   renderActions?: (item: T) => React.ReactNode;
+  searchExtra?: React.ReactNode;
   onOpenChange?: (value: boolean) => unknown;
   contentProps?: BoxProps;
   activeItemStyle?: "checkmark" | "none";
@@ -43,6 +44,7 @@ export const SelectList = <T, V extends SelectValue>({
   onSearchQueryChange,
   searchFilter,
   renderActions,
+  searchExtra,
   searchPlaceholder = "Search...",
   contentProps,
   activeItemStyle = "checkmark",
@@ -114,20 +116,25 @@ export const SelectList = <T, V extends SelectValue>({
       flex="1"
     >
       {searchable && (
-        <SearchInput
-          autoFocus
-          variant="flushed"
-          width="100%"
-          placeholder={searchPlaceholder}
+        <HStack
+          gap="0"
           borderBottomWidth="1px"
           borderBottomColor="border"
-          value={debouncedQuery}
-          onChange={(e) => setDebounceQuery(e.target.value)}
-          onClear={() => {
-            setDebounceQuery("");
-            handleQueryChange("");
-          }}
-        />
+        >
+          <SearchInput
+            autoFocus
+            variant="flushed"
+            width="100%"
+            placeholder={searchPlaceholder}
+            value={debouncedQuery}
+            onChange={(e) => setDebounceQuery(e.target.value)}
+            onClear={() => {
+              setDebounceQuery("");
+              handleQueryChange("");
+            }}
+          />
+          {searchExtra}
+        </HStack>
       )}
       <Box
         display="flex"
