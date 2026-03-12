@@ -56,7 +56,7 @@ export const SelectListItem = <T,>({
 
           <Box
             flex="1"
-            wordBreak="break-all"
+            wordBreak="break-word"
             userSelect="none"
           >
             {renderLabel(item)}
