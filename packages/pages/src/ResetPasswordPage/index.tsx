@@ -1,4 +1,4 @@
-import { Button, Input, Stack, TextLabel, useAutoFocus } from "@b3/ui";
+import { Alert, Button, Input, Stack, TextLabel, useAutoFocus } from "@b3/ui";
 import { type ReactNode, useState } from "react";
 
 import { AuthLayout } from "../AuthLayout";
@@ -9,6 +9,8 @@ export interface ResetPasswordPageProps {
   logo?: ReactNode;
   email?: string;
   token?: string;
+  isSuccess?: boolean;
+  onBack?: () => void;
 }
 
 export function ResetPasswordPage({
@@ -17,6 +19,8 @@ export function ResetPasswordPage({
   logo,
   email = "",
   token = "",
+  isSuccess,
+  onBack,
 }: ResetPasswordPageProps) {
   const passwordInput = useAutoFocus();
   const [password, setPassword] = useState("");
@@ -28,35 +32,58 @@ export function ResetPasswordPage({
       title="Set new password"
       showTitle
     >
-      <Stack gap="4">
-        <Stack>
-          <TextLabel>New password</TextLabel>
-          <Input
-            ref={passwordInput}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
+      {isSuccess ? (
+        <Stack gap="4">
+          <Alert
+            status="success"
+            title="Your password has been reset successfully."
           />
+          {onBack && (
+            <Button
+              variant="ghost"
+              onClick={onBack}
+            >
+              Back to login
+            </Button>
+          )}
         </Stack>
-
-        <Stack>
-          <TextLabel>Confirm password</TextLabel>
-          <Input
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            type="password"
-          />
-        </Stack>
-
-        <Button
-          w="100%"
-          type="submit"
-          loading={isLoading}
-          onClick={() => onSubmit(email, token, password, confirmPassword)}
+      ) : (
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            onSubmit(email, token, password, confirmPassword);
+          }}
         >
-          Reset password
-        </Button>
-      </Stack>
+          <Stack gap="4">
+            <Stack>
+              <TextLabel>New password</TextLabel>
+              <Input
+                ref={passwordInput}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+              />
+            </Stack>
+
+            <Stack>
+              <TextLabel>Confirm password</TextLabel>
+              <Input
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                type="password"
+              />
+            </Stack>
+
+            <Button
+              w="100%"
+              type="submit"
+              loading={isLoading}
+            >
+              Reset password
+            </Button>
+          </Stack>
+        </form>
+      )}
     </AuthLayout>
   );
 }

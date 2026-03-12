@@ -1,4 +1,4 @@
-import { Button, Input, Stack, Text, TextLabel, useAutoFocus } from "@b3/ui";
+import { Alert, Button, Input, Stack, TextLabel, useAutoFocus } from "@b3/ui";
 import { type ReactNode, useState } from "react";
 
 import { AuthLayout } from "../AuthLayout";
@@ -29,7 +29,10 @@ export function ForgotPasswordPage({
     >
       {isSuccess ? (
         <Stack gap="4">
-          <Text>Check your email for a link to reset your password.</Text>
+          <Alert
+            status="success"
+            title="Check your email for a link to reset your password."
+          />
           {onBack && (
             <Button
               variant="ghost"
@@ -40,35 +43,42 @@ export function ForgotPasswordPage({
           )}
         </Stack>
       ) : (
-        <Stack gap="4">
-          <Stack>
-            <TextLabel>Email</TextLabel>
-            <Input
-              ref={emailInput}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-            />
-          </Stack>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            onSubmit(email);
+          }}
+        >
+          <Stack gap="4">
+            <Stack>
+              <TextLabel>Email</TextLabel>
+              <Input
+                ref={emailInput}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+              />
+            </Stack>
 
-          <Button
-            w="100%"
-            type="submit"
-            loading={isLoading}
-            onClick={() => onSubmit(email)}
-          >
-            Send reset link
-          </Button>
-
-          {onBack && (
             <Button
-              variant="ghost"
-              onClick={onBack}
+              w="100%"
+              type="submit"
+              loading={isLoading}
             >
-              Back to login
+              Send reset link
             </Button>
-          )}
-        </Stack>
+
+            {onBack && (
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={onBack}
+              >
+                Back to login
+              </Button>
+            )}
+          </Stack>
+        </form>
       )}
     </AuthLayout>
   );

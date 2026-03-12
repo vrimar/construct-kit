@@ -17,44 +17,50 @@ export function LoginPage({ onSubmit, isLoading, logo, onForgotPassword }: Login
 
   return (
     <AuthLayout logo={logo}>
-      <Stack gap="4">
-        <Stack>
-          <TextLabel>Email</TextLabel>
-          <Input
-            ref={emailInput}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Stack>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSubmit(email, password);
+        }}
+      >
+        <Stack gap="4">
+          <Stack>
+            <TextLabel>Email</TextLabel>
+            <Input
+              ref={emailInput}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Stack>
 
-        <Stack>
-          <TextLabel>Password</TextLabel>
-          <Input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-          />
-        </Stack>
+          <Stack>
+            <TextLabel>Password</TextLabel>
+            <Input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+            />
+          </Stack>
 
-        {onForgotPassword && (
           <Button
-            type="button"
-            variant="ghost"
-            onClick={onForgotPassword}
+            w="100%"
+            type="submit"
+            loading={isLoading}
           >
-            Forgot your password?
+            Login
           </Button>
-        )}
 
-        <Button
-          w="100%"
-          type="submit"
-          loading={isLoading}
-          onClick={() => onSubmit(email, password)}
-        >
-          Login
-        </Button>
-      </Stack>
+          {onForgotPassword && (
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={onForgotPassword}
+            >
+              Forgot your password?
+            </Button>
+          )}
+        </Stack>
+      </form>
     </AuthLayout>
   );
 }
