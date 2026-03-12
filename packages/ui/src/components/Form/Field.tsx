@@ -1,5 +1,6 @@
 import { Field as ChakraField } from "@chakra-ui/react";
 import React from "react";
+import type { WithRef } from "../../types";
 
 export interface FieldProps extends Omit<ChakraField.RootProps, "label"> {
   label?: React.ReactNode;
@@ -16,7 +17,7 @@ export function Field({
   errorText,
   optionalText,
   ...rest
-}: FieldProps & { ref?: React.Ref<HTMLDivElement> }) {
+}: WithRef<FieldProps>) {
   return (
     <ChakraField.Root
       ref={ref}

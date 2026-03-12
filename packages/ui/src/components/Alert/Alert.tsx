@@ -1,5 +1,6 @@
 import { Alert as ChakraAlert } from "@chakra-ui/react";
 import React from "react";
+import type { WithRef } from "../../types";
 
 import { CloseButton } from "../Buttons";
 
@@ -12,7 +13,17 @@ export interface AlertProps extends Omit<ChakraAlert.RootProps, "title"> {
   onClose?: () => void;
 }
 
-export function Alert({ ref, title, children, icon, closable, onClose, startElement, endElement, ...rest }: AlertProps & { ref?: React.Ref<HTMLDivElement> }) {
+export function Alert({
+  ref,
+  title,
+  children,
+  icon,
+  closable,
+  onClose,
+  startElement,
+  endElement,
+  ...rest
+}: WithRef<AlertProps>) {
   return (
     <ChakraAlert.Root
       ref={ref}

@@ -1,5 +1,6 @@
 import { Popover as ChakraPopover, Portal } from "@chakra-ui/react";
-import React, { RefObject } from "react";
+import { RefObject } from "react";
+import type { WithRef } from "../../types";
 
 import { CloseButton } from "../Buttons";
 
@@ -23,7 +24,7 @@ export interface PopoverContentProps extends ChakraPopover.ContentProps {
   portalRef?: RefObject<HTMLElement>;
 }
 
-function Content({ ref, portalled = true, portalRef, ...rest }: PopoverContentProps & { ref?: React.Ref<HTMLDivElement> }) {
+function Content({ ref, portalled = true, portalRef, ...rest }: WithRef<PopoverContentProps>) {
   return (
     <Portal
       disabled={!portalled}
@@ -40,7 +41,7 @@ function Content({ ref, portalled = true, portalRef, ...rest }: PopoverContentPr
   );
 }
 
-function Arrow({ ref, ...props }: ChakraPopover.ArrowProps & { ref?: React.Ref<HTMLDivElement> }) {
+function Arrow({ ref, ...props }: WithRef<ChakraPopover.ArrowProps>) {
   return (
     <ChakraPopover.Arrow
       {...props}
@@ -51,7 +52,10 @@ function Arrow({ ref, ...props }: ChakraPopover.ArrowProps & { ref?: React.Ref<H
   );
 }
 
-function CloseTrigger({ ref, ...props }: ChakraPopover.CloseTriggerProps & { ref?: React.Ref<HTMLButtonElement> }) {
+function CloseTrigger({
+  ref,
+  ...props
+}: WithRef<ChakraPopover.CloseTriggerProps, HTMLButtonElement>) {
   return (
     <ChakraPopover.CloseTrigger
       position="absolute"

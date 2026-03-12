@@ -1,6 +1,7 @@
 import type { BoxProps } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
 import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
+import type { WithRef } from "../../types";
 
 interface Props extends BoxProps {
   type?: ScrollAreaPrimitive.ScrollAreaProps["type"];
@@ -17,7 +18,7 @@ export function ScrollArea({
   verticalEnabled = true,
   horizontalEnabled = true,
   ...props
-}: Props & { ref?: React.Ref<HTMLDivElement> }) {
+}: WithRef<Props>) {
   return (
     <Box
       asChild

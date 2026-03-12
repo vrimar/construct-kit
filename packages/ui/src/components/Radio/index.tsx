@@ -1,5 +1,6 @@
 import { RadioGroup as ChakraRadioGroup } from "@chakra-ui/react";
 import React from "react";
+import type { WithRef } from "../../types";
 
 export interface RadioProps extends ChakraRadioGroup.ItemProps {
   rootRef?: React.Ref<HTMLDivElement>;
@@ -12,7 +13,7 @@ export function Radio({
   inputProps,
   rootRef,
   ...rest
-}: RadioProps & { ref?: React.Ref<HTMLInputElement> }) {
+}: WithRef<RadioProps, HTMLInputElement>) {
   return (
     <ChakraRadioGroup.Item
       ref={rootRef}

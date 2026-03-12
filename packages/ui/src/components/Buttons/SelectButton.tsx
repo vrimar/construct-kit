@@ -1,6 +1,7 @@
 import { Box, HStack } from "@chakra-ui/react";
 import React from "react";
 import { FiChevronDown, FiX } from "react-icons/fi";
+import type { WithRef } from "../../types";
 
 import { Text, TruncatedText } from "../Text";
 import type { ButtonProps } from ".";
@@ -20,7 +21,7 @@ export function SelectButton({
   hasValue,
   onClear,
   ...props
-}: SelectButtonProps & { ref?: React.Ref<HTMLButtonElement> }) {
+}: WithRef<SelectButtonProps, HTMLButtonElement>) {
   const handleClear = () => {
     if (onClear) onClear();
   };

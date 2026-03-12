@@ -7,6 +7,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { HiOutlineInformationCircle } from "react-icons/hi";
+import type { WithRef } from "../../types";
 
 import { ToggleTip } from "../ToggleTip";
 
@@ -14,7 +15,7 @@ interface StatLabelProps extends ChakraStat.LabelProps {
   info?: React.ReactNode;
 }
 
-function StatLabel({ ref, info, children, ...rest }: StatLabelProps & { ref?: React.Ref<HTMLDivElement> }) {
+function StatLabel({ ref, info, children, ...rest }: WithRef<StatLabelProps>) {
   return (
     <ChakraStat.Label
       {...rest}
@@ -41,7 +42,13 @@ interface StatValueTextProps extends ChakraStat.ValueTextProps {
   formatOptions?: Intl.NumberFormatOptions;
 }
 
-function StatValueText({ ref, value, formatOptions, children, ...rest }: StatValueTextProps & { ref?: React.Ref<HTMLDivElement> }) {
+function StatValueText({
+  ref,
+  value,
+  formatOptions,
+  children,
+  ...rest
+}: WithRef<StatValueTextProps>) {
   return (
     <ChakraStat.ValueText
       {...rest}
@@ -58,7 +65,7 @@ function StatValueText({ ref, value, formatOptions, children, ...rest }: StatVal
   );
 }
 
-function StatUpTrend({ ref, children, ...props }: BadgeProps & { ref?: React.Ref<HTMLDivElement> }) {
+function StatUpTrend({ ref, children, ...props }: WithRef<BadgeProps>) {
   return (
     <Badge
       colorPalette="green"
@@ -72,7 +79,7 @@ function StatUpTrend({ ref, children, ...props }: BadgeProps & { ref?: React.Ref
   );
 }
 
-function StatDownTrend({ ref, children, ...props }: BadgeProps & { ref?: React.Ref<HTMLDivElement> }) {
+function StatDownTrend({ ref, children, ...props }: WithRef<BadgeProps>) {
   return (
     <Badge
       colorPalette="red"

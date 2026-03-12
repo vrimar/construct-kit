@@ -1,5 +1,6 @@
 import { Checkbox as ChakraCheckbox } from "@chakra-ui/react";
 import React from "react";
+import type { WithRef } from "../../types";
 
 export interface CheckboxProps extends ChakraCheckbox.RootProps {
   icon?: React.ReactNode;
@@ -14,7 +15,7 @@ export function Checkbox({
   inputProps,
   rootRef,
   ...rest
-}: CheckboxProps & { ref?: React.Ref<HTMLInputElement> }) {
+}: WithRef<CheckboxProps, HTMLInputElement>) {
   return (
     <ChakraCheckbox.Root
       ref={rootRef}

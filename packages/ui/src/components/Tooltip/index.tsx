@@ -1,6 +1,6 @@
 import { Portal, Tooltip as ChakraTooltip } from "@chakra-ui/react";
 import type { ReactNode, RefObject } from "react";
-import React from "react";
+import type { WithRef } from "../../types";
 
 export interface TooltipProps extends ChakraTooltip.RootProps {
   showArrow?: boolean;
@@ -12,8 +12,18 @@ export interface TooltipProps extends ChakraTooltip.RootProps {
   placement?: NonNullable<ChakraTooltip.RootProps["positioning"]>["placement"];
 }
 
-export function Tooltip({ ref, showArrow, children, disabled, portalled = true, content, contentProps, portalRef, placement = "top", ...rest }: TooltipProps & { ref?: React.Ref<HTMLDivElement> }) {
-
+export function Tooltip({
+  ref,
+  showArrow,
+  children,
+  disabled,
+  portalled = true,
+  content,
+  contentProps,
+  portalRef,
+  placement = "top",
+  ...rest
+}: WithRef<TooltipProps>) {
   if (disabled) return children;
 
   return (

@@ -1,6 +1,7 @@
 import type { ButtonProps as ChakraButtonProps } from "@chakra-ui/react";
 import { AbsoluteCenter, Button as ChakraButton, Spinner } from "@chakra-ui/react";
 import React from "react";
+import type { WithRef } from "../../types";
 
 interface ButtonBaseProps {
   loading?: boolean;
@@ -20,7 +21,7 @@ export function Button({
   leftIcon,
   rightIcon,
   ...rest
-}: ButtonProps & { ref?: React.Ref<HTMLButtonElement> }) {
+}: WithRef<ButtonProps, HTMLButtonElement>) {
   return (
     <ChakraButton
       disabled={loading || disabled}

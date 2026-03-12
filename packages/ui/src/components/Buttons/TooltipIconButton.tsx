@@ -1,4 +1,5 @@
 import React from "react";
+import type { WithRef } from "../../types";
 
 import type { TooltipProps } from "../Tooltip";
 import { Tooltip } from "../Tooltip";
@@ -11,7 +12,7 @@ interface Props extends ButtonProps {
   label: string;
 }
 
-export function TooltipIconButton({ ref, label, icon, tooltipProps, ...props }: Props & { ref?: React.Ref<HTMLDivElement> }) {
+export function TooltipIconButton({ ref, label, icon, tooltipProps, ...props }: WithRef<Props>) {
   return (
     <Tooltip
       ref={ref}

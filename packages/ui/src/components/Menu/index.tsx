@@ -1,6 +1,7 @@
 import { AbsoluteCenter, Box, Menu as ChakraMenu, Portal } from "@chakra-ui/react";
 import React from "react";
 import { LuCheck, LuChevronRight } from "react-icons/lu";
+import type { WithRef } from "../../types";
 
 export interface MenuRootProps extends ChakraMenu.RootProps {
   placement?: NonNullable<ChakraMenu.RootProps["positioning"]>["placement"];
@@ -22,12 +23,7 @@ export interface MenuContentProps extends ChakraMenu.ContentProps {
   portalRef?: React.RefObject<HTMLElement>;
 }
 
-function MenuContent({
-  ref,
-  portalled = true,
-  portalRef,
-  ...rest
-}: MenuContentProps & { ref?: React.Ref<HTMLDivElement> }) {
+function MenuContent({ ref, portalled = true, portalRef, ...rest }: WithRef<MenuContentProps>) {
   return (
     <Portal
       disabled={!portalled}
@@ -44,7 +40,7 @@ function MenuContent({
   );
 }
 
-function MenuArrow({ ref, ...props }: ChakraMenu.ArrowProps & { ref?: React.Ref<HTMLDivElement> }) {
+function MenuArrow({ ref, ...props }: WithRef<ChakraMenu.ArrowProps>) {
   return (
     <ChakraMenu.Arrow
       ref={ref}
@@ -55,11 +51,7 @@ function MenuArrow({ ref, ...props }: ChakraMenu.ArrowProps & { ref?: React.Ref<
   );
 }
 
-function MenuCheckboxItem({
-  ref,
-  children,
-  ...props
-}: ChakraMenu.CheckboxItemProps & { ref?: React.Ref<HTMLDivElement> }) {
+function MenuCheckboxItem({ ref, children, ...props }: WithRef<ChakraMenu.CheckboxItemProps>) {
   return (
     <ChakraMenu.CheckboxItem
       ref={ref}
@@ -74,11 +66,7 @@ function MenuCheckboxItem({
   );
 }
 
-function MenuRadioItem({
-  ref,
-  children,
-  ...rest
-}: ChakraMenu.RadioItemProps & { ref?: React.Ref<HTMLDivElement> }) {
+function MenuRadioItem({ ref, children, ...rest }: WithRef<ChakraMenu.RadioItemProps>) {
   return (
     <ChakraMenu.RadioItem
       cursor="pointer"
@@ -104,12 +92,7 @@ export interface MenuItemProps extends ChakraMenu.ItemProps {
   icon?: React.ReactNode;
 }
 
-function MenuItem({
-  ref,
-  icon,
-  children,
-  ...rest
-}: MenuItemProps & { ref?: React.Ref<HTMLDivElement> }) {
+function MenuItem({ ref, icon, children, ...rest }: WithRef<MenuItemProps>) {
   return (
     <ChakraMenu.Item
       cursor="pointer"
@@ -122,12 +105,7 @@ function MenuItem({
   );
 }
 
-function MenuItemGroup({
-  ref,
-  title,
-  children,
-  ...rest
-}: ChakraMenu.ItemGroupProps & { ref?: React.Ref<HTMLDivElement> }) {
+function MenuItemGroup({ ref, title, children, ...rest }: WithRef<ChakraMenu.ItemGroupProps>) {
   return (
     <ChakraMenu.ItemGroup
       ref={ref}
@@ -143,12 +121,7 @@ export interface MenuTriggerItemProps extends ChakraMenu.ItemProps {
   startIcon?: React.ReactNode;
 }
 
-function MenuTriggerItem({
-  ref,
-  startIcon,
-  children,
-  ...rest
-}: MenuTriggerItemProps & { ref?: React.Ref<HTMLDivElement> }) {
+function MenuTriggerItem({ ref, startIcon, children, ...rest }: WithRef<MenuTriggerItemProps>) {
   return (
     <ChakraMenu.TriggerItem
       ref={ref}

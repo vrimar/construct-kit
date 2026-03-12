@@ -1,10 +1,13 @@
-import React from "react";
 import { FiTrash2 } from "react-icons/fi";
+import type { WithRef } from "../../types";
 
 import type { IconButtonProps } from "./IconButton";
 import { IconButton } from "./IconButton";
 
-export function DeleteButton({ ref, ...props }: Omit<IconButtonProps, "icon"> & { ref?: React.Ref<HTMLButtonElement> }) {
+export function DeleteButton({
+  ref,
+  ...props
+}: WithRef<Omit<IconButtonProps, "icon">, HTMLButtonElement>) {
   return (
     <IconButton
       ref={ref}

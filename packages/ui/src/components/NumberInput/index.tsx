@@ -1,9 +1,9 @@
 import { NumberInput as ChakraNumberInput } from "@chakra-ui/react";
-import React from "react";
+import type { WithRef } from "../../types";
 
 export type NumberInputProps = ChakraNumberInput.RootProps;
 
-function NumberInputRoot({ ref, children, ...rest }: NumberInputProps & { ref?: React.Ref<HTMLDivElement> }) {
+function NumberInputRoot({ ref, children, ...rest }: WithRef<NumberInputProps>) {
   return (
     <ChakraNumberInput.Root
       ref={ref}

@@ -1,6 +1,7 @@
 import type { BoxProps, InputElementProps } from "@chakra-ui/react";
 import { Group, InputElement } from "@chakra-ui/react";
 import React, { cloneElement } from "react";
+import type { WithRef } from "../../types";
 
 export interface InputGroupProps extends BoxProps {
   startElementProps?: InputElementProps;
@@ -18,7 +19,7 @@ export function InputGroup({
   endElementProps,
   children,
   ...rest
-}: InputGroupProps & { ref?: React.Ref<HTMLDivElement> }) {
+}: WithRef<InputGroupProps>) {
   return (
     <Group
       ref={ref}

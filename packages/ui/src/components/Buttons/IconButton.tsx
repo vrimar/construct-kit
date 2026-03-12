@@ -1,7 +1,7 @@
 import type { ButtonProps as ChakraButtonProps } from "@chakra-ui/react";
 import { Icon, IconButton as ChakraIconButton, Spinner } from "@chakra-ui/react";
 import type { ReactNode } from "react";
-import React from "react";
+import type { WithRef } from "../../types";
 
 export interface IconButtonProps extends ChakraButtonProps {
   icon: ReactNode;
@@ -13,7 +13,7 @@ export function IconButton({
   icon,
   loading,
   ...props
-}: IconButtonProps & { ref?: React.Ref<HTMLButtonElement> }) {
+}: WithRef<IconButtonProps, HTMLButtonElement>) {
   return (
     <ChakraIconButton
       variant="ghost"

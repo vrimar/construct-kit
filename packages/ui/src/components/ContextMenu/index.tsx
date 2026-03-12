@@ -1,6 +1,7 @@
 import { AbsoluteCenter, Box, Menu as ChakraMenu, Portal } from "@chakra-ui/react";
 import React from "react";
 import { LuCheck, LuChevronRight } from "react-icons/lu";
+import type { WithRef } from "../../types";
 
 export interface ContextMenuRootProps extends Omit<ChakraMenu.RootProps, "positioning"> {
   positioning?: ChakraMenu.RootProps["positioning"];
@@ -26,7 +27,7 @@ function ContextMenuContent({
   portalled = true,
   portalRef,
   ...rest
-}: ContextMenuContentProps & { ref?: React.Ref<HTMLDivElement> }) {
+}: WithRef<ContextMenuContentProps>) {
   return (
     <Portal
       disabled={!portalled}
@@ -47,7 +48,7 @@ function ContextMenuCheckboxItem({
   ref,
   children,
   ...props
-}: ChakraMenu.CheckboxItemProps & { ref?: React.Ref<HTMLDivElement> }) {
+}: WithRef<ChakraMenu.CheckboxItemProps>) {
   return (
     <ChakraMenu.CheckboxItem
       ref={ref}
@@ -61,11 +62,7 @@ function ContextMenuCheckboxItem({
   );
 }
 
-function ContextMenuRadioItem({
-  ref,
-  children,
-  ...rest
-}: ChakraMenu.RadioItemProps & { ref?: React.Ref<HTMLDivElement> }) {
+function ContextMenuRadioItem({ ref, children, ...rest }: WithRef<ChakraMenu.RadioItemProps>) {
   return (
     <ChakraMenu.RadioItem
       cursor="pointer"
@@ -91,12 +88,7 @@ export interface ContextMenuItemProps extends ChakraMenu.ItemProps {
   icon?: React.ReactNode;
 }
 
-function ContextMenuItem({
-  ref,
-  icon,
-  children,
-  ...rest
-}: ContextMenuItemProps & { ref?: React.Ref<HTMLDivElement> }) {
+function ContextMenuItem({ ref, icon, children, ...rest }: WithRef<ContextMenuItemProps>) {
   return (
     <ChakraMenu.Item
       cursor="pointer"
@@ -114,7 +106,7 @@ function ContextMenuItemGroup({
   title,
   children,
   ...rest
-}: ChakraMenu.ItemGroupProps & { ref?: React.Ref<HTMLDivElement> }) {
+}: WithRef<ChakraMenu.ItemGroupProps>) {
   return (
     <ChakraMenu.ItemGroup
       ref={ref}
@@ -135,7 +127,7 @@ function ContextMenuTriggerItem({
   startIcon,
   children,
   ...rest
-}: ContextMenuTriggerItemProps & { ref?: React.Ref<HTMLDivElement> }) {
+}: WithRef<ContextMenuTriggerItemProps>) {
   return (
     <ChakraMenu.TriggerItem
       ref={ref}
