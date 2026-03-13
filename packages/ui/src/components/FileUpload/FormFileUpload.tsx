@@ -57,9 +57,15 @@ export function FormFileUpload({
           </FileUpload.ClearTrigger>
         }
       >
-        <Input asChild aria-label={placeholder}>
+        <Input
+          asChild
+          aria-label={placeholder}
+        >
           <FileUpload.Trigger>
-            <FileUpload.FileText lineClamp={1} fallback={placeholder} />
+            <FileUpload.FileText
+              lineClamp={1}
+              fallback={placeholder}
+            />
           </FileUpload.Trigger>
         </Input>
       </InputGroup>

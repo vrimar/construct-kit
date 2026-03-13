@@ -89,7 +89,14 @@ function TreeViewItem<T>({ item, indent }: TreeViewItemProps<T>) {
     >
       <button {...item.getProps()}>
         {item.isFolder() && (
-          <Box as="span" mr="1" color="fg.muted" display="inline-flex" alignItems="center" flexShrink={0}>
+          <Box
+            as="span"
+            mr="1"
+            color="fg.muted"
+            display="inline-flex"
+            alignItems="center"
+            flexShrink={0}
+          >
             {item.isExpanded() ? <FiChevronDown /> : <FiChevronRight />}
           </Box>
         )}

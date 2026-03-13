@@ -92,14 +92,27 @@ export function ListBoxItem({ children, description, ...props }: ListBoxItemProp
               <FiCheck />
             </Box>
             {description ? (
-              <Box flex="1" minW="0">
+              <Box
+                flex="1"
+                minW="0"
+              >
                 <Text slot="label">{children as ReactNode}</Text>
-                <Box as="span" display="block" fontSize="xs" color="fg.muted" truncate>
+                <Box
+                  as="span"
+                  display="block"
+                  fontSize="xs"
+                  color="fg.muted"
+                  truncate
+                >
                   <Text slot="description">{description}</Text>
                 </Box>
               </Box>
             ) : (
-              <Box as="span" flex="1" truncate>
+              <Box
+                as="span"
+                flex="1"
+                truncate
+              >
                 {children as ReactNode}
               </Box>
             )}

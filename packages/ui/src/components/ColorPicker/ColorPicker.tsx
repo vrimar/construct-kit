@@ -128,7 +128,10 @@ export function ColorPicker({ withAlpha = false, swatches, ...rest }: ColorPicke
           {swatches && swatches.length > 0 && (
             <ChakraColorPicker.SwatchGroup>
               {swatches.map((swatch) => (
-                <ChakraColorPicker.SwatchTrigger key={swatch} value={swatch}>
+                <ChakraColorPicker.SwatchTrigger
+                  key={swatch}
+                  value={swatch}
+                >
                   <ChakraColorPicker.Swatch value={swatch} />
                 </ChakraColorPicker.SwatchTrigger>
               ))}
