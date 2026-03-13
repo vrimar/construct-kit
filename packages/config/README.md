@@ -1,63 +1,16 @@
 # @b3/config
 
-Shared tool configuration for all B3 frontend projects — TypeScript, Oxlint, Oxfmt, Vite, and Playwright.
+Shared tool configuration for B3 frontend projects.
 
-## Installation
+## Sub-paths
 
-```bash
-pnpm add -D @b3/config
-```
-
-## Usage
-
-### TypeScript
-
-```json
-// tsconfig.json
-{
-  "extends": "@b3/config/typescript",
-  "include": ["src"]
-}
-```
-
-### Oxfmt
-
-```jsonc
-// .oxfmtrc.jsonc
-"@b3/config/oxfmt"
-```
-
-Run manually or via CI:
-
-```bash
-npx oxfmt --check .   # CI
-npx oxfmt .           # fix
-```
-
-### Oxlint
-
-```json
-// .oxlintrc.json
-{
-  "extends": ["@b3/config/oxlint"]
-}
-```
-
-### Vite
-
-```ts
-// vite.config.ts
-import { createViteConfig } from '@b3/config/vite'
-export default createViteConfig({ base: '/my-app/' })
-```
-
-### Playwright
-
-```ts
-// playwright.config.ts
-import { createPlaywrightConfig } from '@b3/config/playwright'
-export default createPlaywrightConfig()
-```
+| Import | Usage |
+|---|---|
+| `@b3/config/typescript` | `"extends": "@b3/config/typescript"` in `tsconfig.json` |
+| `@b3/config/oxlint` | `"extends": ["@b3/config/oxlint"]` in `.oxlintrc.json` |
+| `@b3/config/oxfmt` | `"@b3/config/oxfmt"` in `.oxfmtrc.jsonc` |
+| `@b3/config/vite` | `createViteConfig(overrides?)` factory |
+| `@b3/config/playwright` | `createPlaywrightConfig(overrides?)` factory |
 
 ---
 

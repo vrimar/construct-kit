@@ -27,6 +27,14 @@ Not directly renderable as `<Component />` — must use sub-components.
 
 `Accordion`, `ActionBar`, `Avatar`, `Clipboard`, `Collapsible`, `Drawer`, `Editable`, `EmptyState`, `FileUpload`, `List`, `RadioCard`, `Table`, `Tabs`, `TagsInput`
 
+### Complex / multi-export
+
+| Component    | Exports                                                                     |
+| ------------ | --------------------------------------------------------------------------- |
+| `Tree`       | `TreeView`, `useTreeView`, `createTreeCollection`, `ChakraTreeView` + types |
+| `TreeSelect` | `TreeSelectList` + types                                                    |
+| `ListBox`    | `ListBox`, `ListBoxItem`, `ListBoxSection`, `Collection`, `Header` + types  |
+
 ## Flat-only
 
 Single callable component — no dot-sub-components.
@@ -59,3 +67,13 @@ Single callable component — no dot-sub-components.
 | `ToggleTip`                                | `export function ToggleTip(...)`                                 |
 | `Tooltip`                                  | `export function Tooltip(...)`                                   |
 | `Wrap`                                     | Chakra v3 flat re-export                                         |
+
+### Missing from earlier versions, now available
+
+| Component           | Notes                                                            |
+| ------------------- | ---------------------------------------------------------------- |
+| `ColorPicker`       | `export function ColorPicker(...)` + re-exports from Chakra      |
+| `DebugFontSwitcher` | `export function DebugFontSwitcher()` (dev tool)                 |
+| `Highlight`         | `SearchHighlight` + `useHighlight` from Chakra                   |
+| `SubmitForm`        | `export const SubmitForm = (...)` (from Form module in `@b3/ui`) |
+| `ThemeProvider`     | `export function ThemeProvider(...)` (from Provider module)      |

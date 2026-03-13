@@ -1,36 +1,24 @@
 # @b3/utils
 
-Stateless, framework-agnostic utilities shared across all B3 frontend apps. No React, no Chakra, no UI concerns.
+Stateless, framework-agnostic utilities shared across B3 frontend apps.
 
-## Installation
+## Exports
 
-```bash
-pnpm add @b3/utils
+| Module | Exports |
+|---|---|
+| **array** | `transformArray`, `addOrRemove`, `addOrRemoveByKey`, `getFirstItemId`, `getLastItemId`, `findInTree` |
+| **date** | `formatDateDefault`, `formatDateRelative` |
+| **enum** | `isEnumKey`, `enumToKeys`, `enumToValues`, `enumToEntries`, `enumToOptions`, `enumValueToKey`, `fromEnum`, `mapEnumToFlags`, `toListItems`, `getEnumKeyByValue` |
+| **formatters** | `formatCurrency`, `formatDate`, `formatNumber` |
+| **misc** | `isShallowEqual` |
+| **number** | `isValidNumber` |
+| **object** | `objectKeys`, `toKeyValue`, `isPlainObject` |
+| **query** | `buildQueryString`, `saveBlobResponse`, `downloadFile` |
+| **string** | `toCamelCase`, `toInt`, `isStrictlyNumeric` |
+| **validation** | `emailSchema`, `phoneSchema`, `passwordSchema`, `loginSchema` (Zod) |
+
+## Usage
+
+```ts
+import { buildQueryString, addOrRemove, emailSchema } from "@b3/utils";
 ```
-
-## What's included
-
-| Export | Description |
-|--------|-------------|
-| `cn(...classes)` | Classname merging with Tailwind conflict resolution |
-| `formatCurrency` / `formatDate` / `formatNumber` | Localised Intl formatters |
-| `emailSchema` / `phoneSchema` / `passwordSchema` | Shared Zod validation schemas |
-| `loginSchema` | Composed login form schema |
-| `baseEnvSchema` + `parseEnv` | Zod-based env var validation |
-| `featureEnabled(flag)` | Environment variable feature flags |
-| `appUrls` | Cross-app navigation URLs |
-
-## Environment variables
-
-Apps must define the following in their `.env`:
-
-```
-VITE_API_URL=https://api.example.com
-VITE_PORTAL_URL=https://portal.example.com
-VITE_ADMIN_URL=https://admin.example.com
-VITE_REPORTS_URL=https://reports.example.com
-```
-
----
-
-[Architecture guide](../../readme.md)
