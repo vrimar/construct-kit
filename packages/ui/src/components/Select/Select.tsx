@@ -63,7 +63,6 @@ export const Select = <T, V extends SelectValue>({
     }
 
     return emptySelectionLabel || `${selectedItems.length} Active`;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items, selectedItems]);
 
   const controlledOpen = open != null ? open : isOpen;
