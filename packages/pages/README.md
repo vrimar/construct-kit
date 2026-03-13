@@ -4,11 +4,11 @@ Shared auth page components for B3 apps. Pages own layout — consuming apps wir
 
 ## Exports
 
-| Export | Props |
-|---|---|
-| `LoginPage` | `onSubmit`, `isLoading?`, `logo?`, `onForgotPassword?` |
-| `ForgotPasswordPage` | `ForgotPasswordPageProps` |
-| `ResetPasswordPage` | `ResetPasswordPageProps` |
+| Export               | Props                                                  |
+| -------------------- | ------------------------------------------------------ |
+| `LoginPage`          | `onSubmit`, `isLoading?`, `logo?`, `onForgotPassword?` |
+| `ForgotPasswordPage` | `ForgotPasswordPageProps`                              |
+| `ResetPasswordPage`  | `ResetPasswordPageProps`                               |
 
 **Types:** `AuthProvider`, `User`, `LoginOptions`, `LoginPageProps`, `ForgotPasswordPageProps`, `ResetPasswordPageProps`
 
@@ -22,7 +22,7 @@ import { LoginPage } from "@b3/pages";
   isLoading={isPending}
   onForgotPassword={() => navigate("/forgot-password")}
   logo={<Logo />}
-/>
+/>;
 ```
 
 ## Rules

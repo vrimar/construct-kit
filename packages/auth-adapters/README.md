@@ -20,10 +20,20 @@ Implement the `AuthProvider` interface directly:
 import type { AuthProvider } from "@b3/pages";
 
 export const authProvider: AuthProvider = {
-  getToken: async () => { /* ... */ },
-  login: async () => { /* ... */ },
-  logout: async () => { /* ... */ },
-  isAuthenticated: () => { /* ... */ },
-  getUser: () => { /* ... */ },
+  getToken: async () => {
+    /* ... */
+  },
+  login: async () => {
+    /* ... */
+  },
+  logout: async () => {
+    /* ... */
+  },
+  isAuthenticated: () => {
+    /* ... */
+  },
+  getUser: () => {
+    /* ... */
+  },
 };
 ```
