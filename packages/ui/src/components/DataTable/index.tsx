@@ -1,5 +1,3 @@
-import type { BoxProps } from "@chakra-ui/react";
-import { Box, Stack } from "@chakra-ui/react";
 import type {
   ColumnDef,
   ColumnFiltersState,
@@ -10,6 +8,7 @@ import type {
 } from "@tanstack/react-table";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import React, { useMemo } from "react";
+import { Box, Stack, type BoxProps } from "styled-system/jsx";
 
 import type { DataTableParams } from "./types";
 
@@ -44,7 +43,7 @@ export type DataTableProps<TData extends object> = {
   labels?: DataTableLabels;
 };
 
-export function DataTable<TData extends object>({
+export const DataTable = <TData extends object>({
   data,
   params,
   onParamChange,
@@ -60,7 +59,7 @@ export function DataTable<TData extends object>({
   getRowProps,
   isBasic,
   labels,
-}: DataTableProps<TData>) {
+}: DataTableProps<TData>) => {
   const sortingState = useMemo(
     () =>
       params?.orderBy
@@ -162,7 +161,8 @@ export function DataTable<TData extends object>({
   const handleRowClick = (e: React.MouseEvent<HTMLDivElement>, row: Row<TData>) => {
     if (!onRowClick) return;
     const target = e.target as HTMLElement;
-    if (target.closest(".chakra-menu__content") || target.closest(".chakra-button")) return;
+    if (target.closest("[data-scope=menu]") || target.closest("button") || target.closest("a"))
+      return;
     onRowClick(row);
   };
 
@@ -208,4 +208,4 @@ export function DataTable<TData extends object>({
       )}
     </Stack>
   );
-}
+};

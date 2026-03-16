@@ -1,23 +1,20 @@
-import { AbsoluteCenter, Box, Menu as ChakraMenu, Portal } from "@chakra-ui/react";
+import { Portal } from "@ark-ui/react/portal";
+import { CheckIcon, ChevronRightIcon } from "lucide-react";
 import React from "react";
-import { LuCheck, LuChevronRight } from "react-icons/lu";
+import { Box } from "styled-system/jsx";
 import type { WithRef } from "../../types";
+import { AbsoluteCenter } from "../Layout/AbsoluteCenter";
+import * as ArkMenu from "../Menu";
 
-export interface ContextMenuRootProps extends Omit<ChakraMenu.RootProps, "positioning"> {
-  positioning?: ChakraMenu.RootProps["positioning"];
+export interface ContextMenuRootProps extends Omit<ArkMenu.RootProps, "positioning"> {
+  positioning?: ArkMenu.RootProps["positioning"];
 }
 
 function ContextMenuRoot(props: ContextMenuRootProps) {
-  return (
-    <ChakraMenu.Root
-      lazyMount
-      unmountOnExit
-      {...props}
-    />
-  );
+  return <ArkMenu.Root {...props} />;
 }
 
-export interface ContextMenuContentProps extends ChakraMenu.ContentProps {
+export interface ContextMenuContentProps extends React.ComponentProps<typeof ArkMenu.Content> {
   portalled?: boolean;
   portalRef?: React.RefObject<HTMLElement>;
 }
@@ -33,13 +30,13 @@ function ContextMenuContent({
       disabled={!portalled}
       container={portalRef}
     >
-      <ChakraMenu.Positioner>
-        <ChakraMenu.Content
+      <ArkMenu.Positioner>
+        <ArkMenu.Content
           animation="none"
           ref={ref}
           {...rest}
         />
-      </ChakraMenu.Positioner>
+      </ArkMenu.Positioner>
     </Portal>
   );
 }
@@ -48,23 +45,27 @@ function ContextMenuCheckboxItem({
   ref,
   children,
   ...props
-}: WithRef<ChakraMenu.CheckboxItemProps>) {
+}: WithRef<React.ComponentProps<typeof ArkMenu.CheckboxItem>>) {
   return (
-    <ChakraMenu.CheckboxItem
+    <ArkMenu.CheckboxItem
       ref={ref}
       {...props}
     >
-      <ChakraMenu.ItemIndicator hidden={false}>
-        <LuCheck />
-      </ChakraMenu.ItemIndicator>
+      <ArkMenu.ItemIndicator>
+        <CheckIcon />
+      </ArkMenu.ItemIndicator>
       {children}
-    </ChakraMenu.CheckboxItem>
+    </ArkMenu.CheckboxItem>
   );
 }
 
-function ContextMenuRadioItem({ ref, children, ...rest }: WithRef<ChakraMenu.RadioItemProps>) {
+function ContextMenuRadioItem({
+  ref,
+  children,
+  ...rest
+}: WithRef<React.ComponentProps<typeof ArkMenu.RadioItem>>) {
   return (
-    <ChakraMenu.RadioItem
+    <ArkMenu.RadioItem
       cursor="pointer"
       ps="8"
       ref={ref}
@@ -75,29 +76,29 @@ function ContextMenuRadioItem({ ref, children, ...rest }: WithRef<ChakraMenu.Rad
         left="4"
         asChild
       >
-        <ChakraMenu.ItemIndicator>
-          <LuCheck />
-        </ChakraMenu.ItemIndicator>
+        <ArkMenu.ItemIndicator>
+          <CheckIcon />
+        </ArkMenu.ItemIndicator>
       </AbsoluteCenter>
-      <ChakraMenu.ItemText>{children}</ChakraMenu.ItemText>
-    </ChakraMenu.RadioItem>
+      <ArkMenu.ItemText>{children}</ArkMenu.ItemText>
+    </ArkMenu.RadioItem>
   );
 }
 
-export interface ContextMenuItemProps extends ChakraMenu.ItemProps {
+export interface ContextMenuItemProps extends React.ComponentProps<typeof ArkMenu.Item> {
   icon?: React.ReactNode;
 }
 
 function ContextMenuItem({ ref, icon, children, ...rest }: WithRef<ContextMenuItemProps>) {
   return (
-    <ChakraMenu.Item
+    <ArkMenu.Item
       cursor="pointer"
       {...rest}
       ref={ref}
     >
       {icon}
       <Box flex="1">{children}</Box>
-    </ChakraMenu.Item>
+    </ArkMenu.Item>
   );
 }
 
@@ -106,19 +107,19 @@ function ContextMenuItemGroup({
   title,
   children,
   ...rest
-}: WithRef<ChakraMenu.ItemGroupProps>) {
+}: WithRef<React.ComponentProps<typeof ArkMenu.ItemGroup>>) {
   return (
-    <ChakraMenu.ItemGroup
+    <ArkMenu.ItemGroup
       ref={ref}
       {...rest}
     >
-      {title && <ChakraMenu.ItemGroupLabel userSelect="none">{title}</ChakraMenu.ItemGroupLabel>}
+      {title && <ArkMenu.ItemGroupLabel userSelect="none">{title}</ArkMenu.ItemGroupLabel>}
       {children}
-    </ChakraMenu.ItemGroup>
+    </ArkMenu.ItemGroup>
   );
 }
 
-export interface ContextMenuTriggerItemProps extends ChakraMenu.ItemProps {
+export interface ContextMenuTriggerItemProps extends React.ComponentProps<typeof ArkMenu.Item> {
   startIcon?: React.ReactNode;
 }
 
@@ -129,28 +130,27 @@ function ContextMenuTriggerItem({
   ...rest
 }: WithRef<ContextMenuTriggerItemProps>) {
   return (
-    <ChakraMenu.TriggerItem
+    <ArkMenu.TriggerItem
       ref={ref}
       {...rest}
     >
       {startIcon}
       {children}
-      <LuChevronRight />
-    </ChakraMenu.TriggerItem>
+      <ChevronRightIcon />
+    </ArkMenu.TriggerItem>
   );
 }
 
 export const ContextMenu = {
   Root: ContextMenuRoot,
-  Trigger: ChakraMenu.ContextTrigger,
+  Trigger: ArkMenu.ContextTrigger,
   Content: ContextMenuContent,
   Item: ContextMenuItem,
   CheckboxItem: ContextMenuCheckboxItem,
   RadioItem: ContextMenuRadioItem,
-  RadioItemGroup: ChakraMenu.RadioItemGroup,
+  RadioItemGroup: ArkMenu.RadioItemGroup,
   ItemGroup: ContextMenuItemGroup,
   TriggerItem: ContextMenuTriggerItem,
-  Separator: ChakraMenu.Separator,
-  ItemText: ChakraMenu.ItemText,
-  ItemCommand: ChakraMenu.ItemCommand,
+  Separator: ArkMenu.Separator,
+  ItemText: ArkMenu.ItemText,
 };

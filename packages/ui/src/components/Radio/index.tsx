@@ -1,34 +1,44 @@
-import { RadioGroup as ChakraRadioGroup } from "@chakra-ui/react";
+import { RadioGroup } from "@ark-ui/react/radio-group";
+import type { ComponentProps } from "react";
 import React from "react";
+import { createStyleContext } from "styled-system/jsx";
+import { radioGroup } from "styled-system/recipes";
 import type { WithRef } from "../../types";
 
-export interface RadioProps extends ChakraRadioGroup.ItemProps {
-  rootRef?: React.Ref<HTMLDivElement>;
+const { withProvider, withContext } = createStyleContext(radioGroup);
+
+type ItemProps = ComponentProps<typeof Item>;
+const Root = withProvider(RadioGroup.Root, "root");
+const Item = withContext(RadioGroup.Item, "item");
+const ItemControl = withContext(RadioGroup.ItemControl, "itemControl");
+const ItemText = withContext(RadioGroup.ItemText, "itemText");
+const ItemHiddenInput = RadioGroup.ItemHiddenInput;
+
+export interface RadioProps extends ItemProps {
+  rootRef?: React.Ref<HTMLLabelElement>;
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 }
 
-export function Radio({
+export const Radio = ({
   ref,
   children,
   inputProps,
   rootRef,
   ...rest
-}: WithRef<RadioProps, HTMLInputElement>) {
+}: WithRef<RadioProps, HTMLInputElement>) => {
   return (
-    <ChakraRadioGroup.Item
+    <Item
       ref={rootRef}
       {...rest}
     >
-      <ChakraRadioGroup.ItemHiddenInput
+      <ItemHiddenInput
         ref={ref}
         {...inputProps}
       />
-      <ChakraRadioGroup.ItemIndicator cursor="pointer" />
-      {children && (
-        <ChakraRadioGroup.ItemText cursor="pointer">{children}</ChakraRadioGroup.ItemText>
-      )}
-    </ChakraRadioGroup.Item>
+      <ItemControl cursor="pointer" />
+      {children && <ItemText cursor="pointer">{children}</ItemText>}
+    </Item>
   );
-}
+};
 
-export const RadioGroup = ChakraRadioGroup.Root;
+export { Root as RadioGroup };

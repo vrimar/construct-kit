@@ -1,20 +1,21 @@
-import { FiEdit3 } from "react-icons/fi";
+import { PencilIcon } from "lucide-react";
 import type { WithRef } from "../../types";
 
 import type { IconButtonProps } from "./IconButton";
 import { IconButton } from "./IconButton";
 
-export function EditButton({
+export const EditButton = ({
   ref,
   ...props
-}: WithRef<Omit<IconButtonProps, "icon">, HTMLButtonElement>) {
+}: WithRef<Omit<IconButtonProps, "children">, HTMLButtonElement>) => {
   return (
     <IconButton
       ref={ref}
-      variant="ghost"
+      variant="plain"
       size="xs"
       {...props}
-      icon={<FiEdit3 />}
-    />
+    >
+      <PencilIcon />
+    </IconButton>
   );
-}
+};

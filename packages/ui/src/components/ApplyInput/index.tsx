@@ -1,6 +1,7 @@
-import type { InputProps } from "@chakra-ui/react";
-import { Button, HStack, Input, Stack } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { HStack, Stack } from "styled-system/jsx";
+import { Button } from "../Buttons";
+import { type InputProps, Input } from "../Input";
 
 import { Popover } from "../Popover";
 

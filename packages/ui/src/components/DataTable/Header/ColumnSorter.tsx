@@ -1,16 +1,16 @@
-import { Box } from "@chakra-ui/react";
 import type { Header } from "@tanstack/react-table";
-import { TbArrowDown, TbArrowsSort, TbArrowUp } from "react-icons/tb";
+import { ArrowDownIcon, ArrowUpDownIcon, ArrowUpIcon } from "lucide-react";
+import { Box } from "styled-system/jsx";
 import { match } from "ts-pattern";
 
 import { dataTableClasses } from "../types";
 
-interface Props<TData> {
-  header: Header<TData, any>;
+interface ColumnSorterProps<TData> {
+  header: Header<TData, unknown>;
   onSort: () => unknown;
 }
 
-export const ColumnSorter = ({ header, onSort }: Props<any>) => {
+export const ColumnSorter = <TData,>({ header, onSort }: ColumnSorterProps<TData>) => {
   const column = header.column;
   const sort = column.getIsSorted();
 
@@ -24,15 +24,18 @@ export const ColumnSorter = ({ header, onSort }: Props<any>) => {
       _hover={{ color: "primary" }}
       onClick={onSort}
       cursor="pointer"
-      _icon={{
-        boxSize: "18px",
+      css={{
+        "& svg": {
+          width: "18px",
+          height: "18px",
+        },
       }}
     >
       {match(sort)
-        .with("asc", () => <TbArrowUp />)
-        .with("desc", () => <TbArrowDown />)
+        .with("asc", () => <ArrowUpIcon />)
+        .with("desc", () => <ArrowDownIcon />)
         .otherwise(() => (
-          <TbArrowsSort />
+          <ArrowUpDownIcon />
         ))}
     </Box>
   );

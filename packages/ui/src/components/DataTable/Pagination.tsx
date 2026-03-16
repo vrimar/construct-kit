@@ -1,10 +1,16 @@
-import { HStack, Text } from "@chakra-ui/react";
+import {
+    ChevronLeftIcon,
+    ChevronRightIcon,
+    ChevronsLeftIcon,
+    ChevronsRightIcon,
+} from "lucide-react";
+import { HStack } from "styled-system/jsx";
+import { Text } from "../Text";
 
-import { IconButton } from "../Buttons";
 import type { Table } from "@tanstack/react-table";
-import { FiChevronLeft, FiChevronRight, FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
+import { IconButton } from "../Buttons";
 
-interface Props<TData> {
+interface PaginationProps<TData> {
   table: Table<TData>;
   totalItems: number;
   size: "xs" | "sm" | "md" | "lg";
@@ -20,7 +26,7 @@ export const DataTablePagination = <TData,>({
   totalItems,
   size = "md",
   labels,
-}: Props<TData>) => {
+}: PaginationProps<TData>) => {
   const pageCount = table.getPageCount();
   const page = table.getState().pagination.pageIndex;
   const itemsLabel = labels?.items ?? "Items";
@@ -39,7 +45,7 @@ export const DataTablePagination = <TData,>({
         gap="4"
         height="100%"
       >
-        <Text fontSize="16px">
+        <Text fontSize="md">
           <b>{totalItems} </b>
           {itemsLabel}
         </Text>
@@ -58,31 +64,35 @@ export const DataTablePagination = <TData,>({
             variant="outline"
             onClick={() => table.setPageIndex(0)}
             disabled={!table.getCanPreviousPage()}
-            icon={<FiChevronsLeft />}
             size={size}
-          />
+          >
+            <ChevronsLeftIcon />
+          </IconButton>
           <IconButton
             variant="outline"
             onClick={table.previousPage}
             disabled={!table.getCanPreviousPage()}
-            icon={<FiChevronLeft />}
             size={size}
-          />
+          >
+            <ChevronLeftIcon />
+          </IconButton>
 
           <IconButton
             variant="outline"
             onClick={table.nextPage}
             disabled={!table.getCanNextPage()}
-            icon={<FiChevronRight />}
             size={size}
-          />
+          >
+            <ChevronRightIcon />
+          </IconButton>
           <IconButton
             variant="outline"
             onClick={() => table.setPageIndex(table.getPageCount() - 1)}
             disabled={!table.getCanNextPage()}
-            icon={<FiChevronsRight />}
             size={size}
-          />
+          >
+            <ChevronsRightIcon />
+          </IconButton>
         </HStack>
       </HStack>
     </HStack>

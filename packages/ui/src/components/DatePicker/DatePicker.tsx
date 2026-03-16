@@ -1,7 +1,9 @@
 import { DatePicker as ArkDatePicker, parseDate, Portal, useDatePicker } from "@ark-ui/react";
-import { Box, HStack, IconButton, Stack, Text } from "@chakra-ui/react";
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { FiChevronDown, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { Box, HStack, Stack } from "styled-system/jsx";
+import { IconButton } from "../Buttons";
+import { Text } from "../Text";
 
 import { Button } from "../Buttons";
 import { DatePickerDayView } from "./DayView";
@@ -48,9 +50,9 @@ export const DatePicker = ({ trigger, value, onValueChange }: DatePickerProps) =
       variant="outline"
       width="full"
       justifyContent="space-between"
-      rightIcon={<FiChevronDown />}
     >
       {value?.toDateString() ?? "Select Date"}
+      <ChevronDownIcon />
     </Button>
   );
 
@@ -72,7 +74,7 @@ export const DatePicker = ({ trigger, value, onValueChange }: DatePickerProps) =
                 p="4"
                 borderWidth="1px"
                 borderColor="border"
-                borderRadius="4px"
+                borderRadius="sm"
                 zIndex="9999"
               >
                 <HStack justifyContent="space-between">
@@ -80,9 +82,9 @@ export const DatePicker = ({ trigger, value, onValueChange }: DatePickerProps) =
                     <ArkDatePicker.PrevTrigger asChild>
                       <IconButton
                         size="xs"
-                        variant="ghost"
+                        variant="plain"
                       >
-                        <FiChevronLeft />
+                        <ChevronLeftIcon />
                       </IconButton>
                     </ArkDatePicker.PrevTrigger>
 
@@ -92,9 +94,9 @@ export const DatePicker = ({ trigger, value, onValueChange }: DatePickerProps) =
                   <ArkDatePicker.NextTrigger asChild>
                     <IconButton
                       size="xs"
-                      variant="ghost"
+                      variant="plain"
                     >
-                      <FiChevronRight />
+                      <ChevronRightIcon />
                     </IconButton>
                   </ArkDatePicker.NextTrigger>
                 </HStack>

@@ -1,14 +1,14 @@
-import { SearchInput } from "../../../Input";
 import { useEffect, useState } from "react";
 import { useDebounce } from "react-use";
+import { SearchInput } from "../../../Input";
 
-interface Props {
+interface ColumnSearchInputProps {
   name: string;
   value: string;
   onChange: (value: string) => void;
 }
 
-export const ColumnSearchInput = ({ name, value, onChange }: Props) => {
+export const ColumnSearchInput = ({ name, value, onChange }: ColumnSearchInputProps) => {
   const [tempValue, setTempValue] = useState(value);
 
   useDebounce(

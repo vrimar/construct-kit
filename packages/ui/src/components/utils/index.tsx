@@ -1,2 +1,1 @@
-import { defineKeyframes, useToken } from "@chakra-ui/react";
-export { defineKeyframes, useToken };
+export { token } from "styled-system/tokens";

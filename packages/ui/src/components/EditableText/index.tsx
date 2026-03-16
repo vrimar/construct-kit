@@ -1,7 +1,7 @@
-import type { InputProps } from "@chakra-ui/react";
-import { HStack, Input } from "@chakra-ui/react";
+import { PencilIcon } from "lucide-react";
 import React, { useState } from "react";
-import { FiEdit2 } from "react-icons/fi";
+import { HStack } from "styled-system/jsx";
+import { type InputProps, Input } from "../Input";
 
 import { useAutoFocus } from "../../hooks/useAutoFocus";
 import { Button, IconButton } from "../Buttons";
@@ -52,7 +52,7 @@ export const EditableText = ({
         <HStack>
           <Button
             size="xs"
-            variant="ghost"
+            variant="plain"
             onClick={() =>
               setState({
                 isEditing: false,
@@ -78,15 +78,16 @@ export const EditableText = ({
       {children}
       <IconButton
         size="xs"
-        variant="ghost"
+        variant="plain"
         onClick={() =>
           setState({
             ...state,
             isEditing: true,
           })
         }
-        icon={<FiEdit2 />}
-      />
+      >
+        <PencilIcon />
+      </IconButton>
     </HStack>
   );
 };

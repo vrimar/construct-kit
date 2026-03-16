@@ -1,3 +1,10 @@
-import { List } from "@chakra-ui/react";
+import { ark } from "@ark-ui/react/factory";
+import { styled } from "styled-system/jsx";
 
-export { List };
+const ListRoot = styled(ark.ul);
+const ListItem = styled(ark.li);
+
+export const List = Object.assign(ListRoot, {
+  Root: ListRoot,
+  Item: ListItem,
+});

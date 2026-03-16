@@ -1,14 +1,60 @@
-import { Checkbox as ChakraCheckbox } from "@chakra-ui/react";
+import { Checkbox as ArkCheckbox, useCheckboxContext } from "@ark-ui/react/checkbox";
+import type { ComponentProps } from "react";
 import React from "react";
+import { createStyleContext, styled } from "styled-system/jsx";
+import { checkbox } from "styled-system/recipes";
+import type { HTMLStyledProps } from "styled-system/types";
 import type { WithRef } from "../../types";
 
-export interface CheckboxProps extends ChakraCheckbox.RootProps {
+const { withProvider, withContext } = createStyleContext(checkbox);
+
+// Primitives — exported for sibling components (CheckboxCard), not re-exported from barrel
+export type RootProps = ComponentProps<typeof Root>;
+export type HiddenInputProps = ComponentProps<typeof HiddenInput>;
+export const Root = withProvider(ArkCheckbox.Root, "root");
+export const RootProvider = withProvider(ArkCheckbox.RootProvider, "root");
+export const Control = withContext(ArkCheckbox.Control, "control");
+export const Group = withProvider(ArkCheckbox.Group, "group");
+export const Label = withContext(ArkCheckbox.Label, "label");
+export const HiddenInput = ArkCheckbox.HiddenInput;
+
+export {
+  CheckboxGroupProvider as GroupProvider,
+  type CheckboxCheckedState as CheckedState,
+} from "@ark-ui/react/checkbox";
+
+export const Indicator = ({ ref, ...props }: WithRef<HTMLStyledProps<"svg">, SVGSVGElement>) => {
+  const { indeterminate, checked } = useCheckboxContext();
+
+  return (
+    <ArkCheckbox.Indicator
+      indeterminate={indeterminate}
+      asChild
+    >
+      <styled.svg
+        ref={ref}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="3px"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        {...props}
+      >
+        <title>Checkmark</title>
+        {indeterminate ? <path d="M5 12h14" /> : checked ? <path d="M20 6 9 17l-5-5" /> : null}
+      </styled.svg>
+    </ArkCheckbox.Indicator>
+  );
+};
+
+export interface CheckboxProps extends RootProps {
   icon?: React.ReactNode;
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
   rootRef?: React.Ref<HTMLLabelElement>;
 }
 
-export function Checkbox({
+function CheckboxRoot({
   ref,
   icon,
   children,
@@ -17,18 +63,26 @@ export function Checkbox({
   ...rest
 }: WithRef<CheckboxProps, HTMLInputElement>) {
   return (
-    <ChakraCheckbox.Root
+    <Root
       ref={rootRef}
       {...rest}
     >
-      <ChakraCheckbox.HiddenInput
+      <HiddenInput
         ref={ref}
         {...inputProps}
       />
-      <ChakraCheckbox.Control cursor="pointer">
-        {icon || <ChakraCheckbox.Indicator />}
-      </ChakraCheckbox.Control>
-      {children != null && <ChakraCheckbox.Label cursor="pointer">{children}</ChakraCheckbox.Label>}
-    </ChakraCheckbox.Root>
+      <Control cursor="pointer">{icon || <Indicator />}</Control>
+      {children != null && <Label cursor="pointer">{children}</Label>}
+    </Root>
   );
 }
+
+export const Checkbox = Object.assign(CheckboxRoot, {
+  Root,
+  RootProvider,
+  Control,
+  Group,
+  Label,
+  HiddenInput,
+  Indicator,
+});

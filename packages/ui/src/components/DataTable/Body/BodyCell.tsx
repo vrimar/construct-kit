@@ -1,13 +1,13 @@
-import { Box } from "@chakra-ui/react";
+import { Box } from "styled-system/jsx";
 
-import { TruncatedText } from "../../Text";
 import { type Cell, flexRender } from "@tanstack/react-table";
+import { TruncatedText } from "../../Text";
 
-interface Props<TData> {
-  cell: Cell<TData, any>;
+interface BodyCellProps<TData> {
+  cell: Cell<TData, unknown>;
 }
 
-export const BodyCell = <TData,>({ cell }: Props<TData>) => {
+export const BodyCell = <TData,>({ cell }: BodyCellProps<TData>) => {
   const isVisible = cell.column.columnDef?.meta?.isVisible ?? true;
   const width = cell.column.columnDef?.meta?.width ?? cell.column.getSize();
   const widthPx = width ? `${width}px` : "auto";
@@ -23,7 +23,7 @@ export const BodyCell = <TData,>({ cell }: Props<TData>) => {
       justifyContent="flex-start"
       flex="1"
       p="2"
-      fontSize="14px"
+      fontSize="sm"
       style={{
         minWidth: widthPx,
         maxWidth: widthPx,

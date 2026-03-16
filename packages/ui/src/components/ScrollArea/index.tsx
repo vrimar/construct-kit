@@ -1,52 +1,46 @@
-import type { BoxProps } from "@chakra-ui/react";
-import { Box } from "@chakra-ui/react";
-import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
+import { ark } from "@ark-ui/react/factory";
+import { ScrollArea as ArkScrollArea } from "@ark-ui/react/scroll-area";
+import { styled, type HTMLStyledProps } from "styled-system/jsx";
 import type { WithRef } from "../../types";
 
-interface Props extends BoxProps {
-  type?: ScrollAreaPrimitive.ScrollAreaProps["type"];
-  scrollHideDelay?: number;
+const StyledDiv = styled(ark.div);
+
+export interface ScrollAreaProps extends HTMLStyledProps<"div"> {
   horizontalEnabled?: boolean;
   verticalEnabled?: boolean;
 }
 
-export function ScrollArea({
+export const ScrollArea = ({
   ref,
   children,
-  type,
-  scrollHideDelay,
   verticalEnabled = true,
   horizontalEnabled = true,
   ...props
-}: WithRef<Props>) {
+}: WithRef<ScrollAreaProps>) => {
   return (
-    <Box
+    <StyledDiv
       asChild
       position="relative"
       overflow="hidden"
       {...props}
     >
-      <ScrollAreaPrimitive.Root
-        type={type}
-        scrollHideDelay={scrollHideDelay}
-      >
-        <Box
+      <ArkScrollArea.Root>
+        <StyledDiv
           asChild
           width="100%"
           height="100%"
           rounded="inherit"
           css={{
-            "& > div": {
-              display: "block !important",
-              width: "100% !important",
-              minWidth: "100% !important",
-            },
+            scrollbarWidth: "none",
+            "&::-webkit-scrollbar": { display: "none" },
           }}
         >
-          <ScrollAreaPrimitive.Viewport ref={ref as any}>{children}</ScrollAreaPrimitive.Viewport>
-        </Box>
+          <ArkScrollArea.Viewport ref={ref}>
+            <ArkScrollArea.Content>{children}</ArkScrollArea.Content>
+          </ArkScrollArea.Viewport>
+        </StyledDiv>
         {verticalEnabled && (
-          <Box
+          <StyledDiv
             key="vertical"
             asChild
             display="flex"
@@ -54,46 +48,62 @@ export function ScrollArea({
             bg="bg.subtle"
             transition="background 160ms ease-out"
             width="2"
+            css={{
+              opacity: 0,
+              pointerEvents: "none",
+              "&[data-hover], &[data-scrolling]": {
+                opacity: 1,
+                pointerEvents: "auto",
+              },
+            }}
           >
-            <ScrollAreaPrimitive.Scrollbar orientation="vertical">
-              <Box
+            <ArkScrollArea.Scrollbar orientation="vertical">
+              <StyledDiv
                 asChild
                 flex="1"
                 position="relative"
                 bg="border"
-                borderRadius="4px"
+                borderRadius="sm"
               >
-                <ScrollAreaPrimitive.Thumb />
-              </Box>
-            </ScrollAreaPrimitive.Scrollbar>
-          </Box>
+                <ArkScrollArea.Thumb />
+              </StyledDiv>
+            </ArkScrollArea.Scrollbar>
+          </StyledDiv>
         )}
         {horizontalEnabled && (
-          <Box
-            asChild
+          <StyledDiv
             key="horizontal"
+            asChild
             display="flex"
             userSelect="none"
             bg="bg.muted"
             transition="background 160ms ease-out"
             height="2"
             flexDirection="column"
+            css={{
+              opacity: 0,
+              pointerEvents: "none",
+              "&[data-hover], &[data-scrolling]": {
+                opacity: 1,
+                pointerEvents: "auto",
+              },
+            }}
           >
-            <ScrollAreaPrimitive.Scrollbar orientation="horizontal">
-              <Box
+            <ArkScrollArea.Scrollbar orientation="horizontal">
+              <StyledDiv
                 asChild
                 flex="1"
                 position="relative"
                 bg="border"
-                borderRadius="4px"
+                borderRadius="sm"
               >
-                <ScrollAreaPrimitive.Thumb />
-              </Box>
-            </ScrollAreaPrimitive.Scrollbar>
-          </Box>
+                <ArkScrollArea.Thumb />
+              </StyledDiv>
+            </ArkScrollArea.Scrollbar>
+          </StyledDiv>
         )}
-        <ScrollAreaPrimitive.Corner />
-      </ScrollAreaPrimitive.Root>
-    </Box>
+        <ArkScrollArea.Corner />
+      </ArkScrollArea.Root>
+    </StyledDiv>
   );
-}
+};

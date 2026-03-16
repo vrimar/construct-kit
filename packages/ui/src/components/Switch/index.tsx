@@ -1,15 +1,71 @@
-import { Switch as ChakraSwitch } from "@chakra-ui/react";
+import { ark } from "@ark-ui/react";
+import { Switch as ArkSwitch, useSwitchContext } from "@ark-ui/react/switch";
+import type { ComponentProps, ReactNode } from "react";
 import React from "react";
+import { createStyleContext, styled } from "styled-system/jsx";
+import { switchRecipe } from "styled-system/recipes";
 import type { WithRef } from "../../types";
 
-export interface SwitchProps extends ChakraSwitch.RootProps {
+const { withProvider, withContext } = createStyleContext(switchRecipe);
+
+type RootProps = ComponentProps<typeof Root>;
+const Root = withProvider(ArkSwitch.Root, "root");
+const Label = withContext(ArkSwitch.Label, "label");
+const Thumb = withContext(ArkSwitch.Thumb, "thumb");
+const HiddenInput = ArkSwitch.HiddenInput;
+const Control = withContext(ArkSwitch.Control, "control", {
+  defaultProps: { children: <Thumb /> },
+});
+
+interface IndicatorProps extends ComponentProps<typeof StyledIndicator> {
+  fallback?: ReactNode | undefined;
+}
+
+const StyledIndicator = withContext(ark.span, "indicator");
+function Indicator({ ref, fallback, children, ...rest }: WithRef<IndicatorProps, HTMLSpanElement>) {
+  const api = useSwitchContext();
+  return (
+    <StyledIndicator
+      ref={ref}
+      data-checked={api.checked ? "" : undefined}
+      {...rest}
+    >
+      {api.checked ? children : fallback}
+    </StyledIndicator>
+  );
+}
+
+interface ThumbIndicatorProps extends ComponentProps<typeof StyledThumbIndicator> {
+  fallback?: React.ReactNode | undefined;
+}
+
+const StyledThumbIndicator = styled(ark.span);
+function ThumbIndicator({
+  ref,
+  fallback,
+  children,
+  ...rest
+}: WithRef<ThumbIndicatorProps, HTMLSpanElement>) {
+  const api = useSwitchContext();
+  return (
+    <StyledThumbIndicator
+      ref={ref}
+      data-checked={api.checked ? "" : undefined}
+      {...rest}
+    >
+      {api.checked ? children : fallback}
+    </StyledThumbIndicator>
+  );
+}
+
+export interface SwitchProps extends RootProps {
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
   rootRef?: React.Ref<HTMLLabelElement>;
   trackLabel?: { on: React.ReactNode; off: React.ReactNode };
   thumbLabel?: { on: React.ReactNode; off: React.ReactNode };
 }
 
-export function Switch({
+export const Switch = ({
   ref,
   inputProps,
   children,
@@ -17,30 +73,26 @@ export function Switch({
   trackLabel,
   thumbLabel,
   ...rest
-}: WithRef<SwitchProps, HTMLInputElement>) {
+}: WithRef<SwitchProps, HTMLInputElement>) => {
   return (
-    <ChakraSwitch.Root
+    <Root
       ref={rootRef}
       cursor="pointer"
       {...rest}
     >
-      <ChakraSwitch.HiddenInput
+      <HiddenInput
         ref={ref}
         {...inputProps}
       />
-      <ChakraSwitch.Control>
-        <ChakraSwitch.Thumb>
+      <Control>
+        <Thumb>
           {thumbLabel && (
-            <ChakraSwitch.ThumbIndicator fallback={thumbLabel?.off}>
-              {thumbLabel?.on}
-            </ChakraSwitch.ThumbIndicator>
+            <ThumbIndicator fallback={thumbLabel?.off}>{thumbLabel?.on}</ThumbIndicator>
           )}
-        </ChakraSwitch.Thumb>
-        {trackLabel && (
-          <ChakraSwitch.Indicator fallback={trackLabel.off}>{trackLabel.on}</ChakraSwitch.Indicator>
-        )}
-      </ChakraSwitch.Control>
-      {children != null && <ChakraSwitch.Label>{children}</ChakraSwitch.Label>}
-    </ChakraSwitch.Root>
+        </Thumb>
+        {trackLabel && <Indicator fallback={trackLabel.off}>{trackLabel.on}</Indicator>}
+      </Control>
+      {children != null && <Label>{children}</Label>}
+    </Root>
   );
-}
+};

@@ -1,14 +1,14 @@
-import type { BoxProps } from "@chakra-ui/react";
 import React, { useMemo, useRef } from "react";
+import type { BoxProps } from "styled-system/jsx";
 
 import type { SelectButtonProps } from "../Buttons";
 import { SelectButton } from "../Buttons";
 import { Popover } from "../Popover";
+import type { SelectListProps, SelectValue } from "./SelectList";
+import { SelectList } from "./SelectList";
 
 type PopoverContentProps = React.ComponentProps<typeof Popover.Content>;
 type PopoverRootProps = React.ComponentProps<typeof Popover.Root>;
-import type { SelectListProps, SelectValue } from "./SelectList";
-import { SelectList } from "./SelectList";
 
 export interface SelectProps<T, V extends SelectValue> extends SelectListProps<T, V> {
   triggerProps?: Partial<SelectButtonProps>;

@@ -1,11 +1,12 @@
-import { Highlight } from "@chakra-ui/react";
+import { Highlight } from "@ark-ui/react/highlight";
+import { token } from "styled-system/tokens";
 
 export interface SearchHighlightProps {
   text: string;
   query: string;
 }
 
-export function SearchHighlight({ text, query }: SearchHighlightProps) {
+export const SearchHighlight = ({ text, query }: SearchHighlightProps) => {
   const words = query.split(/\s+/).filter(Boolean);
 
   if (words.length === 0) {
@@ -14,12 +15,11 @@ export function SearchHighlight({ text, query }: SearchHighlightProps) {
 
   return (
     <Highlight
+      text={text}
       query={words}
       ignoreCase
       matchAll
-      styles={{ bg: "yellow.200" }}
-    >
-      {text}
-    </Highlight>
+      style={{ background: token("colors.yellow.100") }}
+    />
   );
-}
+};

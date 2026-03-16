@@ -1,23 +1,55 @@
-import {
-  Badge,
-  type BadgeProps,
-  FormatNumber,
-  IconButton,
-  Stat as ChakraStat,
-} from "@chakra-ui/react";
+import { ark } from "@ark-ui/react/factory";
+import type { ComponentProps } from "react";
 import React from "react";
-import { HiOutlineInformationCircle } from "react-icons/hi";
+import { InfoIcon } from "lucide-react";
+import { styled } from "styled-system/jsx";
 import type { WithRef } from "../../types";
-
+import { Badge, type BadgeProps } from "../Badge";
+import { IconButton } from "../Buttons";
 import { ToggleTip } from "../ToggleTip";
 
-interface StatLabelProps extends ChakraStat.LabelProps {
+const StatRoot = styled(ark.div, {
+  base: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "1",
+  },
+});
+
+const StatHelpText = styled(ark.span, {
+  base: {
+    textStyle: "xs",
+    color: "fg.muted",
+  },
+});
+
+const StatValueUnit = styled(ark.span, {
+  base: {
+    textStyle: "sm",
+    fontWeight: "normal",
+    color: "fg.muted",
+  },
+});
+
+type StatLabelBaseProps = ComponentProps<typeof styled.span>;
+
+interface StatLabelProps extends StatLabelBaseProps {
   info?: React.ReactNode;
 }
 
+const StatLabelRoot = styled(ark.span, {
+  base: {
+    textStyle: "sm",
+    color: "fg.muted",
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "1",
+  },
+});
+
 function StatLabel({ ref, info, children, ...rest }: WithRef<StatLabelProps>) {
   return (
-    <ChakraStat.Label
+    <StatLabelRoot
       {...rest}
       ref={ref}
     >
@@ -25,19 +57,30 @@ function StatLabel({ ref, info, children, ...rest }: WithRef<StatLabelProps>) {
       {info && (
         <ToggleTip content={info}>
           <IconButton
-            variant="ghost"
+            variant="plain"
             aria-label="info"
             size="2xs"
           >
-            <HiOutlineInformationCircle />
+            <InfoIcon />
           </IconButton>
         </ToggleTip>
       )}
-    </ChakraStat.Label>
+    </StatLabelRoot>
   );
 }
 
-interface StatValueTextProps extends ChakraStat.ValueTextProps {
+const StatValueTextRoot = styled(ark.span, {
+  base: {
+    textStyle: "2xl",
+    fontWeight: "semibold",
+    verticalAlign: "baseline",
+    lineHeight: "tight",
+  },
+});
+
+type StatValueTextBaseProps = ComponentProps<typeof StatValueTextRoot>;
+
+interface StatValueTextProps extends StatValueTextBaseProps {
   value?: number;
   formatOptions?: Intl.NumberFormatOptions;
 }
@@ -50,20 +93,28 @@ function StatValueText({
   ...rest
 }: WithRef<StatValueTextProps>) {
   return (
-    <ChakraStat.ValueText
+    <StatValueTextRoot
       {...rest}
       ref={ref}
     >
-      {children ||
-        (value != null && (
-          <FormatNumber
-            value={value}
-            {...formatOptions}
-          />
-        ))}
-    </ChakraStat.ValueText>
+      {children || (value != null && new Intl.NumberFormat(undefined, formatOptions).format(value))}
+    </StatValueTextRoot>
   );
 }
+
+const UpIndicator = styled(ark.span, {
+  base: {
+    _before: { content: '"▲"' },
+    fontSize: "xs",
+  },
+});
+
+const DownIndicator = styled(ark.span, {
+  base: {
+    _before: { content: '"▼"' },
+    fontSize: "xs",
+  },
+});
 
 function StatUpTrend({ ref, children, ...props }: WithRef<BadgeProps>) {
   return (
@@ -73,7 +124,7 @@ function StatUpTrend({ ref, children, ...props }: WithRef<BadgeProps>) {
       {...props}
       ref={ref}
     >
-      <ChakraStat.UpIndicator />
+      <UpIndicator />
       {children}
     </Badge>
   );
@@ -87,18 +138,18 @@ function StatDownTrend({ ref, children, ...props }: WithRef<BadgeProps>) {
       {...props}
       ref={ref}
     >
-      <ChakraStat.DownIndicator />
+      <DownIndicator />
       {children}
     </Badge>
   );
 }
 
 export const Stat = {
-  Root: ChakraStat.Root,
+  Root: StatRoot,
   Label: StatLabel,
   ValueText: StatValueText,
   UpTrend: StatUpTrend,
   DownTrend: StatDownTrend,
-  HelpText: ChakraStat.HelpText,
-  ValueUnit: ChakraStat.ValueUnit,
+  HelpText: StatHelpText,
+  ValueUnit: StatValueUnit,
 };

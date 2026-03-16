@@ -1,52 +1,90 @@
-import type { ButtonProps as ChakraButtonProps } from "@chakra-ui/react";
-import { AbsoluteCenter, Button as ChakraButton, Spinner } from "@chakra-ui/react";
-import React from "react";
+import { ark } from "@ark-ui/react/factory";
+import { createContext, mergeProps } from "@ark-ui/react/utils";
+import { type ComponentProps, useMemo } from "react";
+import { styled } from "styled-system/jsx";
+import { type ButtonVariantProps, button } from "styled-system/recipes";
 import type { WithRef } from "../../types";
+import { Group, type GroupProps } from "./Group";
+import { Loader } from "./Loader";
 
-interface ButtonBaseProps {
-  loading?: boolean;
-  loadingText?: React.ReactNode;
-  rightIcon?: React.ReactNode;
-  leftIcon?: React.ReactNode;
+interface ButtonLoadingProps {
+  loading?: boolean | undefined;
+  loadingText?: React.ReactNode | undefined;
+  spinner?: React.ReactNode | undefined;
+  spinnerPlacement?: "start" | "end" | undefined;
 }
 
-export interface ButtonProps extends ChakraButtonProps, ButtonBaseProps {}
+interface ButtonIconProps {
+  leftIcon?: React.ReactNode | undefined;
+  rightIcon?: React.ReactNode | undefined;
+}
 
-export function Button({
-  ref,
-  loading,
-  disabled,
-  loadingText,
-  children,
-  leftIcon,
-  rightIcon,
-  ...rest
-}: WithRef<ButtonProps, HTMLButtonElement>) {
+type BaseButtonProps = ComponentProps<typeof BaseButton>;
+const BaseButton = styled(ark.button, button);
+
+export interface ButtonProps extends BaseButtonProps, ButtonLoadingProps, ButtonIconProps {}
+
+export const Button = ({ ref, ...props }: WithRef<ButtonProps, HTMLButtonElement>) => {
+  const propsContext = useButtonPropsContext();
+  const buttonProps = useMemo(
+    () => mergeProps<ButtonProps>(propsContext, { ref, ...props }),
+    [propsContext, ref, props],
+  );
+
+  const {
+    loading,
+    loadingText,
+    children,
+    spinner,
+    spinnerPlacement,
+    leftIcon,
+    rightIcon,
+    ...rest
+  } = buttonProps;
   return (
-    <ChakraButton
-      disabled={loading || disabled}
+    <BaseButton
+      type="button"
       ref={ref}
       {...rest}
+      data-loading={loading ? "" : undefined}
+      disabled={loading || rest.disabled}
     >
-      <span style={{ opacity: loading ? 0 : undefined, display: "contents" }}>
-        {leftIcon}
-        {children}
-      </span>
-      {rightIcon && (
-        <span style={{ opacity: loading ? 0 : undefined, marginLeft: "auto" }}>{rightIcon}</span>
-      )}
-      {loading && (
-        <AbsoluteCenter
-          display="inline-flex"
-          gap="1.5"
+      {!props.asChild && loading ? (
+        <Loader
+          spinner={spinner}
+          text={loadingText}
+          spinnerPlacement={spinnerPlacement}
         >
-          <Spinner
-            size="inherit"
-            color="inherit"
-          />
-          {loadingText}
-        </AbsoluteCenter>
+          {children}
+        </Loader>
+      ) : (
+        <>
+          {leftIcon}
+          {children}
+          {rightIcon}
+        </>
       )}
-    </ChakraButton>
+    </BaseButton>
   );
-}
+};
+
+export interface ButtonGroupProps extends GroupProps, ButtonVariantProps {}
+
+export const ButtonGroup = ({ ref, ...props }: WithRef<ButtonGroupProps>) => {
+  const [variantProps, otherProps] = useMemo(() => button.splitVariantProps(props), [props]);
+  return (
+    <ButtonPropsProvider value={variantProps}>
+      <Group
+        ref={ref}
+        {...otherProps}
+      />
+    </ButtonPropsProvider>
+  );
+};
+
+const [ButtonPropsProvider, useButtonPropsContext] = createContext<ButtonVariantProps>({
+  name: "ButtonPropsContext",
+  hookName: "useButtonPropsContext",
+  providerName: "<PropsProvider />",
+  strict: false,
+});

@@ -1,23 +1,19 @@
-import type { ButtonProps as ChakraCloseButtonProps } from "@chakra-ui/react";
-import { IconButton as ChakraIconButton } from "@chakra-ui/react";
-import { LuX } from "react-icons/lu";
+import { XIcon } from "lucide-react";
 import type { WithRef } from "../../types";
+import { IconButton, type IconButtonProps } from "./IconButton";
 
-export interface CloseButtonProps extends ChakraCloseButtonProps {}
+export type CloseButtonProps = IconButtonProps;
 
-export function CloseButton({
-  ref,
-  children,
-  ...props
-}: WithRef<CloseButtonProps, HTMLButtonElement>) {
+export const CloseButton = ({ ref, ...props }: WithRef<CloseButtonProps, HTMLButtonElement>) => {
   return (
-    <ChakraIconButton
-      variant="ghost"
+    <IconButton
+      variant="plain"
+      colorPalette="gray"
       aria-label="Close"
       ref={ref}
       {...props}
     >
-      {children ?? <LuX />}
-    </ChakraIconButton>
+      {props.children ?? <XIcon />}
+    </IconButton>
   );
-}
+};

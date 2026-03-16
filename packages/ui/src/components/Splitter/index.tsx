@@ -1,4 +1,4 @@
-import { Box, type BoxProps } from "@chakra-ui/react";
+import { ark } from "@ark-ui/react/factory";
 import {
   Group,
   Panel,
@@ -7,6 +7,10 @@ import {
   type PanelProps,
   type SeparatorProps,
 } from "react-resizable-panels";
+import { styled, type HTMLStyledProps } from "styled-system/jsx";
+
+const StyledDiv = styled(ark.div);
+type BoxProps = HTMLStyledProps<"div">;
 
 export type SplitterGroupProps = Pick<
   GroupProps,
@@ -36,7 +40,7 @@ function SplitterGroup({
   ...boxProps
 }: SplitterGroupProps) {
   return (
-    <Box
+    <StyledDiv
       asChild
       {...boxProps}
     >
@@ -53,7 +57,7 @@ function SplitterGroup({
       >
         {children}
       </Group>
-    </Box>
+    </StyledDiv>
   );
 }
 
@@ -89,7 +93,7 @@ function SplitterPanel({
   ...boxProps
 }: SplitterPanelProps) {
   return (
-    <Box
+    <StyledDiv
       asChild
       {...boxProps}
     >
@@ -108,7 +112,7 @@ function SplitterPanel({
       >
         {children}
       </Panel>
-    </Box>
+    </StyledDiv>
   );
 }
 
@@ -117,7 +121,7 @@ export type SplitterSeparatorProps = Pick<SeparatorProps, "disabled" | "elementR
 
 function SplitterSeparator({ disabled, elementRef, id, ...boxProps }: SplitterSeparatorProps) {
   return (
-    <Box
+    <StyledDiv
       asChild
       {...boxProps}
     >
@@ -126,7 +130,7 @@ function SplitterSeparator({ disabled, elementRef, id, ...boxProps }: SplitterSe
         elementRef={elementRef}
         id={id}
       />
-    </Box>
+    </StyledDiv>
   );
 }
 

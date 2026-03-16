@@ -1,11 +1,12 @@
 import { DatePicker, useDatePickerContext } from "@ark-ui/react/date-picker";
-import { Box, Button } from "@chakra-ui/react";
+import { Box } from "styled-system/jsx";
+import { Button } from "../Buttons";
 
-interface Props {
+interface DayViewProps {
   monthOffset: number;
 }
 
-export const DatePickerDayView = (props: Props) => {
+export const DatePickerDayView = (props: DayViewProps) => {
   const { monthOffset } = props;
   const datePicker = useDatePickerContext();
   const offset = datePicker.getOffset({ months: monthOffset });
@@ -34,7 +35,7 @@ export const DatePickerDayView = (props: Props) => {
                 <DatePicker.TableCellTrigger asChild>
                   <Button
                     size="xs"
-                    variant="ghost"
+                    variant="plain"
                     css={{
                       '[aria-selected="true"] &': {
                         bg: "blue.50",

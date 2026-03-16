@@ -1,7 +1,8 @@
-"use client";
-
-import { Box, Icon, Input, Text } from "@chakra-ui/react";
 import { type KeyboardEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Box } from "styled-system/jsx";
+import { Icon } from "../Icon";
+import { Input } from "../Input";
+import { Text } from "../Text";
 
 import { Popover } from "../Popover";
 
@@ -143,7 +144,7 @@ export interface DebugFontSwitcherProps {
   defaultFont?: string;
 }
 
-export function DebugFontSwitcher({ defaultFont = "Inter Variable" }: DebugFontSwitcherProps) {
+export const DebugFontSwitcher = ({ defaultFont = "Inter Variable" }: DebugFontSwitcherProps) => {
   const [activeFont, setActiveFont] = useState(defaultFont);
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -385,4 +386,4 @@ export function DebugFontSwitcher({ defaultFont = "Inter Variable" }: DebugFontS
       </Popover.Root>
     </Box>
   );
-}
+};

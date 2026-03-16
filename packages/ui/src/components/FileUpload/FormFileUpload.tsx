@@ -1,8 +1,8 @@
-import { LuFileUp } from "react-icons/lu";
+import { FileUpIcon } from "lucide-react";
 import { CloseButton } from "../Buttons";
+import { Input } from "../Input";
 import { InputGroup } from "../Input/InputGroup";
 import { FileUpload } from "./index";
-import { Input } from "@chakra-ui/react";
 
 export interface FormFileUploadProps {
   onFileChange: (file: File | undefined) => void;
@@ -15,7 +15,7 @@ export interface FormFileUploadProps {
   required?: boolean;
 }
 
-export function FormFileUpload({
+export const FormFileUpload = ({
   onFileChange,
   accept,
   maxFileSize,
@@ -24,7 +24,7 @@ export function FormFileUpload({
   placeholder = "Select file...",
   name,
   required,
-}: FormFileUploadProps) {
+}: FormFileUploadProps) => {
   return (
     <FileUpload.Root
       maxFiles={1}
@@ -41,7 +41,7 @@ export function FormFileUpload({
       <FileUpload.HiddenInput />
       <InputGroup
         width="full"
-        startElement={<LuFileUp />}
+        startElement={<FileUpIcon />}
         cursor={disabled ? "not-allowed" : "pointer"}
         endElement={
           <FileUpload.ClearTrigger asChild>
@@ -71,4 +71,4 @@ export function FormFileUpload({
       </InputGroup>
     </FileUpload.Root>
   );
-}
+};

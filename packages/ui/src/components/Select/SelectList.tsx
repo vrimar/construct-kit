@@ -1,8 +1,9 @@
-import type { BoxProps } from "@chakra-ui/react";
-import { Box, HStack, Stack, Text } from "@chakra-ui/react";
-import React, { useCallback, useMemo, useState } from "react";
+import { useVirtualizer } from "@tanstack/react-virtual";
+import React, { useMemo, useRef, useState } from "react";
 import { useDebounce } from "react-use";
-import { Virtuoso } from "react-virtuoso";
+import type { BoxProps } from "styled-system/jsx";
+import { Box, HStack, Stack } from "styled-system/jsx";
+import { Text } from "../Text";
 
 import { SearchInput } from "../Input";
 import { LoadingOverlay } from "../LoadingOverlay";
@@ -51,10 +52,7 @@ export const SelectList = <T, V extends SelectValue>({
   isLoading,
   virtual,
 }: SelectListProps<T, V>) => {
-  const [scrollParent, setScrollParent] = useState<HTMLElement | undefined>();
-  const scrollParentRef = useCallback((el: HTMLDivElement | null) => {
-    setScrollParent(el ?? undefined);
-  }, []);
+  const scrollParentRef = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebounceQuery] = useState(searchQuery ?? "");
   const [lastActiveIndex, setLastActiveIndex] = useState<number>(0);
@@ -95,7 +93,7 @@ export const SelectList = <T, V extends SelectValue>({
   };
 
   const handleSelect = (item: T, index: number, e: React.MouseEvent<HTMLDivElement>) => {
-    const mouseEvent = e.nativeEvent as MouseEvent;
+    const mouseEvent = e.nativeEvent;
 
     if (mouseEvent.shiftKey) handleShiftSelect(index);
     else onSelect(item);
@@ -103,11 +101,18 @@ export const SelectList = <T, V extends SelectValue>({
   };
 
   const handleQueryChange = (value: string) => {
-    if (searchQuery !== null && onSearchQueryChange) onSearchQueryChange(value);
+    if (searchQuery != null && onSearchQueryChange) onSearchQueryChange(value);
     else setQuery(value);
   };
 
   useDebounce(() => handleQueryChange(debouncedQuery), 500, [debouncedQuery]);
+
+  const virtualizer = useVirtualizer({
+    count: filteredItems.length,
+    getScrollElement: () => scrollParentRef.current,
+    estimateSize: () => 36,
+    overscan: 5,
+  });
 
   const hasEmptyMessage = !isLoading && filteredItems.length === 0;
 
@@ -141,7 +146,7 @@ export const SelectList = <T, V extends SelectValue>({
       )}
       <Box
         display="flex"
-        maxHeight="320px"
+        maxHeight="80"
         width="100%"
         p="2"
         {...contentProps}
@@ -165,26 +170,36 @@ export const SelectList = <T, V extends SelectValue>({
           ref={scrollParentRef}
         >
           {virtual ? (
-            <Virtuoso
-              data={filteredItems}
-              itemContent={(itemIndex, item) => {
+            <Box style={{ height: virtualizer.getTotalSize(), position: "relative" }}>
+              {virtualizer.getVirtualItems().map((row) => {
+                const item = filteredItems[row.index];
                 const isSelected = selectedById.has(getValue(item));
                 const itemValue = getValue(item);
 
                 return (
-                  <SelectListItem
+                  <Box
                     key={itemValue}
-                    isSelected={isSelected}
-                    item={item}
-                    renderLabel={renderLabel || getLabel}
-                    onSelect={(item, e) => handleSelect(item, itemIndex, e)}
-                    activeItemStyle={activeItemStyle}
-                    renderActions={renderActions}
-                  />
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: `${row.size}px`,
+                      transform: `translateY(${row.start}px)`,
+                    }}
+                  >
+                    <SelectListItem
+                      isSelected={isSelected}
+                      item={item}
+                      renderLabel={renderLabel || getLabel}
+                      onSelect={(item, e) => handleSelect(item, row.index, e)}
+                      activeItemStyle={activeItemStyle}
+                      renderActions={renderActions}
+                    />
+                  </Box>
                 );
-              }}
-              customScrollParent={scrollParent}
-            />
+              })}
+            </Box>
           ) : (
             <Box maxWidth="100%">
               {filteredItems.map((item, itemIndex) => {

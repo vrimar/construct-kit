@@ -1,5 +1,5 @@
-import type { TextProps } from "@chakra-ui/react";
-import { Box } from "@chakra-ui/react";
+import { Box } from "styled-system/jsx";
+import type { TextProps } from "./Text";
 
 export const TruncatedText = ({ children, ...otherProps }: Partial<TextProps>) => {
   return (

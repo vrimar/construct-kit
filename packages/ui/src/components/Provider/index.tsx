@@ -1,32 +1,14 @@
-"use client";
+import type { PropsWithChildren } from "react";
 
-import type { ChakraProviderProps } from "@chakra-ui/react";
-import {
-  ChakraProvider,
-  createSystem,
-  defaultConfig,
-  defaultSystem,
-  defineConfig,
-  defineRecipe,
-  defineSemanticTokens,
-  defineSlotRecipe,
-  defineTokens,
-  mergeConfigs,
-} from "@chakra-ui/react";
-
-export function ThemeProvider(props: ChakraProviderProps) {
-  return <ChakraProvider {...props}></ChakraProvider>;
+export interface ThemeProviderProps extends PropsWithChildren {
+  /** @deprecated Theme is now compiled at build time via Panda CSS. This prop is ignored. */
+  value?: unknown;
 }
 
-export {
-  createSystem,
-  defaultConfig,
-  defaultSystem,
-  defineConfig,
-  defineRecipe,
-  defineSemanticTokens,
-  defineSlotRecipe,
-  defineTokens,
-  mergeConfigs,
+/**
+ * In Panda CSS, theming is compiled at build time — no runtime provider is needed.
+ * This component is kept for backward compatibility but simply renders its children.
+ */
+export const ThemeProvider = ({ children }: ThemeProviderProps) => {
+  return <>{children}</>;
 };
-export type { ChakraProviderProps };

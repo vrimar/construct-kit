@@ -1,54 +1,47 @@
-import type {
-  BoxProps,
-  CenterProps,
-  ContainerProps,
-  FlexProps,
-  FloatProps,
-  GridProps,
-  GroupProps,
-  SeparatorProps,
-  SimpleGridProps,
-  StackProps,
-} from "@chakra-ui/react";
-import {
-  Box,
-  Center,
-  Container,
-  Flex,
-  Float,
-  Grid,
-  Group,
-  HStack,
-  Separator,
-  SimpleGrid,
-  Stack,
-  VStack,
-} from "@chakra-ui/react";
-
 export {
   Box,
   Center,
   Container,
+  Divider,
   Flex,
   Float,
   Grid,
-  Group,
+  GridItem,
   HStack,
-  Separator,
-  SimpleGrid,
+  Spacer,
   Stack,
   VStack,
-};
+  Wrap,
+} from "styled-system/jsx";
 
 export type {
   BoxProps,
   CenterProps,
   ContainerProps,
+  DividerProps,
   FlexProps,
   FloatProps,
+  GridItemProps,
   GridProps,
-  GroupProps,
-  SeparatorProps,
-  SimpleGridProps,
+  HstackProps as HStackProps,
+  SpacerProps,
   StackProps,
-};
+  VstackProps as VStackProps,
+  WrapProps,
+} from "styled-system/jsx";
+
+/**
+ * Re-export `Divider` as `Separator` for backward compatibility.
+ */
+
+/**
+ * Re-export `Divider` as `Separator` for backward compatibility.
+ */
+/**
+ * Re-export `Divider` as `Separator` for backward compatibility.
+ */
+/**
+ * Re-export `Divider` as `Separator` for backward compatibility.
+ */
+export { Divider as Separator } from "styled-system/jsx";
+export type { DividerProps as SeparatorProps } from "styled-system/jsx";

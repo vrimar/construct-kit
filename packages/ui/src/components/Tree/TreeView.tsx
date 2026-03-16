@@ -1,112 +1,57 @@
-import type { BoxProps } from "@chakra-ui/react";
-import { Box } from "@chakra-ui/react";
-import type { ItemInstance, TreeConfig, TreeInstance } from "@headless-tree/core";
-import { hotkeysCoreFeature, selectionFeature, syncDataLoaderFeature } from "@headless-tree/core";
-import { useTree } from "@headless-tree/react";
-import type { ReactNode } from "react";
-import { Fragment } from "react";
-import { FiChevronDown, FiChevronRight } from "react-icons/fi";
+import {
+    TreeView as ArkTreeView,
+    TreeViewContext,
+    TreeViewNodeContext,
+} from "@ark-ui/react/tree-view";
+import { ChevronDownIcon } from "lucide-react";
+import type { ComponentProps } from "react";
+import { createStyleContext } from "styled-system/jsx";
+import { treeView } from "styled-system/recipes";
 
-export interface TreeViewItem {
-  id: string;
-  name: string;
-  children?: string[];
-  icon?: ReactNode;
-  isFolder?: boolean;
-}
+const { withProvider, withContext } = createStyleContext(treeView);
 
-export type TreeViewConfig<T> = Omit<TreeConfig<T>, "features"> & {
-  features?: TreeConfig<T>["features"];
+const Root = withProvider(ArkTreeView.Root, "root");
+const RootProvider = withProvider(ArkTreeView.RootProvider, "root");
+const Tree = withContext(ArkTreeView.Tree, "tree");
+const Label = withContext(ArkTreeView.Label, "label");
+const Branch = withContext(ArkTreeView.Branch, "branch");
+const BranchControl = withContext(ArkTreeView.BranchControl, "branchControl");
+const BranchTrigger = withContext(ArkTreeView.BranchTrigger, "branchTrigger");
+const BranchIndicator = withContext(ArkTreeView.BranchIndicator, "branchIndicator", {
+  defaultProps: { children: <ChevronDownIcon /> },
+});
+const BranchText = withContext(ArkTreeView.BranchText, "branchText");
+const BranchContent = withContext(ArkTreeView.BranchContent, "branchContent");
+const BranchIndentGuide = withContext(ArkTreeView.BranchIndentGuide, "branchIndentGuide");
+const Item = withContext(ArkTreeView.Item, "item");
+const ItemIndicator = withContext(ArkTreeView.ItemIndicator, "itemIndicator");
+const ItemText = withContext(ArkTreeView.ItemText, "itemText");
+const NodeProvider = ArkTreeView.NodeProvider;
+const NodeCheckbox = withContext(ArkTreeView.NodeCheckbox, "nodeCheckbox");
+const NodeCheckboxIndicator = ArkTreeView.NodeCheckboxIndicator;
+const NodeRenameInput = withContext(ArkTreeView.NodeRenameInput, "nodeRenameInput");
+
+export type TreeViewRootProps = ComponentProps<typeof Root>;
+
+export const TreeView = {
+  Root,
+  RootProvider,
+  Tree,
+  Label,
+  Branch,
+  BranchControl,
+  BranchTrigger,
+  BranchIndicator,
+  BranchText,
+  BranchContent,
+  BranchIndentGuide,
+  Item,
+  ItemIndicator,
+  ItemText,
+  NodeProvider,
+  NodeCheckbox,
+  NodeCheckboxIndicator,
+  NodeRenameInput,
+  Context: TreeViewContext,
+  NodeContext: TreeViewNodeContext,
 };
-
-export interface TreeViewProps<T> extends Omit<BoxProps, "children"> {
-  tree: TreeInstance<T>;
-  renderItem?: (item: ItemInstance<T>) => ReactNode;
-  indent?: number;
-}
-
-const defaultFeatures = [syncDataLoaderFeature, selectionFeature, hotkeysCoreFeature];
-
-export function useTreeView<T>(config: TreeViewConfig<T>) {
-  return useTree<T>({
-    ...config,
-    features: config.features ?? defaultFeatures,
-  });
-}
-
-export function TreeView<T>({ tree, renderItem, indent = 20, ...boxProps }: TreeViewProps<T>) {
-  return (
-    <Box
-      {...tree.getContainerProps()}
-      role="tree"
-      outline="none"
-      fontSize="sm"
-      {...boxProps}
-    >
-      {tree.getItems().map((item) => (
-        <Fragment key={item.getId()}>
-          {renderItem ? (
-            renderItem(item)
-          ) : (
-            <TreeViewItem
-              item={item}
-              indent={indent}
-            />
-          )}
-        </Fragment>
-      ))}
-    </Box>
-  );
-}
-
-interface TreeViewItemProps<T> {
-  item: ItemInstance<T>;
-  indent: number;
-}
-
-function TreeViewItem<T>({ item, indent }: TreeViewItemProps<T>) {
-  return (
-    <Box
-      asChild
-      display="flex"
-      alignItems="center"
-      w="full"
-      textAlign="start"
-      rounded="sm"
-      cursor="pointer"
-      userSelect="none"
-      px="2"
-      py="1"
-      transition="backgrounds"
-      _hover={{ bg: "bg.subtle" }}
-      style={{ paddingLeft: `${item.getItemMeta().level * indent}px` }}
-      {...(item.isSelected() && { bg: "bg.emphasized" })}
-      {...(item.isFocused() && {
-        outline: "2px solid",
-        outlineColor: "border.emphasized",
-        outlineOffset: "-2px",
-      })}
-    >
-      <button {...item.getProps()}>
-        {item.isFolder() && (
-          <Box
-            as="span"
-            mr="1"
-            color="fg.muted"
-            display="inline-flex"
-            alignItems="center"
-            flexShrink={0}
-          >
-            {item.isExpanded() ? <FiChevronDown /> : <FiChevronRight />}
-          </Box>
-        )}
-        <Box
-          as="span"
-          truncate
-        >
-          {item.getItemName()}
-        </Box>
-      </button>
-    </Box>
-  );
-}

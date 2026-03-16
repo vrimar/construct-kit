@@ -1,51 +1,49 @@
-import type { BoxProps, InputElementProps } from "@chakra-ui/react";
-import { Group, InputElement } from "@chakra-ui/react";
-import React, { cloneElement } from "react";
+import { ark } from "@ark-ui/react/factory";
+import { type ComponentProps, type ReactNode } from "react";
+import { createStyleContext } from "styled-system/jsx";
+import { inputGroup } from "styled-system/recipes";
 import type { WithRef } from "../../types";
 
-export interface InputGroupProps extends BoxProps {
-  startElementProps?: InputElementProps;
-  endElementProps?: InputElementProps;
-  startElement?: React.ReactNode;
-  endElement?: React.ReactNode;
-  children: React.ReactElement;
+const { withProvider, withContext } = createStyleContext(inputGroup);
+
+type RootProps = ComponentProps<typeof Root>;
+const Root = withProvider(ark.div, "root");
+const Element = withContext(ark.div, "element");
+
+export interface InputGroupProps extends RootProps {
+  startElement?: ReactNode | undefined;
+  endElement?: ReactNode | undefined;
 }
 
-export function InputGroup({
+export const InputGroup = ({
   ref,
   startElement,
-  startElementProps,
   endElement,
-  endElementProps,
   children,
   ...rest
-}: WithRef<InputGroupProps>) {
+}: WithRef<InputGroupProps>) => {
   return (
-    <Group
+    <Root
       ref={ref}
       {...rest}
     >
       {startElement && (
-        <InputElement
-          pointerEvents="none"
-          {...startElementProps}
+        <Element
+          insetInlineStart="0"
+          top="0"
         >
           {startElement}
-        </InputElement>
+        </Element>
       )}
-      {cloneElement(children, {
-        ...(startElement && { ps: "calc(var(--input-height) - 6px)" }),
-        ...(endElement && { pe: "calc(var(--input-height) - 6px)" }),
-        ...(children.props as Record<string, unknown>),
-      })}
+      {children}
       {endElement && (
-        <InputElement
-          placement="end"
-          {...endElementProps}
+        <Element
+          insetInlineEnd="0"
+          top="0"
         >
           {endElement}
-        </InputElement>
+        </Element>
       )}
-    </Group>
+    </Root>
   );
-}
+};

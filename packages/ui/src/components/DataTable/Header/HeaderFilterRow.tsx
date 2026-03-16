@@ -1,13 +1,13 @@
-import { Box } from "@chakra-ui/react";
 import type { Table } from "@tanstack/react-table";
+import { Box } from "styled-system/jsx";
 
 import { DataTableHeaderFilterCell } from "./HeaderFilterCell";
 
-interface Props<TData> {
+interface HeaderFilterRowProps<TData> {
   table: Table<TData>;
 }
 
-export const DataTableHeaderFilterRow = <TData,>({ table }: Props<TData>) => {
+export const DataTableHeaderFilterRow = <TData,>({ table }: HeaderFilterRowProps<TData>) => {
   const selections = table.options.meta?.selections ?? {};
 
   const groups = table.getHeaderGroups();

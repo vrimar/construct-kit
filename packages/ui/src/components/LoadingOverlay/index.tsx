@@ -1,5 +1,6 @@
-import type { FlexProps, SpinnerProps } from "@chakra-ui/react";
-import { Flex, Spinner, Stack, Text } from "@chakra-ui/react";
+import { Flex, Stack, type FlexProps } from "styled-system/jsx";
+import { Spinner, type SpinnerProps } from "../Spinner";
+import { Text } from "../Text";
 
 export interface LoadingOverlayProps extends Omit<FlexProps, "fill"> {
   isActive: boolean;
@@ -32,7 +33,7 @@ export const LoadingOverlay = ({
       height="100%"
       width="100%"
       alignItems={align}
-      background={fill ? "rgba(255, 255, 255, 0.75)" : undefined}
+      background={fill ? "white/75" : undefined}
       transition="opacity .3s ease-in-out,
       visibility 0s ease-in-out .3s,
       background .3s ease-in-out"

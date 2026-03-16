@@ -1,30 +1,24 @@
-import type { ButtonProps as ChakraButtonProps } from "@chakra-ui/react";
-import { Icon, IconButton as ChakraIconButton, Spinner } from "@chakra-ui/react";
-import type { ReactNode } from "react";
 import type { WithRef } from "../../types";
+import { Button, type ButtonProps } from "./Button";
 
-export interface IconButtonProps extends ChakraButtonProps {
-  icon: ReactNode;
-  loading?: boolean;
+export interface IconButtonProps extends ButtonProps {
+  icon?: React.ReactNode | undefined;
 }
 
-export function IconButton({
+export const IconButton = ({
   ref,
   icon,
-  loading,
+  children,
   ...props
-}: WithRef<IconButtonProps, HTMLButtonElement>) {
+}: WithRef<IconButtonProps, HTMLButtonElement>) => {
   return (
-    <ChakraIconButton
-      variant="ghost"
+    <Button
+      px="0"
+      py="0"
       ref={ref}
       {...props}
     >
-      {loading ? (
-        <Spinner size={props.size as "xs" | "sm" | "md" | "lg" | "xl"} />
-      ) : (
-        <Icon size="inherit">{icon}</Icon>
-      )}
-    </ChakraIconButton>
+      {icon ?? children}
+    </Button>
   );
 }

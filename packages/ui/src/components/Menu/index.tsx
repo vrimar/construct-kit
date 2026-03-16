@@ -1,24 +1,80 @@
-import { AbsoluteCenter, Box, Menu as ChakraMenu, Portal } from "@chakra-ui/react";
+import { Menu as ArkMenu, useMenuItemContext } from "@ark-ui/react/menu";
+import { Portal } from "@ark-ui/react/portal";
+import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from "lucide-react";
 import React from "react";
-import { LuCheck, LuChevronRight } from "react-icons/lu";
+import { Box, createStyleContext, type HTMLStyledProps } from "styled-system/jsx";
+import { menu } from "styled-system/recipes";
 import type { WithRef } from "../../types";
+import { AbsoluteCenter } from "../Layout/AbsoluteCenter";
 
-export interface MenuRootProps extends ChakraMenu.RootProps {
-  placement?: NonNullable<ChakraMenu.RootProps["positioning"]>["placement"];
+const { withRootProvider, withContext } = createStyleContext(menu);
+
+// Primitives — exported for sibling components (ContextMenu), not re-exported from barrel
+export type RootProps = React.ComponentProps<typeof Root>;
+export const Root = withRootProvider(ArkMenu.Root, {
+  defaultProps: { unmountOnExit: true, lazyMount: true },
+});
+export const RootProvider = withRootProvider(ArkMenu.Root, {
+  defaultProps: { unmountOnExit: true, lazyMount: true },
+});
+export const Arrow = withContext(ArkMenu.Arrow, "arrow");
+export const ArrowTip = withContext(ArkMenu.ArrowTip, "arrowTip");
+export const CheckboxItem = withContext(ArkMenu.CheckboxItem, "item");
+export const Content = withContext(ArkMenu.Content, "content");
+export const ContextTrigger = withContext(ArkMenu.ContextTrigger, "contextTrigger");
+export const Indicator = withContext(ArkMenu.Indicator, "indicator", {
+  defaultProps: { children: <ChevronDownIcon /> },
+});
+export const Item = withContext(ArkMenu.Item, "item");
+export const ItemGroup = withContext(ArkMenu.ItemGroup, "itemGroup");
+export const ItemGroupLabel = withContext(ArkMenu.ItemGroupLabel, "itemGroupLabel");
+export const ItemText = withContext(ArkMenu.ItemText, "itemText");
+export const Positioner = withContext(ArkMenu.Positioner, "positioner");
+export const RadioItem = withContext(ArkMenu.RadioItem, "item");
+export const RadioItemGroup = withContext(ArkMenu.RadioItemGroup, "itemGroup");
+export const Separator = withContext(ArkMenu.Separator, "separator");
+export const Trigger = withContext(ArkMenu.Trigger, "trigger");
+export const TriggerItem = withContext(ArkMenu.TriggerItem, "item");
+
+export {
+  MenuContext as Context,
+  type MenuSelectionDetails as SelectionDetails,
+} from "@ark-ui/react/menu";
+
+const StyledItemIndicator = withContext(ArkMenu.ItemIndicator, "itemIndicator");
+
+export const ItemIndicator = ({ ref, ...props }: WithRef<HTMLStyledProps<"div">>) => {
+  const item = useMenuItemContext();
+
+  return item.checked ? (
+    <StyledItemIndicator
+      ref={ref}
+      {...props}
+    >
+      <CheckIcon />
+    </StyledItemIndicator>
+  ) : (
+    <svg
+      aria-hidden="true"
+      focusable="false"
+    />
+  );
+};
+
+export interface MenuRootProps extends RootProps {
+  placement?: NonNullable<RootProps["positioning"]>["placement"];
 }
 
 function MenuRoot({ placement, ...props }: MenuRootProps) {
   return (
-    <ChakraMenu.Root
-      lazyMount
-      unmountOnExit
+    <Root
       positioning={{ placement }}
       {...props}
     />
   );
 }
 
-export interface MenuContentProps extends ChakraMenu.ContentProps {
+export interface MenuContentProps extends React.ComponentProps<typeof Content> {
   portalled?: boolean;
   portalRef?: React.RefObject<HTMLElement>;
 }
@@ -29,46 +85,52 @@ function MenuContent({ ref, portalled = true, portalRef, ...rest }: WithRef<Menu
       disabled={!portalled}
       container={portalRef}
     >
-      <ChakraMenu.Positioner>
-        <ChakraMenu.Content
+      <Positioner>
+        <Content
           animation="none"
           ref={ref}
           {...rest}
         />
-      </ChakraMenu.Positioner>
+      </Positioner>
     </Portal>
   );
 }
 
-function MenuArrow({ ref, ...props }: WithRef<ChakraMenu.ArrowProps>) {
+function MenuArrow({ ref, ...props }: WithRef<React.ComponentProps<typeof Arrow>>) {
   return (
-    <ChakraMenu.Arrow
+    <Arrow
       ref={ref}
       {...props}
-    >
-      <ChakraMenu.ArrowTip />
-    </ChakraMenu.Arrow>
+    />
   );
 }
 
-function MenuCheckboxItem({ ref, children, ...props }: WithRef<ChakraMenu.CheckboxItemProps>) {
+function MenuCheckboxItem({
+  ref,
+  children,
+  ...props
+}: WithRef<React.ComponentProps<typeof CheckboxItem>>) {
   return (
-    <ChakraMenu.CheckboxItem
+    <CheckboxItem
       ref={ref}
       cursor="pointer"
       {...props}
     >
-      <ChakraMenu.ItemIndicator>
-        <LuCheck />
-      </ChakraMenu.ItemIndicator>
+      <ItemIndicator>
+        <CheckIcon />
+      </ItemIndicator>
       {children}
-    </ChakraMenu.CheckboxItem>
+    </CheckboxItem>
   );
 }
 
-function MenuRadioItem({ ref, children, ...rest }: WithRef<ChakraMenu.RadioItemProps>) {
+function MenuRadioItem({
+  ref,
+  children,
+  ...rest
+}: WithRef<React.ComponentProps<typeof RadioItem>>) {
   return (
-    <ChakraMenu.RadioItem
+    <RadioItem
       cursor="pointer"
       ps="8"
       ref={ref}
@@ -79,58 +141,63 @@ function MenuRadioItem({ ref, children, ...rest }: WithRef<ChakraMenu.RadioItemP
         left="4"
         asChild
       >
-        <ChakraMenu.ItemIndicator>
-          <LuCheck />
-        </ChakraMenu.ItemIndicator>
+        <ItemIndicator>
+          <CheckIcon />
+        </ItemIndicator>
       </AbsoluteCenter>
-      <ChakraMenu.ItemText>{children}</ChakraMenu.ItemText>
-    </ChakraMenu.RadioItem>
+      <ItemText>{children}</ItemText>
+    </RadioItem>
   );
 }
 
-export interface MenuItemProps extends ChakraMenu.ItemProps {
+export interface MenuItemProps extends React.ComponentProps<typeof Item> {
   icon?: React.ReactNode;
 }
 
 function MenuItem({ ref, icon, children, ...rest }: WithRef<MenuItemProps>) {
   return (
-    <ChakraMenu.Item
+    <Item
       cursor="pointer"
       {...rest}
       ref={ref}
     >
       {icon}
       <Box flex="1">{children}</Box>
-    </ChakraMenu.Item>
+    </Item>
   );
 }
 
-function MenuItemGroup({ ref, title, children, ...rest }: WithRef<ChakraMenu.ItemGroupProps>) {
+function MenuItemGroup({
+  ref,
+  title,
+  children,
+  ...rest
+}: WithRef<React.ComponentProps<typeof ItemGroup>>) {
   return (
-    <ChakraMenu.ItemGroup
+    <ItemGroup
       ref={ref}
       {...rest}
     >
-      {title && <ChakraMenu.ItemGroupLabel userSelect="none">{title}</ChakraMenu.ItemGroupLabel>}
+      {title && <ItemGroupLabel userSelect="none">{title}</ItemGroupLabel>}
       {children}
-    </ChakraMenu.ItemGroup>
+    </ItemGroup>
   );
 }
 
-export interface MenuTriggerItemProps extends ChakraMenu.ItemProps {
+export interface MenuTriggerItemProps extends React.ComponentProps<typeof Item> {
   startIcon?: React.ReactNode;
 }
 
 function MenuTriggerItem({ ref, startIcon, children, ...rest }: WithRef<MenuTriggerItemProps>) {
   return (
-    <ChakraMenu.TriggerItem
+    <TriggerItem
       ref={ref}
       {...rest}
     >
       {startIcon}
       <Box flex="1">{children}</Box>
-      <LuChevronRight />
-    </ChakraMenu.TriggerItem>
+      <ChevronRightIcon />
+    </TriggerItem>
   );
 }
 
@@ -143,10 +210,9 @@ export const Menu = {
   Item: MenuItem,
   ItemGroup: MenuItemGroup,
   TriggerItem: MenuTriggerItem,
-  RadioItemGroup: ChakraMenu.RadioItemGroup,
-  ContextTrigger: ChakraMenu.ContextTrigger,
-  Separator: ChakraMenu.Separator,
-  ItemText: ChakraMenu.ItemText,
-  ItemCommand: ChakraMenu.ItemCommand,
-  Trigger: ChakraMenu.Trigger,
+  RadioItemGroup,
+  ContextTrigger,
+  Separator,
+  ItemText,
+  Trigger,
 };

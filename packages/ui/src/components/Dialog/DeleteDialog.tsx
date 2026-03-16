@@ -1,8 +1,8 @@
-import { Text } from "@chakra-ui/react";
+import { Text } from "../Text";
 
 import { SubmitDialog } from ".";
 
-interface Props {
+interface DeleteDialogProps {
   title: string;
   name: string;
   onClose: () => unknown;
@@ -18,7 +18,7 @@ export const DeleteDialog = ({
   onSubmit,
   loading,
   confirmMessage,
-}: Props) => {
+}: DeleteDialogProps) => {
   return (
     <SubmitDialog
       title={`Delete ${title}`}

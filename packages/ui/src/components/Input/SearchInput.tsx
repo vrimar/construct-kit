@@ -1,5 +1,5 @@
-import { Input, type InputProps } from "@chakra-ui/react";
-import { FiSearch, FiX } from "react-icons/fi";
+import { SearchIcon, XIcon } from "lucide-react";
+import { Input, type InputProps } from "./Input";
 
 import { IconButton } from "../Buttons";
 import { InputGroup } from "./InputGroup";
@@ -26,15 +26,16 @@ export const SearchInput = ({ hasSearchIcon = true, onClear, ...props }: SearchI
   const iconButtonSize = iconButtonSizeMap[(props.size as InputSize) ?? "md"] ?? "xs";
   return (
     <InputGroup
-      startElement={hasSearchIcon && <FiSearch />}
+      startElement={hasSearchIcon && <SearchIcon />}
       endElement={
         props.value && (
           <IconButton
-            icon={<FiX />}
-            variant="ghost"
+            variant="plain"
             size={iconButtonSize}
             onClick={onClear}
-          />
+          >
+            <XIcon />
+          </IconButton>
         )
       }
       width="100%"

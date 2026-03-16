@@ -1,19 +1,43 @@
-import { Alert as ChakraAlert } from "@chakra-ui/react";
-import React from "react";
+import { ark } from "@ark-ui/react/factory";
+import { InfoIcon } from "lucide-react";
+import type { ComponentProps } from "react";
+import { createStyleContext } from "styled-system/jsx";
+import { alert } from "styled-system/recipes";
 import type { WithRef } from "../../types";
-
 import { CloseButton } from "../Buttons";
 
-export interface AlertProps extends Omit<ChakraAlert.RootProps, "title"> {
-  startElement?: React.ReactNode;
-  endElement?: React.ReactNode;
+const { withProvider, withContext } = createStyleContext(alert);
+
+export type AlertRootProps = ComponentProps<typeof Root>;
+const Root = withProvider(ark.div, "root");
+const Title = withContext(ark.h3, "title");
+const Description = withContext(ark.div, "description");
+const Content = withContext(ark.div, "content");
+
+type IndicatorProps = ComponentProps<typeof StyledIndicator>;
+const StyledIndicator = withContext(ark.span, "indicator");
+
+function Indicator({ ref, ...props }: WithRef<IndicatorProps, HTMLSpanElement>) {
+  return (
+    <StyledIndicator
+      ref={ref}
+      {...props}
+    >
+      <InfoIcon />
+    </StyledIndicator>
+  );
+}
+
+export interface AlertProps extends Omit<AlertRootProps, "title"> {
   title?: React.ReactNode;
   icon?: React.ReactElement;
   closable?: boolean;
   onClose?: () => void;
+  startElement?: React.ReactNode;
+  endElement?: React.ReactNode;
 }
 
-export function Alert({
+function AlertComponent({
   ref,
   title,
   children,
@@ -25,18 +49,18 @@ export function Alert({
   ...rest
 }: WithRef<AlertProps>) {
   return (
-    <ChakraAlert.Root
+    <Root
       ref={ref}
       {...rest}
     >
-      {startElement || <ChakraAlert.Indicator>{icon}</ChakraAlert.Indicator>}
+      {startElement || <Indicator>{icon}</Indicator>}
       {children ? (
-        <ChakraAlert.Content>
-          <ChakraAlert.Title>{title}</ChakraAlert.Title>
-          <ChakraAlert.Description>{children}</ChakraAlert.Description>
-        </ChakraAlert.Content>
+        <Content>
+          <Title>{title}</Title>
+          <Description>{children}</Description>
+        </Content>
       ) : (
-        <ChakraAlert.Title flex="1">{title}</ChakraAlert.Title>
+        <Title flex="1">{title}</Title>
       )}
       {endElement}
       {closable && (
@@ -49,6 +73,14 @@ export function Alert({
           onClick={onClose}
         />
       )}
-    </ChakraAlert.Root>
+    </Root>
   );
 }
+
+export const Alert = Object.assign(AlertComponent, {
+  Root,
+  Title,
+  Description,
+  Content,
+  Indicator,
+});

@@ -1,15 +1,16 @@
-import { Box, HStack, Text } from "@chakra-ui/react";
 import type { Header } from "@tanstack/react-table";
 import { flexRender } from "@tanstack/react-table";
+import { Box, HStack } from "styled-system/jsx";
+import { Text } from "../../Text";
 
 import { dataTableClasses } from "../types";
 import { ColumnSorter } from "./ColumnSorter";
 
-interface Props<TData> {
+interface HeaderCellProps<TData> {
   header: Header<TData, unknown>;
 }
 
-export const DataTableHeaderCell = <TData,>({ header }: Props<TData>) => {
+export const DataTableHeaderCell = <TData,>({ header }: HeaderCellProps<TData>) => {
   const column = header.column;
   const isVisible = column.columnDef?.meta?.isVisible ?? true;
   const sortable = column.getCanSort();
@@ -37,7 +38,7 @@ export const DataTableHeaderCell = <TData,>({ header }: Props<TData>) => {
       px="2"
       py="1"
       fontWeight="medium"
-      fontSize="14px"
+      fontSize="sm"
       borderRightWidth="1px"
       borderRightColor="border"
       userSelect="none"
@@ -45,11 +46,13 @@ export const DataTableHeaderCell = <TData,>({ header }: Props<TData>) => {
         minWidth: widthPx,
         maxWidth: widthPx,
       }}
-      css={{
-        [`&:hover .${dataTableClasses.columnSorter}`]: {
-          visibility: "visible",
-        },
-      }}
+      css={
+        {
+          [`&:hover .${dataTableClasses.columnSorter}`]: {
+            visibility: "visible",
+          },
+        } as any
+      }
     >
       <HStack
         alignItems="center"

@@ -1,7 +1,7 @@
-import type { InputProps } from "@chakra-ui/react";
-import { Input } from "@chakra-ui/react";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import type { InputProps } from "./Input";
+import { Input } from "./Input";
 
 import { TooltipIconButton } from "../Buttons";
 import type { InputGroupProps } from "./InputGroup";
@@ -21,10 +21,11 @@ export const PasswordInput = ({ containerProps, ...props }: PasswordInputProps) 
       endElement={
         <TooltipIconButton
           label={isVisible ? "Hide password" : "Show password"}
-          icon={isVisible ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
           onClick={() => setIsVisible((prev) => !prev)}
           size="sm"
-        />
+        >
+          {isVisible ? <EyeOffIcon /> : <EyeIcon />}
+        </TooltipIconButton>
       }
     >
       <Input

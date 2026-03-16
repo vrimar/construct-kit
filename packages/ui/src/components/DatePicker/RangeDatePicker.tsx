@@ -1,8 +1,11 @@
 import type { DateValue } from "@ark-ui/react";
 import { DatePicker as ArkDatePicker, parseDate, Portal, useDatePicker } from "@ark-ui/react";
-import { Box, Button, HStack, IconButton, Separator, Stack, Text } from "@chakra-ui/react";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { Box, HStack, Stack } from "styled-system/jsx";
+import { Button, IconButton } from "../Buttons";
+import { Separator } from "../Layout";
+import { Text } from "../Text";
 
 import { DatePickerDayView } from "./DayView";
 
@@ -73,7 +76,7 @@ export const RangeDatePicker = ({
                 p="4"
                 borderWidth="1px"
                 borderColor="border"
-                borderRadius="4px"
+                borderRadius="sm"
                 alignItems="flex-start"
               >
                 <Stack gap="0.5">
@@ -92,7 +95,7 @@ export const RangeDatePicker = ({
                     >
                       <Button
                         size="xs"
-                        variant="ghost"
+                        variant="plain"
                       >
                         {preset.label}
                       </Button>
@@ -106,9 +109,9 @@ export const RangeDatePicker = ({
                       <ArkDatePicker.PrevTrigger asChild>
                         <IconButton
                           size="xs"
-                          variant="ghost"
+                          variant="plain"
                         >
-                          <FiChevronLeft />
+                          <ChevronLeftIcon />
                         </IconButton>
                       </ArkDatePicker.PrevTrigger>
                       <Text fontWeight="bold">{datePicker.visibleRangeText.start}</Text>
@@ -119,9 +122,9 @@ export const RangeDatePicker = ({
                       <ArkDatePicker.NextTrigger asChild>
                         <IconButton
                           size="xs"
-                          variant="ghost"
+                          variant="plain"
                         >
-                          <FiChevronRight />
+                          <ChevronRightIcon />
                         </IconButton>
                       </ArkDatePicker.NextTrigger>
                     </HStack>
@@ -150,5 +153,5 @@ export const RangeDatePicker = ({
   );
 };
 
-export type { DateValue };
 export { parseDate };
+export type { DateValue };

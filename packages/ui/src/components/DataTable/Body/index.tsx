@@ -1,16 +1,16 @@
-import type { BoxProps } from "@chakra-ui/react";
-import { Box, Stack, Text } from "@chakra-ui/react";
+import { RefreshCwIcon } from "lucide-react";
+import { Box, Stack, type BoxProps } from "styled-system/jsx";
+import { Text } from "../../Text";
 
+import type { Row, Table } from "@tanstack/react-table";
+import React, { useEffect } from "react";
 import { Button } from "../../Buttons";
 import { LoadingOverlay } from "../../LoadingOverlay";
 import { ScrollArea } from "../../ScrollArea";
-import type { Row, Table } from "@tanstack/react-table";
-import React, { useEffect } from "react";
-import { FiRefreshCw } from "react-icons/fi";
 
 import { BodyCell } from "./BodyCell";
 
-interface Props<TData> {
+interface DataTableBodyProps<TData> {
   table: Table<TData>;
   onRowClick: (e: React.MouseEvent<HTMLDivElement>, row: Row<TData>) => void;
   loading: boolean;
@@ -31,7 +31,7 @@ export const DataTableBody = <TData,>({
   onReset,
   renderSubRow,
   labels,
-}: Props<TData>) => {
+}: DataTableBodyProps<TData>) => {
   const scrollRef = React.useRef<HTMLDivElement>(null);
   const rows = table.getRowModel().rows;
   const page = table.getState().pagination.pageIndex;
@@ -62,14 +62,14 @@ export const DataTableBody = <TData,>({
           justifyContent="center"
         >
           <Stack>
-            <Text fontSize="18px">{noResultsLabel}</Text>
+            <Text fontSize="lg">{noResultsLabel}</Text>
             {onReset && (
               <Button
                 variant="outline"
-                leftIcon={<FiRefreshCw />}
                 size="lg"
                 onClick={onReset}
               >
+                <RefreshCwIcon />
                 {resetFiltersLabel}
               </Button>
             )}

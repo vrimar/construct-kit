@@ -1,8 +1,8 @@
-import { Box, HStack } from "@chakra-ui/react";
+import { CheckIcon } from "lucide-react";
 import React from "react";
-import { FiCheck } from "react-icons/fi";
+import { Box, HStack } from "styled-system/jsx";
 
-interface Props<T> {
+interface SelectListItemProps<T> {
   item: T;
   isSelected: boolean;
   renderLabel: (item: T) => React.ReactNode;
@@ -18,7 +18,7 @@ export const SelectListItem = <T,>({
   onSelect,
   activeItemStyle,
   renderActions,
-}: Props<T>) => {
+}: SelectListItemProps<T>) => {
   const isCheckmarkStyle = activeItemStyle === "checkmark";
 
   const handleItemSelect = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -30,49 +30,45 @@ export const SelectListItem = <T,>({
   return (
     <Box onClick={handleItemSelect}>
       <HStack
-        asChild
         px="2"
         py="1"
-        borderRadius="4px"
+        borderRadius="sm"
         cursor="pointer"
         justifyContent="space-between"
         position="relative"
         _hover={{
           bg: "bg.subtle",
         }}
+        width="100%"
+        color={isSelected ? "primary" : undefined}
       >
-        <HStack
-          width="100%"
-          color={isSelected ? "primary" : undefined}
-        >
-          {isCheckmarkStyle && (
-            <Box
-              opacity={isSelected ? "1" : "0"}
-              mt="1"
-            >
-              <FiCheck />
-            </Box>
-          )}
-
+        {isCheckmarkStyle && (
           <Box
-            flex="1"
-            wordBreak="break-word"
-            userSelect="none"
+            opacity={isSelected ? "1" : "0"}
+            mt="1"
           >
-            {renderLabel(item)}
+            <CheckIcon />
           </Box>
-          {renderActions && (
-            <HStack
-              className="select__actions"
-              alignSelf="flex-start"
-              gap="0"
-              bg="bg"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {renderActions(item)}
-            </HStack>
-          )}
-        </HStack>
+        )}
+
+        <Box
+          flex="1"
+          wordBreak="break-word"
+          userSelect="none"
+        >
+          {renderLabel(item)}
+        </Box>
+        {renderActions && (
+          <HStack
+            className="select__actions"
+            alignSelf="flex-start"
+            gap="0"
+            bg="bg"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {renderActions(item)}
+          </HStack>
+        )}
       </HStack>
     </Box>
   );

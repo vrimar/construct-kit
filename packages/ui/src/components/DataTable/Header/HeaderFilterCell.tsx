@@ -1,15 +1,15 @@
-import { Box } from "@chakra-ui/react";
 import type { Header } from "@tanstack/react-table";
+import { Box } from "styled-system/jsx";
 
 import type { ColumnFilterValue } from "../types";
 import { DataTableHeaderFilterCellContent } from "./HeaderFilterCellContent";
 
-interface Props<TData> {
+interface HeaderFilterCellProps<TData> {
   header: Header<TData, unknown>;
   filterValues: string[];
 }
 
-export const DataTableHeaderFilterCell = <TData,>({ header, filterValues }: Props<TData>) => {
+export const DataTableHeaderFilterCell = <TData,>({ header, filterValues }: HeaderFilterCellProps<TData>) => {
   const column = header.column;
   const isVisible = column.columnDef?.meta?.isVisible ?? true;
   const width = column.columnDef?.meta?.width ?? column.getSize();
@@ -27,7 +27,7 @@ export const DataTableHeaderFilterCell = <TData,>({ header, filterValues }: Prop
       px="2"
       py="0.5"
       fontWeight="medium"
-      fontSize="14px"
+      fontSize="sm"
       borderRightWidth="1px"
       borderRightColor="border"
       overflow="hidden"

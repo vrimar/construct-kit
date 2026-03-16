@@ -1,11 +1,11 @@
-import { ApplySelect } from "../../ApplySelect";
 import type { Header } from "@tanstack/react-table";
+import { ApplySelect } from "../../ApplySelect";
 
 import type { ColumnFilterValue } from "../types";
 import { ColumnDateFilter } from "./Filters/ColumnDateFilter";
 import { ColumnSearchInput } from "./Filters/ColumnSearchInput";
 
-interface Props<TData> {
+interface HeaderFilterCellContentProps<TData> {
   header: Header<TData, unknown>;
   filterValues: string[];
   onChange: (value: ColumnFilterValue) => unknown;
@@ -15,7 +15,7 @@ export const DataTableHeaderFilterCellContent = <TData,>({
   header,
   filterValues,
   onChange,
-}: Props<TData>) => {
+}: HeaderFilterCellContentProps<TData>) => {
   const column = header.column;
   const filterable = column.getCanFilter();
   const name = column.columnDef.header as string;
@@ -55,7 +55,7 @@ export const DataTableHeaderFilterCellContent = <TData,>({
           onApply={handleChange}
           cancelText="Reset"
           placement="bottom-end"
-          triggerProps={{ size: "sm", width: "100%", variant: "ghost" }}
+          triggerProps={{ size: "sm", width: "100%", variant: "plain" }}
           {...column.columnDef.meta?.selectProps}
         />
       );

@@ -1,3 +1,1 @@
-import { Wrap } from "@chakra-ui/react";
-
-export { Wrap };
+export { Wrap, type WrapProps } from "styled-system/jsx";

@@ -1,15 +1,16 @@
-import { DatePickerSelect, type DateValue, parseDate } from "../../../DatePicker";
 import dayjs from "dayjs";
 import { useMemo } from "react";
+import { DatePickerSelect, type DateValue, parseDate } from "../../../DatePicker";
 
-interface Props {
+interface ColumnDateFilterProps {
   dateValue: string;
   onChange: (value?: string) => unknown;
 }
 
-export const ColumnDateFilter = ({ dateValue, onChange }: Props) => {
+export const ColumnDateFilter = ({ dateValue, onChange }: ColumnDateFilterProps) => {
   const handleValueChange = (value: DateValue[]) => {
-    const getLabel = (item: DateValue) => `${item.year}-${item.month}-${item.day}`;
+    const getLabel = (item: DateValue) =>
+      `${item.year}-${String(item.month).padStart(2, "0")}-${String(item.day).padStart(2, "0")}`;
 
     if (value.length === 2) onChange(`${getLabel(value[0])}<>${getLabel(value[1])}`);
     else if (value.length === 0) onChange(undefined);
@@ -18,7 +19,7 @@ export const ColumnDateFilter = ({ dateValue, onChange }: Props) => {
   const value = useMemo(() => {
     const dateTokens = dateValue.split("<>");
 
-    if (!dateTokens || dateTokens.length !== 2) return [];
+    if (dateTokens?.length !== 2) return [];
 
     const start = dayjs(dateTokens[0]);
     const end = dayjs(dateTokens[1]);

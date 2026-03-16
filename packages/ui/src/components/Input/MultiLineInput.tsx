@@ -1,6 +1,6 @@
-import type { TextareaProps } from "@chakra-ui/react";
-import { Textarea } from "@chakra-ui/react";
 import React, { useCallback } from "react";
+import type { TextareaProps } from "./Textarea";
+import { Textarea } from "./Textarea";
 
 export const MultiLineInput = ({ onKeyDown, ...props }: TextareaProps) => {
   const handleKeyDown = useCallback(

@@ -1,15 +1,15 @@
+import React from "react";
+import { ApiErrorAlert } from "../Alert";
+import { Button } from "../Buttons";
 import type { StackProps } from "../Layout";
 import { HStack, Stack } from "../Layout";
-import { Button } from "../Buttons";
-import { ApiErrorAlert } from "../Alert";
-import React from "react";
 
-interface Props extends StackProps {
+interface SubmitFormProps extends StackProps {
   children: React.ReactNode;
   onSubmit: () => unknown;
   isSubmitDisabled?: boolean;
   isSubmitLoading?: boolean;
-  error?: any;
+  error?: unknown;
   onCancel: () => unknown;
 }
 
@@ -21,7 +21,7 @@ export const SubmitForm = ({
   error,
   onCancel,
   ...props
-}: Props) => {
+}: SubmitFormProps) => {
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === "Enter" && onSubmit) {
       onSubmit();
@@ -36,12 +36,12 @@ export const SubmitForm = ({
       onSubmit={(e) => e.preventDefault()}
       {...props}
     >
-      {error && <ApiErrorAlert error={error} />}
+      {error ? <ApiErrorAlert error={error} /> : null}
 
       <Stack gap="4">{children}</Stack>
       <HStack alignSelf="flex-end">
         <Button
-          variant="ghost"
+          variant="plain"
           type="button"
           onClick={onCancel}
         >

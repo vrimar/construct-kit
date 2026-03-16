@@ -1,21 +1,22 @@
-import { FiTrash2 } from "react-icons/fi";
+import { Trash2Icon } from "lucide-react";
 import type { WithRef } from "../../types";
 
 import type { IconButtonProps } from "./IconButton";
 import { IconButton } from "./IconButton";
 
-export function DeleteButton({
+export const DeleteButton = ({
   ref,
   ...props
-}: WithRef<Omit<IconButtonProps, "icon">, HTMLButtonElement>) {
+}: WithRef<Omit<IconButtonProps, "children">, HTMLButtonElement>) => {
   return (
     <IconButton
       ref={ref}
-      variant="ghost"
+      variant="plain"
       size="xs"
       color="red.500"
       {...props}
-      icon={<FiTrash2 />}
-    />
+    >
+      <Trash2Icon />
+    </IconButton>
   );
-}
+};

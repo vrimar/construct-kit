@@ -1,7 +1,7 @@
 import React from "react";
 
 import type { ButtonProps } from "../Buttons";
-import { Button } from "../Buttons";
+import { Button, CloseButton } from "../Buttons";
 import { Dialog } from "./Dialog";
 
 export interface SubmitDialogProps {
@@ -34,7 +34,13 @@ export const SubmitDialog = ({
   autoFocusButton,
 }: SubmitDialogProps) => {
   const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter" && onSubmit) {
+    const target = event.target as HTMLElement;
+    if (
+      event.key === "Enter" &&
+      onSubmit &&
+      target.tagName !== "TEXTAREA" &&
+      !target.isContentEditable
+    ) {
       onSubmit();
     }
   };
@@ -42,37 +48,48 @@ export const SubmitDialog = ({
   return (
     <Dialog.Root
       open={isOpen}
-      placement="center"
+      onOpenChange={(e) => {
+        if (!e.open) onClose?.();
+      }}
       closeOnEscape
       closeOnInteractOutside={false}
-      onEscapeKeyDown={onClose}
     >
-      <Dialog.Content maxWidth={width}>
-        <Dialog.Header>
-          <Dialog.Title>{title}</Dialog.Title>
-        </Dialog.Header>
-        <Dialog.Body onKeyDown={handleKeyDown}>{children}</Dialog.Body>
-        {onSubmit && (
-          <Dialog.Footer gap="2">
-            <Button
-              variant="ghost"
-              onClick={onClose}
-            >
-              {cancelLabel}
-            </Button>
-            <Button
-              disabled={isSubmitDisabled}
-              loading={isSubmitLoading}
-              onClick={onSubmit}
-              autoFocus={autoFocusButton}
-              {...submitButtonProps}
-            >
-              {submitLabel}
-            </Button>
-          </Dialog.Footer>
-        )}
-        <Dialog.CloseTrigger onClick={onClose} />
-      </Dialog.Content>
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content maxWidth={width}>
+          <Dialog.Header>
+            <Dialog.Title>{title}</Dialog.Title>
+          </Dialog.Header>
+          <Dialog.Body onKeyDown={handleKeyDown}>{children}</Dialog.Body>
+          {onSubmit && (
+            <Dialog.Footer gap="2">
+              <Button
+                variant="plain"
+                onClick={onClose}
+              >
+                {cancelLabel}
+              </Button>
+              <Button
+                disabled={isSubmitDisabled}
+                loading={isSubmitLoading}
+                onClick={onSubmit}
+                autoFocus={autoFocusButton}
+                {...submitButtonProps}
+              >
+                {submitLabel}
+              </Button>
+            </Dialog.Footer>
+          )}
+          <Dialog.CloseTrigger asChild>
+            <CloseButton
+              size="sm"
+              position="absolute"
+              top="2"
+              insetEnd="2"
+            />
+          </Dialog.CloseTrigger>
+        </Dialog.Content>
+      </Dialog.Positioner>
     </Dialog.Root>
   );
 };

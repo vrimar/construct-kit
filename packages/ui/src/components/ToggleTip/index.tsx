@@ -1,16 +1,18 @@
-import { IconButton, Popover as ChakraPopover, Portal } from "@chakra-ui/react";
+import { Portal } from "@ark-ui/react/portal";
+import { InfoIcon } from "lucide-react";
 import React from "react";
-import { HiOutlineInformationCircle } from "react-icons/hi";
 import type { WithRef } from "../../types";
+import { IconButton } from "../Buttons";
+import * as ArkPopover from "../Popover";
 
-export interface ToggleTipProps extends ChakraPopover.RootProps {
+export interface ToggleTipProps extends ArkPopover.RootProps {
   showArrow?: boolean;
   portalled?: boolean;
   portalRef?: React.RefObject<HTMLElement>;
   content?: React.ReactNode;
 }
 
-export function ToggleTip({
+export const ToggleTip = ({
   ref,
   showArrow,
   children,
@@ -18,19 +20,19 @@ export function ToggleTip({
   content,
   portalRef,
   ...rest
-}: WithRef<ToggleTipProps>) {
+}: WithRef<ToggleTipProps>) => {
   return (
-    <ChakraPopover.Root
+    <ArkPopover.Root
       {...rest}
       positioning={{ ...rest.positioning, gutter: 4 }}
     >
-      <ChakraPopover.Trigger asChild>{children}</ChakraPopover.Trigger>
+      <ArkPopover.Trigger asChild>{children}</ArkPopover.Trigger>
       <Portal
         disabled={!portalled}
         container={portalRef}
       >
-        <ChakraPopover.Positioner>
-          <ChakraPopover.Content
+        <ArkPopover.Positioner>
+          <ArkPopover.Content
             width="auto"
             px="2"
             py="1"
@@ -38,18 +40,14 @@ export function ToggleTip({
             rounded="sm"
             ref={ref}
           >
-            {showArrow && (
-              <ChakraPopover.Arrow>
-                <ChakraPopover.ArrowTip />
-              </ChakraPopover.Arrow>
-            )}
+            {showArrow && <ArkPopover.Arrow />}
             {content}
-          </ChakraPopover.Content>
-        </ChakraPopover.Positioner>
+          </ArkPopover.Content>
+        </ArkPopover.Positioner>
       </Portal>
-    </ChakraPopover.Root>
+    </ArkPopover.Root>
   );
-}
+};
 
 export const InfoTip = (props: Partial<ToggleTipProps>) => {
   const { children, ...rest } = props;
@@ -59,11 +57,11 @@ export const InfoTip = (props: Partial<ToggleTipProps>) => {
       {...rest}
     >
       <IconButton
-        variant="ghost"
+        variant="plain"
         aria-label="info"
         size="2xs"
       >
-        <HiOutlineInformationCircle />
+        <InfoIcon />
       </IconButton>
     </ToggleTip>
   );

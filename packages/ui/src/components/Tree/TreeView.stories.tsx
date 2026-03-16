@@ -1,39 +1,62 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Box } from "@chakra-ui/react";
-import {
-  dragAndDropFeature,
-  hotkeysCoreFeature,
-  selectionFeature,
-  syncDataLoaderFeature,
-  createOnDropHandler,
-} from "@headless-tree/core";
-import { FiFile, FiFolder } from "react-icons/fi";
+import { CheckIcon, FileIcon, FolderIcon, MinusIcon } from "lucide-react";
+import { Box } from "styled-system/jsx";
+import { createTreeCollection } from "./index";
+import { TreeView } from "./TreeView";
 
-import { TreeView, useTreeView } from "./TreeView";
-
-interface Item {
+interface Node {
+  id: string;
   name: string;
-  children?: string[];
-  isFolder?: boolean;
+  children?: Node[];
 }
 
-const items: Record<string, Item> = {
-  root: { name: "Root", children: ["src", "docs", "config"], isFolder: true },
-  src: { name: "src", children: ["components", "utils", "index-ts"], isFolder: true },
-  components: { name: "components", children: ["button", "input", "dialog"], isFolder: true },
-  button: { name: "Button.tsx" },
-  input: { name: "Input.tsx" },
-  dialog: { name: "Dialog.tsx" },
-  utils: { name: "utils", children: ["format", "validate"], isFolder: true },
-  format: { name: "format.ts" },
-  validate: { name: "validate.ts" },
-  "index-ts": { name: "index.ts" },
-  docs: { name: "docs", children: ["readme", "changelog"], isFolder: true },
-  readme: { name: "README.md" },
-  changelog: { name: "CHANGELOG.md" },
-  config: { name: "config", children: ["tsconfig"], isFolder: true },
-  tsconfig: { name: "tsconfig.json" },
-};
+const collection = createTreeCollection<Node>({
+  nodeToValue: (node) => node.id,
+  nodeToString: (node) => node.name,
+  rootNode: {
+    id: "root",
+    name: "",
+    children: [
+      {
+        id: "src",
+        name: "src",
+        children: [
+          {
+            id: "components",
+            name: "components",
+            children: [
+              { id: "button", name: "Button.tsx" },
+              { id: "input", name: "Input.tsx" },
+              { id: "dialog", name: "Dialog.tsx" },
+            ],
+          },
+          {
+            id: "utils",
+            name: "utils",
+            children: [
+              { id: "format", name: "format.ts" },
+              { id: "validate", name: "validate.ts" },
+            ],
+          },
+          { id: "index-ts", name: "index.ts" },
+        ],
+      },
+      {
+        id: "docs",
+        name: "docs",
+        children: [
+          { id: "readme", name: "README.md" },
+          { id: "changelog", name: "CHANGELOG.md" },
+        ],
+      },
+      {
+        id: "config",
+        name: "config",
+        children: [{ id: "tsconfig", name: "tsconfig.json" }],
+      },
+    ],
+  },
+});
 
 const meta: Meta = {
   title: "Components/TreeView",
@@ -42,134 +65,119 @@ const meta: Meta = {
 
 export default meta;
 
-export const Basic: StoryObj = {
-  render: () => {
-    const tree = useTreeView<Item>({
-      rootItemId: "root",
-      getItemName: (item) => item.getItemData().name,
-      isItemFolder: (item) => !!item.getItemData().isFolder,
-      initialState: { expandedItems: ["src", "components"] },
-      indent: 20,
-      dataLoader: {
-        getItem: (id) => items[id],
-        getChildren: (id) => items[id].children ?? [],
-      },
-    });
+function TreeNode({ node, indexPath }: { node: Node; indexPath: number[] }) {
+  return node.children ? (
+    <TreeView.Branch value={node.id} indexPath={indexPath}>
+      <TreeView.BranchControl>
+        <TreeView.BranchIndicator />
+        <TreeView.BranchText>{node.name}</TreeView.BranchText>
+      </TreeView.BranchControl>
+      <TreeView.BranchContent>
+        {node.children.map((child, index) => (
+          <TreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
+        ))}
+      </TreeView.BranchContent>
+    </TreeView.Branch>
+  ) : (
+    <TreeView.Item value={node.id} indexPath={indexPath}>
+      <TreeView.ItemText>{node.name}</TreeView.ItemText>
+    </TreeView.Item>
+  );
+}
 
-    return (
-      <Box
-        maxW="320px"
-        border="1px solid"
-        borderColor="border"
-        rounded="md"
-        p="2"
-      >
-        <TreeView tree={tree} />
-      </Box>
-    );
-  },
+function CustomTreeNode({ node, indexPath }: { node: Node; indexPath: number[] }) {
+  return node.children ? (
+    <TreeView.Branch value={node.id} indexPath={indexPath}>
+      <TreeView.BranchControl>
+        <TreeView.BranchIndicator />
+        <FolderIcon />
+        <TreeView.BranchText>{node.name}</TreeView.BranchText>
+      </TreeView.BranchControl>
+      <TreeView.BranchContent>
+        {node.children.map((child, index) => (
+          <CustomTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
+        ))}
+      </TreeView.BranchContent>
+    </TreeView.Branch>
+  ) : (
+    <TreeView.Item value={node.id} indexPath={indexPath}>
+      <FileIcon />
+      <TreeView.ItemText>{node.name}</TreeView.ItemText>
+    </TreeView.Item>
+  );
+}
+
+function CheckboxTreeNode({ node, indexPath }: { node: Node; indexPath: number[] }) {
+  return node.children ? (
+    <TreeView.Branch value={node.id} indexPath={indexPath}>
+      <TreeView.BranchControl>
+        <TreeView.NodeCheckbox>
+          <TreeView.NodeCheckboxIndicator>
+            <CheckIcon />
+          </TreeView.NodeCheckboxIndicator>
+          <TreeView.NodeCheckboxIndicator indeterminate>
+            <MinusIcon />
+          </TreeView.NodeCheckboxIndicator>
+        </TreeView.NodeCheckbox>
+        <TreeView.BranchIndicator />
+        <TreeView.BranchText>{node.name}</TreeView.BranchText>
+      </TreeView.BranchControl>
+      <TreeView.BranchContent>
+        {node.children.map((child, index) => (
+          <CheckboxTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
+        ))}
+      </TreeView.BranchContent>
+    </TreeView.Branch>
+  ) : (
+    <TreeView.Item value={node.id} indexPath={indexPath}>
+      <TreeView.NodeCheckbox>
+        <TreeView.NodeCheckboxIndicator>
+          <CheckIcon />
+        </TreeView.NodeCheckboxIndicator>
+      </TreeView.NodeCheckbox>
+      <TreeView.ItemText>{node.name}</TreeView.ItemText>
+    </TreeView.Item>
+  );
+}
+
+export const Basic: StoryObj = {
+  render: () => (
+    <Box maxW="320px" border="1px solid" borderColor="border" rounded="md" p="2">
+      <TreeView.Root collection={collection} defaultExpandedValue={["src", "components"]}>
+        <TreeView.Tree>
+          {collection.rootNode.children!.map((node, index) => (
+            <TreeNode key={node.id} node={node} indexPath={[index]} />
+          ))}
+        </TreeView.Tree>
+      </TreeView.Root>
+    </Box>
+  ),
 };
 
 export const WithCustomRender: StoryObj = {
-  render: () => {
-    const tree = useTreeView<Item>({
-      rootItemId: "root",
-      getItemName: (item) => item.getItemData().name,
-      isItemFolder: (item) => !!item.getItemData().isFolder,
-      initialState: { expandedItems: ["src"] },
-      indent: 20,
-      dataLoader: {
-        getItem: (id) => items[id],
-        getChildren: (id) => items[id].children ?? [],
-      },
-    });
-
-    return (
-      <Box
-        maxW="320px"
-        border="1px solid"
-        borderColor="border"
-        rounded="md"
-        p="2"
-      >
-        <TreeView
-          tree={tree}
-          renderItem={(item) => (
-            <Box
-              asChild
-              display="flex"
-              alignItems="center"
-              gap="2"
-              w="full"
-              textAlign="start"
-              rounded="sm"
-              cursor="pointer"
-              userSelect="none"
-              px="2"
-              py="1"
-              _hover={{ bg: "bg.subtle" }}
-              style={{ paddingLeft: `${item.getItemMeta().level * 20}px` }}
-              {...(item.isSelected() && { bg: "colorPalette.subtle", color: "colorPalette.fg" })}
-            >
-              <button {...item.getProps()}>
-                <Box
-                  as="span"
-                  color="fg.muted"
-                >
-                  {item.isFolder() ? <FiFolder /> : <FiFile />}
-                </Box>
-                <Box
-                  as="span"
-                  truncate
-                >
-                  {item.getItemName()}
-                </Box>
-              </button>
-            </Box>
-          )}
-        />
-      </Box>
-    );
-  },
+  render: () => (
+    <Box maxW="320px" border="1px solid" borderColor="border" rounded="md" p="2">
+      <TreeView.Root collection={collection} defaultExpandedValue={["src"]}>
+        <TreeView.Tree>
+          {collection.rootNode.children!.map((node, index) => (
+            <CustomTreeNode key={node.id} node={node} indexPath={[index]} />
+          ))}
+        </TreeView.Tree>
+      </TreeView.Root>
+    </Box>
+  ),
 };
 
-export const DragAndDrop: StoryObj = {
-  render: () => {
-    const data: Record<string, Item> = JSON.parse(JSON.stringify(items));
-
-    const tree = useTreeView<Item>({
-      rootItemId: "root",
-      getItemName: (item) => item.getItemData().name,
-      isItemFolder: (item) => !!item.getItemData().isFolder,
-      initialState: { expandedItems: ["src", "components", "docs"] },
-      indent: 20,
-      canReorder: true,
-      onDrop: createOnDropHandler((item, newChildren) => {
-        data[item.getId()].children = newChildren;
-      }),
-      dataLoader: {
-        getItem: (id) => data[id],
-        getChildren: (id) => data[id].children ?? [],
-      },
-      features: [syncDataLoaderFeature, selectionFeature, hotkeysCoreFeature, dragAndDropFeature],
-    });
-
-    return (
-      <Box
-        maxW="320px"
-        border="1px solid"
-        borderColor="border"
-        rounded="md"
-        p="2"
-      >
-        <TreeView tree={tree} />
-        <Box
-          style={tree.getDragLineStyle()}
-          h="0.5"
-          bg="colorPalette.solid"
-          position="relative"
-        />
-      </Box>
-    );
-  },
+export const WithCheckboxes: StoryObj = {
+  render: () => (
+    <Box maxW="320px" border="1px solid" borderColor="border" rounded="md" p="2">
+      <TreeView.Root collection={collection} defaultExpandedValue={["src", "components"]}>
+        <TreeView.Tree>
+          {collection.rootNode.children!.map((node, index) => (
+            <CheckboxTreeNode key={node.id} node={node} indexPath={[index]} />
+          ))}
+        </TreeView.Tree>
+      </TreeView.Root>
+    </Box>
+  ),
 };

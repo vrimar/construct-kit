@@ -1,15 +1,25 @@
-import { Field as ChakraField } from "@chakra-ui/react";
+import { Field as ArkField } from "@ark-ui/react/field";
 import React from "react";
+import { createStyleContext } from "styled-system/jsx";
+import { field } from "styled-system/recipes";
 import type { WithRef } from "../../types";
 
-export interface FieldProps extends Omit<ChakraField.RootProps, "label"> {
+const { withProvider, withContext } = createStyleContext(field);
+
+const FieldRoot = withProvider(ArkField.Root, "root");
+const FieldLabel = withContext(ArkField.Label, "label");
+const FieldHelperText = withContext(ArkField.HelperText, "helperText");
+const FieldErrorText = withContext(ArkField.ErrorText, "errorText");
+const FieldRequiredIndicator = withContext(ArkField.RequiredIndicator, "requiredIndicator");
+
+export interface FieldProps extends Omit<React.ComponentProps<typeof FieldRoot>, "label"> {
   label?: React.ReactNode;
   helperText?: React.ReactNode;
   errorText?: React.ReactNode;
   optionalText?: React.ReactNode;
 }
 
-export function Field({
+export const Field = ({
   ref,
   label,
   children,
@@ -17,21 +27,21 @@ export function Field({
   errorText,
   optionalText,
   ...rest
-}: WithRef<FieldProps>) {
+}: WithRef<FieldProps>) => {
   return (
-    <ChakraField.Root
+    <FieldRoot
       ref={ref}
       {...rest}
     >
       {label && (
-        <ChakraField.Label>
+        <FieldLabel>
           {label}
-          <ChakraField.RequiredIndicator fallback={optionalText} />
-        </ChakraField.Label>
+          <FieldRequiredIndicator fallback={optionalText} />
+        </FieldLabel>
       )}
       {children}
-      {helperText && <ChakraField.HelperText>{helperText}</ChakraField.HelperText>}
-      {errorText && <ChakraField.ErrorText>{errorText}</ChakraField.ErrorText>}
-    </ChakraField.Root>
+      {helperText && <FieldHelperText>{helperText}</FieldHelperText>}
+      {errorText && <FieldErrorText>{errorText}</FieldErrorText>}
+    </FieldRoot>
   );
-}
+};

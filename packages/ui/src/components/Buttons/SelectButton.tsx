@@ -1,11 +1,11 @@
-import { Box, HStack } from "@chakra-ui/react";
+import { ChevronDownIcon, XIcon } from "lucide-react";
 import React from "react";
-import { FiChevronDown, FiX } from "react-icons/fi";
+import { Box, HStack } from "styled-system/jsx";
 import type { WithRef } from "../../types";
 
-import { Text, TruncatedText } from "../Text";
 import type { ButtonProps } from ".";
 import { Button } from ".";
+import { Text, TruncatedText } from "../Text";
 
 export interface SelectButtonProps extends ButtonProps {
   sublabel?: React.ReactNode;
@@ -14,14 +14,14 @@ export interface SelectButtonProps extends ButtonProps {
   onClear?: () => unknown;
 }
 
-export function SelectButton({
+export const SelectButton = ({
   ref,
   sublabel,
   label,
   hasValue,
   onClear,
   ...props
-}: WithRef<SelectButtonProps, HTMLButtonElement>) {
+}: WithRef<SelectButtonProps, HTMLButtonElement>) => {
   const handleClear = () => {
     if (onClear) onClear();
   };
@@ -45,13 +45,13 @@ export function SelectButton({
         <HStack gap="0">
           {hasValue && onClear ? (
             <Box onClick={handleClear}>
-              <FiX />
+              <XIcon />
             </Box>
           ) : (
-            <FiChevronDown />
+            <ChevronDownIcon />
           )}
         </HStack>
       </HStack>
     </Button>
   );
-}
+};

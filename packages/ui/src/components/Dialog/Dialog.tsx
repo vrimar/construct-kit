@@ -1,89 +1,61 @@
-import { Box, Dialog as ChakraDialog, Portal } from "@chakra-ui/react";
-import React from "react";
+import { Dialog as ArkDialog, DialogContext, useDialogContext } from "@ark-ui/react/dialog";
+import { ark } from "@ark-ui/react/factory";
+import { type ComponentProps } from "react";
+import { createStyleContext, styled } from "styled-system/jsx";
+import { dialog } from "styled-system/recipes";
 import type { WithRef } from "../../types";
 
-import { CloseButton } from "../Buttons";
+const { withRootProvider, withContext } = createStyleContext(dialog);
 
-export interface DialogContentProps extends ChakraDialog.ContentProps {
-  portalled?: boolean;
-  portalRef?: React.RefObject<HTMLElement>;
-  backdrop?: boolean;
-}
+const Root = withRootProvider(ArkDialog.Root, {
+  defaultProps: { unmountOnExit: true, lazyMount: true },
+});
+const RootProvider = withRootProvider(ArkDialog.RootProvider, {
+  defaultProps: { unmountOnExit: true, lazyMount: true },
+});
+const Backdrop = withContext(ArkDialog.Backdrop, "backdrop");
+const CloseTrigger = withContext(ArkDialog.CloseTrigger, "closeTrigger");
+const Content = withContext(ArkDialog.Content, "content");
+const Description = withContext(ArkDialog.Description, "description");
+const Positioner = withContext(ArkDialog.Positioner, "positioner");
+const Title = withContext(ArkDialog.Title, "title");
+const Trigger = withContext(ArkDialog.Trigger, "trigger");
+const Body = withContext(ark.div, "body");
+const Header = withContext(ark.div, "header");
+const Footer = withContext(ark.div, "footer");
 
-function DialogContent({
+const StyledButton = styled(ark.button);
+
+function ActionTrigger({
   ref,
-  children,
-  portalled = true,
-  portalRef,
-  backdrop = true,
-  ...rest
-}: WithRef<DialogContentProps>) {
-  return (
-    <Portal
-      disabled={!portalled}
-      container={portalRef}
-    >
-      {backdrop && <ChakraDialog.Backdrop />}
-      <ChakraDialog.Positioner>
-        <ChakraDialog.Content
-          animation="none"
-          ref={ref}
-          {...rest}
-          asChild={false}
-        >
-          {children}
-        </ChakraDialog.Content>
-      </ChakraDialog.Positioner>
-    </Portal>
-  );
-}
-
-function DialogCloseTrigger({
-  ref,
-  children,
   ...props
-}: WithRef<ChakraDialog.CloseTriggerProps, HTMLButtonElement>) {
+}: WithRef<ComponentProps<typeof StyledButton>, HTMLButtonElement>) {
+  const dialog = useDialogContext();
   return (
-    <ChakraDialog.CloseTrigger
-      position="absolute"
-      top="2"
+    <StyledButton
       {...props}
-      insetEnd="2"
-      asChild
-    >
-      <CloseButton
-        size="sm"
-        ref={ref}
-      >
-        {children}
-      </CloseButton>
-    </ChakraDialog.CloseTrigger>
+      ref={ref}
+      onClick={() => dialog.setOpen(false)}
+    />
   );
 }
 
-function DialogHeader(props: ChakraDialog.HeaderProps) {
-  return (
-    <Box
-      asChild
-      borderBottomWidth="1px"
-      borderColor="border"
-      boxShadow="0 5px 10px rgba(0, 0, 0, 0.035);"
-    >
-      <ChakraDialog.Header {...props} />
-    </Box>
-  );
-}
+export type DialogRootProps = ComponentProps<typeof Root>;
+export type DialogContentProps = ComponentProps<typeof Content>;
 
 export const Dialog = {
-  Root: ChakraDialog.Root,
-  Content: DialogContent,
-  CloseTrigger: DialogCloseTrigger,
-  Footer: ChakraDialog.Footer,
-  Header: DialogHeader,
-  Body: ChakraDialog.Body,
-  Backdrop: ChakraDialog.Backdrop,
-  Title: ChakraDialog.Title,
-  Description: ChakraDialog.Description,
-  Trigger: ChakraDialog.Trigger,
-  ActionTrigger: ChakraDialog.ActionTrigger,
+  Root,
+  RootProvider,
+  Backdrop,
+  CloseTrigger,
+  Content,
+  Description,
+  Positioner,
+  Title,
+  Trigger,
+  Body,
+  Header,
+  Footer,
+  ActionTrigger,
+  Context: DialogContext,
 };

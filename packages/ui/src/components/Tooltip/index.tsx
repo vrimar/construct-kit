@@ -1,18 +1,37 @@
-import { Portal, Tooltip as ChakraTooltip } from "@chakra-ui/react";
-import type { ReactNode, RefObject } from "react";
+import { Portal } from "@ark-ui/react/portal";
+import { Tooltip as ArkTooltip } from "@ark-ui/react/tooltip";
+import type { ComponentProps } from "react";
+import { createStyleContext } from "styled-system/jsx";
+import { tooltip } from "styled-system/recipes";
 import type { WithRef } from "../../types";
 
-export interface TooltipProps extends ChakraTooltip.RootProps {
+const { withRootProvider, withContext } = createStyleContext(tooltip);
+
+type RootProps = ComponentProps<typeof Root>;
+type ContentProps = ComponentProps<typeof Content>;
+const Root = withRootProvider(ArkTooltip.Root, {
+  defaultProps: { unmountOnExit: true, lazyMount: true },
+});
+const Arrow = withContext(ArkTooltip.Arrow, "arrow");
+const ArrowTip = withContext(ArkTooltip.ArrowTip, "arrowTip");
+const Content = withContext(ArkTooltip.Content, "content");
+const Positioner = withContext(ArkTooltip.Positioner, "positioner");
+const Trigger = withContext(ArkTooltip.Trigger, "trigger");
+
+export { TooltipContext as Context } from "@ark-ui/react/tooltip";
+
+export interface TooltipProps extends Omit<RootProps, "content"> {
   showArrow?: boolean;
   portalled?: boolean;
-  portalRef?: RefObject<HTMLElement>;
-  content: ReactNode;
-  contentProps?: ChakraTooltip.ContentProps;
+  portalRef?: React.RefObject<HTMLElement | null>;
+  children: React.ReactNode | undefined;
+  content: React.ReactNode | string;
+  contentProps?: ContentProps;
   disabled?: boolean;
-  placement?: NonNullable<ChakraTooltip.RootProps["positioning"]>["placement"];
+  placement?: NonNullable<RootProps["positioning"]>["placement"];
 }
 
-export function Tooltip({
+export const Tooltip = ({
   ref,
   showArrow,
   children,
@@ -22,38 +41,36 @@ export function Tooltip({
   contentProps,
   portalRef,
   placement = "top",
-  ...rest
-}: WithRef<TooltipProps>) {
+  ...rootProps
+}: WithRef<TooltipProps>) => {
   if (disabled) return children;
 
   return (
-    <ChakraTooltip.Root
-      lazyMount
-      unmountOnExit
+    <Root
       openDelay={300}
       closeDelay={0}
       positioning={{ placement }}
-      {...rest}
+      {...rootProps}
     >
-      <ChakraTooltip.Trigger asChild>{children}</ChakraTooltip.Trigger>
+      <Trigger asChild>{children}</Trigger>
       <Portal
         disabled={!portalled}
         container={portalRef}
       >
-        <ChakraTooltip.Positioner>
-          <ChakraTooltip.Content
+        <Positioner>
+          <Content
             ref={ref}
             {...contentProps}
           >
             {showArrow && (
-              <ChakraTooltip.Arrow>
-                <ChakraTooltip.ArrowTip />
-              </ChakraTooltip.Arrow>
+              <Arrow>
+                <ArrowTip />
+              </Arrow>
             )}
             {content}
-          </ChakraTooltip.Content>
-        </ChakraTooltip.Positioner>
+          </Content>
+        </Positioner>
       </Portal>
-    </ChakraTooltip.Root>
+    </Root>
   );
-}
+};

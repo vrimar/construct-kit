@@ -1,14 +1,39 @@
-import { HStack, Slider as ChakraSlider } from "@chakra-ui/react";
+import { ark } from "@ark-ui/react/factory";
+import { Slider as ArkSlider } from "@ark-ui/react/slider";
+import type { ComponentProps } from "react";
 import React from "react";
+import { createStyleContext, HStack } from "styled-system/jsx";
+import { slider } from "styled-system/recipes";
 import type { WithRef } from "../../types";
 
-export interface SliderProps extends ChakraSlider.RootProps {
+const { withProvider, withContext } = createStyleContext(slider);
+
+type RootProps = ComponentProps<typeof Root>;
+const Root = withProvider(ArkSlider.Root, "root");
+const Control = withContext(ArkSlider.Control, "control");
+const Label = withContext(ArkSlider.Label, "label");
+const Marker = withContext(ArkSlider.Marker, "marker");
+const MarkerIndicator = withContext(ark.div, "markerIndicator");
+const MarkerGroup = withContext(ArkSlider.MarkerGroup, "markerGroup");
+const Range = withContext(ArkSlider.Range, "range");
+const Thumb = withContext(ArkSlider.Thumb, "thumb");
+const Track = withContext(ArkSlider.Track, "track");
+const ValueText = withContext(ArkSlider.ValueText, "valueText");
+const HiddenInput = ArkSlider.HiddenInput;
+
+export interface SliderProps extends RootProps {
   marks?: Array<number | { value: number; label: React.ReactNode }>;
   label?: React.ReactNode;
   showValue?: boolean;
 }
 
-export function Slider({ ref, marks: marksProp, label, showValue, ...rest }: WithRef<SliderProps>) {
+export const Slider = ({
+  ref,
+  marks: marksProp,
+  label,
+  showValue,
+  ...rest
+}: WithRef<SliderProps>) => {
   const value = rest.defaultValue ?? rest.value;
 
   const marks = marksProp?.map((mark) => {
@@ -19,50 +44,50 @@ export function Slider({ ref, marks: marksProp, label, showValue, ...rest }: Wit
   const hasMarkLabel = !!marks?.some((mark) => mark.label);
 
   return (
-    <ChakraSlider.Root
+    <Root
       ref={ref}
       cursor="pointer"
       thumbAlignment="center"
       {...rest}
     >
-      {label && !showValue && <ChakraSlider.Label fontWeight="medium">{label}</ChakraSlider.Label>}
+      {label && !showValue && <Label fontWeight="medium">{label}</Label>}
       {label && showValue && (
         <HStack justify="space-between">
-          <ChakraSlider.Label fontWeight="medium">{label}</ChakraSlider.Label>
-          <ChakraSlider.ValueText />
+          <Label fontWeight="medium">{label}</Label>
+          <ValueText />
         </HStack>
       )}
-      <ChakraSlider.Control mb={hasMarkLabel ? "4" : undefined}>
-        <ChakraSlider.Track>
-          <ChakraSlider.Range />
-        </ChakraSlider.Track>
+      <Control mb={hasMarkLabel ? "4" : undefined}>
+        <Track>
+          <Range />
+        </Track>
         {value?.map((_, index) => (
-          <ChakraSlider.Thumb
+          <Thumb
             key={index}
             index={index}
           >
-            <ChakraSlider.HiddenInput />
-          </ChakraSlider.Thumb>
+            <HiddenInput />
+          </Thumb>
         ))}
-      </ChakraSlider.Control>
+      </Control>
       {marks?.length && (
-        <ChakraSlider.MarkerGroup>
+        <MarkerGroup>
           {marks.map((mark, index) => {
             const value = typeof mark === "number" ? mark : mark.value;
             const label = typeof mark === "number" ? undefined : mark.label;
             return (
-              <ChakraSlider.Marker
+              <Marker
                 key={index}
                 value={value}
-                fontSize="16px"
+                fontSize="md"
               >
-                <ChakraSlider.MarkerIndicator />
+                <MarkerIndicator />
                 {label}
-              </ChakraSlider.Marker>
+              </Marker>
             );
           })}
-        </ChakraSlider.MarkerGroup>
+        </MarkerGroup>
       )}
-    </ChakraSlider.Root>
+    </Root>
   );
-}
+};

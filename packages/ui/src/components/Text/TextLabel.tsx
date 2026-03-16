@@ -1,4 +1,4 @@
-import { Text, type TextProps } from "@chakra-ui/react";
+import { Text, type TextProps } from "./Text";
 
 export const TextLabel = (props: TextProps) => {
   return (

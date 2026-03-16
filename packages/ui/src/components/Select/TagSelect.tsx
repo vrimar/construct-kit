@@ -1,5 +1,6 @@
-import { Box, Text } from "@chakra-ui/react";
 import React, { useLayoutEffect, useRef, useState } from "react";
+import { Box } from "styled-system/jsx";
+import { Text } from "../Text";
 
 import { TagsInput } from "../TagsInput";
 import { Select, type SelectProps } from "./Select";

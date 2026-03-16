@@ -1,5 +1,6 @@
-import { Button, HStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { HStack } from "styled-system/jsx";
+import { Button } from "../Buttons";
 
 import type { SelectProps, SelectValue } from "../Select";
 import { Select } from "../Select";
@@ -101,7 +102,7 @@ export const ApplySelect = <T, V extends SelectValue>({
             width="100%"
           >
             <Button
-              variant="ghost"
+              variant="plain"
               onClick={handleReset}
               size="xs"
             >

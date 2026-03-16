@@ -1,27 +1,52 @@
-import { NumberInput as ChakraNumberInput } from "@chakra-ui/react";
+import { NumberInput as ArkNumberInput } from "@ark-ui/react/number-input";
+import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
+import type { ComponentProps } from "react";
+import { createStyleContext } from "styled-system/jsx";
+import { numberInput } from "styled-system/recipes";
 import type { WithRef } from "../../types";
 
-export type NumberInputProps = ChakraNumberInput.RootProps;
+const { withProvider, withContext } = createStyleContext(numberInput);
+
+type RootProps = ComponentProps<typeof Root>;
+const Root = withProvider(ArkNumberInput.Root, "root");
+const DecrementTrigger = withContext(ArkNumberInput.DecrementTrigger, "decrementTrigger", {
+  defaultProps: { children: <ChevronDownIcon /> },
+});
+const IncrementTrigger = withContext(ArkNumberInput.IncrementTrigger, "incrementTrigger", {
+  defaultProps: { children: <ChevronUpIcon /> },
+});
+const Input = withContext(ArkNumberInput.Input, "input");
+const Label = withContext(ArkNumberInput.Label, "label");
+const Scrubber = withContext(ArkNumberInput.Scrubber, "scrubber");
+const Control = withContext(ArkNumberInput.Control, "control", {
+  defaultProps: {
+    children: (
+      <>
+        <IncrementTrigger />
+        <DecrementTrigger />
+      </>
+    ),
+  },
+});
+
+export type NumberInputProps = RootProps;
 
 function NumberInputRoot({ ref, children, ...rest }: WithRef<NumberInputProps>) {
   return (
-    <ChakraNumberInput.Root
+    <Root
       ref={ref}
       variant="outline"
       {...rest}
     >
       {children}
-      {/* <ChakraNumberInput.Control>
-        <ChakraNumberInput.IncrementTrigger />
-        <ChakraNumberInput.DecrementTrigger />
-      </ChakraNumberInput.Control> */}
-    </ChakraNumberInput.Root>
+    </Root>
   );
 }
 
 export const NumberInput = Object.assign(NumberInputRoot, {
   Root: NumberInputRoot,
-  Field: ChakraNumberInput.Input,
-  Scrubber: ChakraNumberInput.Scrubber,
-  Label: ChakraNumberInput.Label,
+  Field: Input,
+  Control,
+  Scrubber,
+  Label,
 });

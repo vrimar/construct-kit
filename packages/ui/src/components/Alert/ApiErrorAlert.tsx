@@ -1,16 +1,18 @@
 import { Alert } from "./Alert";
 
-interface Props {
-  error?: any;
+interface ApiErrorAlertProps {
+  error?: unknown;
 }
 
-export const ApiErrorAlert = ({ error }: Props) => {
-  const message =
-    error?.Message ||
-    error?.message ||
-    error?.description ||
-    error?.error_description ||
-    "An error has occurred";
+export const ApiErrorAlert = ({ error }: ApiErrorAlertProps) => {
+  const err = error as Record<string, unknown> | undefined;
+  const message = String(
+    err?.Message ||
+      err?.message ||
+      err?.description ||
+      err?.error_description ||
+      "An error has occurred",
+  );
 
   return (
     <Alert

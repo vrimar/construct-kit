@@ -1,6 +1,8 @@
-import { Box, Flex, IconButton, Text } from "@chakra-ui/react";
+import { ChevronDownIcon, ChevronRightIcon, SquareCheckIcon, SquareIcon } from "lucide-react";
 import React, { useMemo, useState } from "react";
-import { FiCheckSquare, FiChevronDown, FiChevronRight, FiSquare } from "react-icons/fi";
+import { Box, Flex } from "styled-system/jsx";
+import { IconButton } from "../Buttons";
+import { Text } from "../Text";
 
 import { Checkbox } from "../Checkbox";
 import { SearchInput } from "../Input/SearchInput";
@@ -135,13 +137,13 @@ export const TreeSelectList = <T,>({
             <IconButton
               aria-label={allSelected ? "Deselect all" : "Select all"}
               size="xs"
-              variant="ghost"
+              variant="plain"
               color="fg.muted"
               mr="1"
               flexShrink={0}
               onClick={toggleAll}
             >
-              {allSelected || someSelected ? <FiCheckSquare /> : <FiSquare />}
+              {allSelected || someSelected ? <SquareCheckIcon /> : <SquareIcon />}
             </IconButton>
           </Tooltip>
         )}
@@ -188,7 +190,7 @@ export const TreeSelectList = <T,>({
                     toggleCollapse(group.id);
                   }}
                 >
-                  {isCollapsed ? <FiChevronRight /> : <FiChevronDown />}
+                  {isCollapsed ? <ChevronRightIcon /> : <ChevronDownIcon />}
                 </Box>
 
                 <Box
