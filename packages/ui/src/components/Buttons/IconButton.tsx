@@ -21,4 +21,4 @@ export const IconButton = ({
       {icon ?? children}
     </Button>
   );
-}
+};

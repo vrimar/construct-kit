@@ -30,18 +30,7 @@ export type {
   WrapProps,
 } from "styled-system/jsx";
 
-/**
- * Re-export `Divider` as `Separator` for backward compatibility.
- */
-
-/**
- * Re-export `Divider` as `Separator` for backward compatibility.
- */
-/**
- * Re-export `Divider` as `Separator` for backward compatibility.
- */
-/**
- * Re-export `Divider` as `Separator` for backward compatibility.
- */
+/** Re-export `Divider` as `Separator` for backward compatibility. */
+/** Re-export `Divider` as `Separator` for backward compatibility. */
 export { Divider as Separator } from "styled-system/jsx";
 export type { DividerProps as SeparatorProps } from "styled-system/jsx";

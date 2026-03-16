@@ -31,8 +31,9 @@ export const Variants: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
       <Button variant="solid">Solid</Button>
+      <Button variant="surface">Surface</Button>
+      <Button variant="subtle">Subtle</Button>
       <Button variant="outline">Outline</Button>
-      <Button variant="ghost">Ghost</Button>
       <Button variant="plain">Plain</Button>
     </div>
   ),

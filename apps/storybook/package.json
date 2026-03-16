@@ -16,7 +16,6 @@
   },
   "devDependencies": {
     "@b3/config": "workspace:*",
-    "@chakra-ui/react": "^3.34.0",
     "@storybook/addon-a11y": "^10.2.15",
     "@storybook/react": "^10.2.15",
     "@storybook/react-vite": "^10.2.15",

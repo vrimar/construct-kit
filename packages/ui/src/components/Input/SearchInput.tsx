@@ -9,10 +9,9 @@ export interface SearchInputProps extends InputProps {
   hasSearchIcon?: boolean;
 }
 
-type InputSize = "2xs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
-type ButtonSize = "2xs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
+type Size = "2xs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
 
-const iconButtonSizeMap: Record<InputSize, ButtonSize> = {
+const iconButtonSizeMap: Record<Size, Size> = {
   "2xs": "2xs",
   xs: "xs",
   sm: "xs",
@@ -22,8 +21,13 @@ const iconButtonSizeMap: Record<InputSize, ButtonSize> = {
   "2xl": "sm",
 };
 
-export const SearchInput = ({ hasSearchIcon = true, onClear, ...props }: SearchInputProps) => {
-  const iconButtonSize = iconButtonSizeMap[(props.size as InputSize) ?? "md"] ?? "xs";
+export const SearchInput = ({
+  hasSearchIcon = true,
+  onClear,
+  size,
+  ...props
+}: SearchInputProps) => {
+  const iconButtonSize = iconButtonSizeMap[(size as Size) ?? "md"] ?? "xs";
   return (
     <InputGroup
       startElement={hasSearchIcon && <SearchIcon />}
@@ -39,8 +43,12 @@ export const SearchInput = ({ hasSearchIcon = true, onClear, ...props }: SearchI
         )
       }
       width="100%"
+      size={size}
     >
-      <Input {...props} />
+      <Input
+        size={size}
+        {...props}
+      />
     </InputGroup>
   );
 };

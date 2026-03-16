@@ -5,7 +5,7 @@ export interface UseRowSelectionOptions<T> {
   getId: (row: T) => number | string;
 }
 
-export function useRowSelection<T>({ rows, getId }: UseRowSelectionOptions<T>) {
+export const useRowSelection = <T,>({ rows, getId }: UseRowSelectionOptions<T>) => {
   type Id = ReturnType<typeof getId>;
 
   const [selected, setSelected] = React.useState<Set<Id>>(() => new Set());
@@ -57,4 +57,4 @@ export function useRowSelection<T>({ rows, getId }: UseRowSelectionOptions<T>) {
     allOnPage,
     indeterminate,
   };
-}
+};

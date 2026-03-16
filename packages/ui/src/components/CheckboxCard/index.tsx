@@ -9,12 +9,12 @@ const CardRoot = styled("label", {
     display: "flex",
     flexDirection: "column",
     borderWidth: "1px",
-    borderColor: "border.default",
+    borderColor: "border",
     borderRadius: "l2",
     cursor: "pointer",
     userSelect: "none",
     _hover: { bg: "bg.subtle" },
-    _checked: { borderColor: "colorPalette.default", bg: "colorPalette.subtle" },
+    _checked: { borderColor: "colorPalette", bg: "colorPalette.subtle" },
   },
 });
 
@@ -54,7 +54,7 @@ const CardDescription = styled("span", {
 const CardAddon = styled("div", {
   base: {
     borderTopWidth: "1px",
-    borderColor: "border.default",
+    borderColor: "border",
     px: "4",
     py: "3",
   },

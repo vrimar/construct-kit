@@ -2,6 +2,8 @@ import dayjs from "dayjs";
 import { useMemo } from "react";
 import { DatePickerSelect, type DateValue, parseDate } from "../../../DatePicker";
 
+const DATE_RANGE_SEPARATOR = "<>";
+
 interface ColumnDateFilterProps {
   dateValue: string;
   onChange: (value?: string) => unknown;
@@ -12,12 +14,13 @@ export const ColumnDateFilter = ({ dateValue, onChange }: ColumnDateFilterProps)
     const getLabel = (item: DateValue) =>
       `${item.year}-${String(item.month).padStart(2, "0")}-${String(item.day).padStart(2, "0")}`;
 
-    if (value.length === 2) onChange(`${getLabel(value[0])}<>${getLabel(value[1])}`);
+    if (value.length === 2)
+      onChange(`${getLabel(value[0])}${DATE_RANGE_SEPARATOR}${getLabel(value[1])}`);
     else if (value.length === 0) onChange(undefined);
   };
 
   const value = useMemo(() => {
-    const dateTokens = dateValue.split("<>");
+    const dateTokens = dateValue.split(DATE_RANGE_SEPARATOR);
 
     if (dateTokens?.length !== 2) return [];
 

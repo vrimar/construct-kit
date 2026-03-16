@@ -15,12 +15,14 @@ import { text } from "./text";
 import { textarea } from "./textarea";
 
 import { accordion } from "./accordion";
+import { actionbar } from "./actionbar";
 import { alert } from "./alert";
 import { avatar } from "./avatar";
 import { breadcrumb } from "./breadcrumb";
 import { card } from "./card";
 import { carousel } from "./carousel";
 import { checkbox } from "./checkbox";
+import { checkboxCard } from "./checkbox-card";
 import { clipboard } from "./clipboard";
 import { collapsible } from "./collapsible";
 import { colorPicker } from "./color-picker";
@@ -29,6 +31,7 @@ import { datePicker } from "./date-picker";
 import { dialog } from "./dialog";
 import { drawer } from "./drawer";
 import { editable } from "./editable";
+import { emptyState } from "./empty-state";
 import { field } from "./field";
 import { fieldset } from "./fieldset";
 import { fileUpload } from "./file-upload";
@@ -48,6 +51,7 @@ import { segmentGroup } from "./segment-group";
 import { select } from "./select";
 import { slider } from "./slider";
 import { splitter } from "./splitter";
+import { stat } from "./stat";
 import { switchRecipe } from "./switch";
 import { table } from "./table";
 import { tabs } from "./tabs";
@@ -77,12 +81,14 @@ export const recipes = {
 
 export const slotRecipes = {
   accordion,
+  actionbar,
   alert,
   avatar,
   breadcrumb,
   card,
   carousel,
   checkbox,
+  checkboxCard,
   clipboard,
   collapsible,
   colorPicker,
@@ -91,6 +97,7 @@ export const slotRecipes = {
   dialog,
   drawer,
   editable,
+  emptyState,
   field,
   fieldset,
   fileUpload,
@@ -110,6 +117,7 @@ export const slotRecipes = {
   select,
   slider,
   splitter,
+  stat,
   switchRecipe,
   table,
   tabs,

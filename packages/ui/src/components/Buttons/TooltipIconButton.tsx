@@ -25,4 +25,4 @@ export const TooltipIconButton = ({
       <IconButton {...props}>{children}</IconButton>
     </Tooltip>
   );
-}
+};

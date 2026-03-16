@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDebounce } from "react-use";
 
-export function useDebounceQuery(initialQuery = "", delay = 500) {
+export const useDebounceQuery = (initialQuery = "", delay = 500) => {
   const [debouncedQuery, setDebouncedQuery] = useState(initialQuery);
   const [immediateQuery, setImmediateQuery] = useState("");
 
@@ -14,4 +14,4 @@ export function useDebounceQuery(initialQuery = "", delay = 500) {
   };
 
   return { query: immediateQuery, debouncedQuery, setQuery: handleQueryChange };
-}
+};

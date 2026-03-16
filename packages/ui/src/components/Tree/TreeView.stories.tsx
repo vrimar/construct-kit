@@ -67,19 +67,29 @@ export default meta;
 
 function TreeNode({ node, indexPath }: { node: Node; indexPath: number[] }) {
   return node.children ? (
-    <TreeView.Branch value={node.id} indexPath={indexPath}>
+    <TreeView.Branch
+      value={node.id}
+      indexPath={indexPath}
+    >
       <TreeView.BranchControl>
         <TreeView.BranchIndicator />
         <TreeView.BranchText>{node.name}</TreeView.BranchText>
       </TreeView.BranchControl>
       <TreeView.BranchContent>
         {node.children.map((child, index) => (
-          <TreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
+          <TreeNode
+            key={child.id}
+            node={child}
+            indexPath={[...indexPath, index]}
+          />
         ))}
       </TreeView.BranchContent>
     </TreeView.Branch>
   ) : (
-    <TreeView.Item value={node.id} indexPath={indexPath}>
+    <TreeView.Item
+      value={node.id}
+      indexPath={indexPath}
+    >
       <TreeView.ItemText>{node.name}</TreeView.ItemText>
     </TreeView.Item>
   );
@@ -87,7 +97,10 @@ function TreeNode({ node, indexPath }: { node: Node; indexPath: number[] }) {
 
 function CustomTreeNode({ node, indexPath }: { node: Node; indexPath: number[] }) {
   return node.children ? (
-    <TreeView.Branch value={node.id} indexPath={indexPath}>
+    <TreeView.Branch
+      value={node.id}
+      indexPath={indexPath}
+    >
       <TreeView.BranchControl>
         <TreeView.BranchIndicator />
         <FolderIcon />
@@ -95,12 +108,19 @@ function CustomTreeNode({ node, indexPath }: { node: Node; indexPath: number[] }
       </TreeView.BranchControl>
       <TreeView.BranchContent>
         {node.children.map((child, index) => (
-          <CustomTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
+          <CustomTreeNode
+            key={child.id}
+            node={child}
+            indexPath={[...indexPath, index]}
+          />
         ))}
       </TreeView.BranchContent>
     </TreeView.Branch>
   ) : (
-    <TreeView.Item value={node.id} indexPath={indexPath}>
+    <TreeView.Item
+      value={node.id}
+      indexPath={indexPath}
+    >
       <FileIcon />
       <TreeView.ItemText>{node.name}</TreeView.ItemText>
     </TreeView.Item>
@@ -109,7 +129,10 @@ function CustomTreeNode({ node, indexPath }: { node: Node; indexPath: number[] }
 
 function CheckboxTreeNode({ node, indexPath }: { node: Node; indexPath: number[] }) {
   return node.children ? (
-    <TreeView.Branch value={node.id} indexPath={indexPath}>
+    <TreeView.Branch
+      value={node.id}
+      indexPath={indexPath}
+    >
       <TreeView.BranchControl>
         <TreeView.NodeCheckbox>
           <TreeView.NodeCheckboxIndicator>
@@ -124,12 +147,19 @@ function CheckboxTreeNode({ node, indexPath }: { node: Node; indexPath: number[]
       </TreeView.BranchControl>
       <TreeView.BranchContent>
         {node.children.map((child, index) => (
-          <CheckboxTreeNode key={child.id} node={child} indexPath={[...indexPath, index]} />
+          <CheckboxTreeNode
+            key={child.id}
+            node={child}
+            indexPath={[...indexPath, index]}
+          />
         ))}
       </TreeView.BranchContent>
     </TreeView.Branch>
   ) : (
-    <TreeView.Item value={node.id} indexPath={indexPath}>
+    <TreeView.Item
+      value={node.id}
+      indexPath={indexPath}
+    >
       <TreeView.NodeCheckbox>
         <TreeView.NodeCheckboxIndicator>
           <CheckIcon />
@@ -142,11 +172,24 @@ function CheckboxTreeNode({ node, indexPath }: { node: Node; indexPath: number[]
 
 export const Basic: StoryObj = {
   render: () => (
-    <Box maxW="320px" border="1px solid" borderColor="border" rounded="md" p="2">
-      <TreeView.Root collection={collection} defaultExpandedValue={["src", "components"]}>
+    <Box
+      maxW="320px"
+      border="1px solid"
+      borderColor="border"
+      rounded="md"
+      p="2"
+    >
+      <TreeView.Root
+        collection={collection}
+        defaultExpandedValue={["src", "components"]}
+      >
         <TreeView.Tree>
           {collection.rootNode.children!.map((node, index) => (
-            <TreeNode key={node.id} node={node} indexPath={[index]} />
+            <TreeNode
+              key={node.id}
+              node={node}
+              indexPath={[index]}
+            />
           ))}
         </TreeView.Tree>
       </TreeView.Root>
@@ -156,11 +199,24 @@ export const Basic: StoryObj = {
 
 export const WithCustomRender: StoryObj = {
   render: () => (
-    <Box maxW="320px" border="1px solid" borderColor="border" rounded="md" p="2">
-      <TreeView.Root collection={collection} defaultExpandedValue={["src"]}>
+    <Box
+      maxW="320px"
+      border="1px solid"
+      borderColor="border"
+      rounded="md"
+      p="2"
+    >
+      <TreeView.Root
+        collection={collection}
+        defaultExpandedValue={["src"]}
+      >
         <TreeView.Tree>
           {collection.rootNode.children!.map((node, index) => (
-            <CustomTreeNode key={node.id} node={node} indexPath={[index]} />
+            <CustomTreeNode
+              key={node.id}
+              node={node}
+              indexPath={[index]}
+            />
           ))}
         </TreeView.Tree>
       </TreeView.Root>
@@ -170,11 +226,24 @@ export const WithCustomRender: StoryObj = {
 
 export const WithCheckboxes: StoryObj = {
   render: () => (
-    <Box maxW="320px" border="1px solid" borderColor="border" rounded="md" p="2">
-      <TreeView.Root collection={collection} defaultExpandedValue={["src", "components"]}>
+    <Box
+      maxW="320px"
+      border="1px solid"
+      borderColor="border"
+      rounded="md"
+      p="2"
+    >
+      <TreeView.Root
+        collection={collection}
+        defaultExpandedValue={["src", "components"]}
+      >
         <TreeView.Tree>
           {collection.rootNode.children!.map((node, index) => (
-            <CheckboxTreeNode key={node.id} node={node} indexPath={[index]} />
+            <CheckboxTreeNode
+              key={node.id}
+              node={node}
+              indexPath={[index]}
+            />
           ))}
         </TreeView.Tree>
       </TreeView.Root>

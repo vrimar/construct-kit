@@ -1,8 +1,8 @@
 import {
-    ChevronLeftIcon,
-    ChevronRightIcon,
-    ChevronsLeftIcon,
-    ChevronsRightIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronsLeftIcon,
+  ChevronsRightIcon,
 } from "lucide-react";
 import { HStack } from "styled-system/jsx";
 import { Text } from "../Text";

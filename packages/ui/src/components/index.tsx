@@ -53,7 +53,6 @@ export * from "./Pagination";
 export * from "./PinInput";
 export { Popover, type PopoverContentProps, type PopoverRootProps } from "./Popover";
 export * from "./Progress";
-export * from "./Provider";
 export { Radio, RadioGroup, type RadioProps } from "./Radio";
 export * from "./RadioCard";
 export { RatingGroup, type RatingGroupRootProps } from "./RatingGroup";

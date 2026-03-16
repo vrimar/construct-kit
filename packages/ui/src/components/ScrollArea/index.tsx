@@ -1,11 +1,18 @@
-import { ark } from "@ark-ui/react/factory";
 import { ScrollArea as ArkScrollArea } from "@ark-ui/react/scroll-area";
-import { styled, type HTMLStyledProps } from "styled-system/jsx";
+import { createStyleContext, type HTMLStyledProps } from "styled-system/jsx";
+import { scrollArea, type ScrollAreaVariantProps } from "styled-system/recipes";
 import type { WithRef } from "../../types";
 
-const StyledDiv = styled(ark.div);
+const { withProvider, withContext } = createStyleContext(scrollArea);
 
-export interface ScrollAreaProps extends HTMLStyledProps<"div"> {
+const Root = withProvider(ArkScrollArea.Root, "root");
+const Viewport = withContext(ArkScrollArea.Viewport, "viewport");
+const Content = withContext(ArkScrollArea.Content, "content");
+const Scrollbar = withContext(ArkScrollArea.Scrollbar, "scrollbar");
+const Thumb = withContext(ArkScrollArea.Thumb, "thumb");
+const Corner = withContext(ArkScrollArea.Corner, "corner");
+
+export interface ScrollAreaProps extends HTMLStyledProps<"div">, ScrollAreaVariantProps {
   horizontalEnabled?: boolean;
   verticalEnabled?: boolean;
 }
@@ -18,92 +25,38 @@ export const ScrollArea = ({
   ...props
 }: WithRef<ScrollAreaProps>) => {
   return (
-    <StyledDiv
-      asChild
-      position="relative"
-      overflow="hidden"
-      {...props}
-    >
-      <ArkScrollArea.Root>
-        <StyledDiv
-          asChild
-          width="100%"
-          height="100%"
-          rounded="inherit"
-          css={{
-            scrollbarWidth: "none",
-            "&::-webkit-scrollbar": { display: "none" },
-          }}
+    <Root {...props}>
+      <Viewport
+        ref={ref}
+        style={{
+          overflowX: horizontalEnabled ? undefined : "hidden",
+          overflowY: verticalEnabled ? undefined : "hidden",
+        }}
+      >
+        <Content
+          width={horizontalEnabled ? undefined : "100%"}
+          minWidth={horizontalEnabled ? undefined : "100%"}
         >
-          <ArkScrollArea.Viewport ref={ref}>
-            <ArkScrollArea.Content>{children}</ArkScrollArea.Content>
-          </ArkScrollArea.Viewport>
-        </StyledDiv>
-        {verticalEnabled && (
-          <StyledDiv
-            key="vertical"
-            asChild
-            display="flex"
-            userSelect="none"
-            bg="bg.subtle"
-            transition="background 160ms ease-out"
-            width="2"
-            css={{
-              opacity: 0,
-              pointerEvents: "none",
-              "&[data-hover], &[data-scrolling]": {
-                opacity: 1,
-                pointerEvents: "auto",
-              },
-            }}
-          >
-            <ArkScrollArea.Scrollbar orientation="vertical">
-              <StyledDiv
-                asChild
-                flex="1"
-                position="relative"
-                bg="border"
-                borderRadius="sm"
-              >
-                <ArkScrollArea.Thumb />
-              </StyledDiv>
-            </ArkScrollArea.Scrollbar>
-          </StyledDiv>
-        )}
-        {horizontalEnabled && (
-          <StyledDiv
-            key="horizontal"
-            asChild
-            display="flex"
-            userSelect="none"
-            bg="bg.muted"
-            transition="background 160ms ease-out"
-            height="2"
-            flexDirection="column"
-            css={{
-              opacity: 0,
-              pointerEvents: "none",
-              "&[data-hover], &[data-scrolling]": {
-                opacity: 1,
-                pointerEvents: "auto",
-              },
-            }}
-          >
-            <ArkScrollArea.Scrollbar orientation="horizontal">
-              <StyledDiv
-                asChild
-                flex="1"
-                position="relative"
-                bg="border"
-                borderRadius="sm"
-              >
-                <ArkScrollArea.Thumb />
-              </StyledDiv>
-            </ArkScrollArea.Scrollbar>
-          </StyledDiv>
-        )}
-        <ArkScrollArea.Corner />
-      </ArkScrollArea.Root>
-    </StyledDiv>
+          {children}
+        </Content>
+      </Viewport>
+      {verticalEnabled && (
+        <Scrollbar
+          key="vertical"
+          orientation="vertical"
+        >
+          <Thumb />
+        </Scrollbar>
+      )}
+      {horizontalEnabled && (
+        <Scrollbar
+          key="horizontal"
+          orientation="horizontal"
+        >
+          <Thumb />
+        </Scrollbar>
+      )}
+      <Corner />
+    </Root>
   );
 };

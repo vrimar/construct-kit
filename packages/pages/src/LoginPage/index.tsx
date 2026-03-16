@@ -53,7 +53,7 @@ export function LoginPage({ onSubmit, isLoading, logo, onForgotPassword }: Login
           {onForgotPassword && (
             <Button
               type="button"
-              variant="ghost"
+              variant="plain"
               onClick={onForgotPassword}
             >
               Forgot your password?

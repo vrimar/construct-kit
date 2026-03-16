@@ -11,12 +11,13 @@ export interface PasswordInputProps extends InputProps {
   containerProps?: InputGroupProps;
 }
 
-export const PasswordInput = ({ containerProps, ...props }: PasswordInputProps) => {
+export const PasswordInput = ({ containerProps, size, ...props }: PasswordInputProps) => {
   const [isVisible, setIsVisible] = useState(false);
 
   return (
     <InputGroup
       width="100%"
+      size={size}
       {...containerProps}
       endElement={
         <TooltipIconButton
@@ -29,6 +30,7 @@ export const PasswordInput = ({ containerProps, ...props }: PasswordInputProps) 
       }
     >
       <Input
+        size={size}
         type={isVisible ? "text" : "password"}
         {...props}
       />

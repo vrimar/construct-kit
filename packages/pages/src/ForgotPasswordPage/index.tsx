@@ -35,7 +35,7 @@ export function ForgotPasswordPage({
           />
           {onBack && (
             <Button
-              variant="ghost"
+              variant="plain"
               onClick={onBack}
             >
               Back to login
@@ -71,7 +71,7 @@ export function ForgotPasswordPage({
             {onBack && (
               <Button
                 type="button"
-                variant="ghost"
+                variant="plain"
                 onClick={onBack}
               >
                 Back to login

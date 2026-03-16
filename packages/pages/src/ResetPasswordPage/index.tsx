@@ -40,7 +40,7 @@ export function ResetPasswordPage({
           />
           {onBack && (
             <Button
-              variant="ghost"
+              variant="plain"
               onClick={onBack}
             >
               Back to login

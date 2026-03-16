@@ -4,6 +4,7 @@ import { type ComponentProps } from "react";
 import { createStyleContext, styled } from "styled-system/jsx";
 import { dialog } from "styled-system/recipes";
 import type { WithRef } from "../../types";
+import { CloseButton } from "../Buttons";
 
 const { withRootProvider, withContext } = createStyleContext(dialog);
 
@@ -14,7 +15,7 @@ const RootProvider = withRootProvider(ArkDialog.RootProvider, {
   defaultProps: { unmountOnExit: true, lazyMount: true },
 });
 const Backdrop = withContext(ArkDialog.Backdrop, "backdrop");
-const CloseTrigger = withContext(ArkDialog.CloseTrigger, "closeTrigger");
+const CloseTriggerPrimitive = withContext(ArkDialog.CloseTrigger, "closeTrigger");
 const Content = withContext(ArkDialog.Content, "content");
 const Description = withContext(ArkDialog.Description, "description");
 const Positioner = withContext(ArkDialog.Positioner, "positioner");
@@ -25,6 +26,33 @@ const Header = withContext(ark.div, "header");
 const Footer = withContext(ark.div, "footer");
 
 const StyledButton = styled(ark.button);
+
+function CloseTrigger({
+  ref,
+  children,
+  ...props
+}: WithRef<ComponentProps<typeof CloseTriggerPrimitive>, HTMLButtonElement>) {
+  if (children) {
+    return (
+      <CloseTriggerPrimitive
+        {...props}
+        ref={ref}
+      >
+        {children}
+      </CloseTriggerPrimitive>
+    );
+  }
+
+  return (
+    <CloseTriggerPrimitive
+      {...props}
+      asChild
+      ref={ref}
+    >
+      <CloseButton size="sm" />
+    </CloseTriggerPrimitive>
+  );
+}
 
 function ActionTrigger({
   ref,

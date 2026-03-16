@@ -11,6 +11,7 @@ export const DeleteButton = ({
   return (
     <IconButton
       ref={ref}
+      aria-label="Delete"
       variant="plain"
       size="xs"
       color="red.500"

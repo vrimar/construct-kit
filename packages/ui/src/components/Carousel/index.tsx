@@ -1,7 +1,7 @@
 import {
-    Carousel as ArkCarousel,
-    CarouselContext,
-    useCarouselContext,
+  Carousel as ArkCarousel,
+  CarouselContext,
+  useCarouselContext,
 } from "@ark-ui/react/carousel";
 import type { ComponentProps } from "react";
 import { createStyleContext } from "styled-system/jsx";

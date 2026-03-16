@@ -11,6 +11,7 @@ export const EditButton = ({
   return (
     <IconButton
       ref={ref}
+      aria-label="Edit"
       variant="plain"
       size="xs"
       {...props}

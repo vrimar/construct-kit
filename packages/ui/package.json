@@ -7,64 +7,64 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
-    "./theme": {
-      "types": "./dist/theme/index.d.ts",
-      "import": "./dist/theme/index.js",
-      "require": "./dist/theme/index.cjs"
+    "./preset": {
+      "import": {
+        "types": "./dist/preset.d.mts",
+        "default": "./dist/preset.mjs"
+      },
+      "require": {
+        "types": "./dist/preset.d.cts",
+        "default": "./dist/preset.cjs"
+      }
     }
   },
   "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "prepare": "panda codegen",
+    "build": "panda codegen && tsdown",
+    "dev": "panda codegen && tsdown --watch",
     "typecheck": "tsgo --noEmit",
     "lint": "oxlint src",
     "format": "oxfmt src -c ../config/oxfmt/index.jsonc",
-    "test": "vitest run",
-    "typegen": "chakra typegen ./src/theme/index.ts"
+    "test": "vitest run"
   },
   "dependencies": {
     "@ark-ui/react": "^5.34.1",
-    "react-resizable-panels": "^4.7.1",
     "@b3/utils": "workspace:*",
-    "@chakra-ui/react": "3.34.0",
-    "@emotion/react": "^11.14.0",
-    "@headless-tree/core": "^1.6.3",
-    "@headless-tree/react": "^1.6.3",
-    "@radix-ui/react-scroll-area": "^1.2.10",
     "@tanstack/react-table": "^8.21.3",
     "dayjs": "^1.11.19",
-    "react-aria-components": "^1.16.0",
+    "lucide-react": "^0.577.0",
+    "react-resizable-panels": "^4.7.1",
     "react-use": "^17.6.0",
-    "react-virtuoso": "^4.18.3",
+    "@tanstack/react-virtual": "^3.13.19",
     "ts-pattern": "^5.9.0"
   },
   "peerDependencies": {
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-icons": "^5.5.0"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@b3/config": "workspace:*",
-    "@chakra-ui/cli": "^3.34.0",
-    "@testing-library/react": "^16.3.2",
-    "@testing-library/user-event": "^14.6.1",
+    "@pandacss/dev": "^1.9.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "axe-core": "^4.11.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "react-icons": "^5.6.0",
-    "tsup": "^8.5.1",
+    "tsdown": "^0.21.2",
     "vitest": "^4.0.18"
   }
 }

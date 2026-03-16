@@ -46,6 +46,7 @@ export const DataTableHeaderCell = <TData,>({ header }: HeaderCellProps<TData>) 
         minWidth: widthPx,
         maxWidth: widthPx,
       }}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- dynamic selector unsupported by Panda CSS types
       css={
         {
           [`&:hover .${dataTableClasses.columnSorter}`]: {

@@ -11,7 +11,4 @@ Shared tool configuration for B3 frontend projects.
 | `@b3/config/oxfmt`      | `"@b3/config/oxfmt"` in `.oxfmtrc.jsonc`                |
 | `@b3/config/vite`       | `createViteConfig(overrides?)` factory                  |
 | `@b3/config/playwright` | `createPlaywrightConfig(overrides?)` factory            |
-
----
-
-[Architecture guide](../../readme.md)
+| `@b3/config/kubb`       | `createKubbConfig(options)` factory for OpenAPI codegen |

@@ -9,7 +9,10 @@ interface HeaderFilterCellProps<TData> {
   filterValues: string[];
 }
 
-export const DataTableHeaderFilterCell = <TData,>({ header, filterValues }: HeaderFilterCellProps<TData>) => {
+export const DataTableHeaderFilterCell = <TData,>({
+  header,
+  filterValues,
+}: HeaderFilterCellProps<TData>) => {
   const column = header.column;
   const isVisible = column.columnDef?.meta?.isVisible ?? true;
   const width = column.columnDef?.meta?.width ?? column.getSize();

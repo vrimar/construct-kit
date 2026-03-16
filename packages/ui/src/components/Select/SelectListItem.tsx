@@ -23,7 +23,7 @@ export const SelectListItem = <T,>({
 
   const handleItemSelect = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
-    if (target.closest(".select__actions")) return;
+    if (target.closest("[data-scope='select-actions']")) return;
     onSelect(item, e);
   };
 
@@ -60,7 +60,7 @@ export const SelectListItem = <T,>({
         </Box>
         {renderActions && (
           <HStack
-            className="select__actions"
+            data-scope="select-actions"
             alignSelf="flex-start"
             gap="0"
             bg="bg"

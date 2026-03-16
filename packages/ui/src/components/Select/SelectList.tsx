@@ -101,7 +101,7 @@ export const SelectList = <T, V extends SelectValue>({
   };
 
   const handleQueryChange = (value: string) => {
-    if (searchQuery != null && onSearchQueryChange) onSearchQueryChange(value);
+    if (searchQuery !== null && onSearchQueryChange) onSearchQueryChange(value);
     else setQuery(value);
   };
 
@@ -168,9 +168,13 @@ export const SelectList = <T, V extends SelectValue>({
         <ScrollArea
           width="100%"
           ref={scrollParentRef}
+          horizontalEnabled={false}
         >
           {virtual ? (
-            <Box style={{ height: virtualizer.getTotalSize(), position: "relative" }}>
+            <Box
+              width="100%"
+              style={{ height: virtualizer.getTotalSize(), position: "relative" }}
+            >
               {virtualizer.getVirtualItems().map((row) => {
                 const item = filteredItems[row.index];
                 const isSelected = selectedById.has(getValue(item));
@@ -179,6 +183,7 @@ export const SelectList = <T, V extends SelectValue>({
                 return (
                   <Box
                     key={itemValue}
+                    overflow="hidden"
                     style={{
                       position: "absolute",
                       top: 0,
@@ -192,7 +197,7 @@ export const SelectList = <T, V extends SelectValue>({
                       isSelected={isSelected}
                       item={item}
                       renderLabel={renderLabel || getLabel}
-                      onSelect={(item, e) => handleSelect(item, row.index, e)}
+                      onSelect={(selectedItem, e) => handleSelect(selectedItem, row.index, e)}
                       activeItemStyle={activeItemStyle}
                       renderActions={renderActions}
                     />
@@ -212,7 +217,7 @@ export const SelectList = <T, V extends SelectValue>({
                     isSelected={isSelected}
                     item={item}
                     renderLabel={renderLabel || getLabel}
-                    onSelect={(item, e) => handleSelect(item, itemIndex, e)}
+                    onSelect={(selectedItem, e) => handleSelect(selectedItem, itemIndex, e)}
                     activeItemStyle={activeItemStyle}
                     renderActions={renderActions}
                   />

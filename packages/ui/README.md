@@ -1,39 +1,47 @@
 # @b3/ui
 
-55+ Chakra UI v3 components for B3 apps. Components are wrapped so the internal API can evolve independently.
+60+ UI components for B3 apps, built on Panda CSS and Ark UI primitives.
 
-> **Rule:** Always import from `@b3/ui`, never from `@chakra-ui/*` directly.
+> **Rule:** Always import from `@b3/ui`, never from `@ark-ui/*` or `styled-system/*` directly.
 
 ## Setup
-
-```tsx
-import { ThemeProvider, designSystem, Toaster } from "@b3/ui";
-```
 
 Peer dependencies:
 
 ```bash
-pnpm add @chakra-ui/react @ark-ui/react react react-dom
+pnpm add @ark-ui/react react react-dom
 ```
 
-## Setup
-
-Wrap your app root with `ThemeProvider` using the exported design system:
+Wrap your app root with a Panda CSS-based provider:
 
 ```tsx
-import { ThemeProvider, designSystem, Toaster } from "@b3/ui";
+import { Provider, Toaster } from "@b3/ui";
 
-<ThemeProvider value={designSystem}>
+<Provider>
   <App />
   <Toaster />
-</ThemeProvider>;
+</Provider>;
+```
+
+## Theme
+
+Theme is compiled at build time via **Panda CSS**. The `b3Preset` (from `@b3/ui/preset`) defines brand tokens, semantic tokens, and component recipes.
+
+> `designSystem` is still exported for backward compatibility but is **deprecated** (returns an empty object). Use the Panda CSS preset instead.
+
+## Panda CSS Utilities
+
+```tsx
+import { css, cx, styled } from "@b3/ui";
+import type { HTMLStyledProps, StyledComponent } from "@b3/ui";
+import { token } from "@b3/ui"; // design token accessor
 ```
 
 ## Components
 
 ### Layout
 
-`Box`, `Flex`, `Stack`, `HStack`, `VStack`, `Center`, `Container`, `Grid`, `SimpleGrid`, `Group`, `Float`, `Separator`, `Wrap`
+`Box`, `Flex`, `Stack`, `HStack`, `VStack`, `Center`, `Container`, `Grid`, `GridItem`, `Spacer`, `Float`, `Separator` (alias for `Divider`), `Divider`, `Wrap`
 
 ### Buttons
 
@@ -41,27 +49,27 @@ import { ThemeProvider, designSystem, Toaster } from "@b3/ui";
 
 ### Data Display
 
-`DataTable`, `Badge`, `Avatar`, `Image`, `List`, `Table`, `Stat` (compound), `EmptyState`
+`DataTable`, `Badge`, `Avatar`, `Image`, `List` (compound), `Table`, `Stat` (compound), `EmptyState`, `Card`, `Carousel`, `Code`, `DisplayValue`, `Kbd`
 
 ### Feedback
 
-`Alert`, `ApiErrorAlert`, `LoadingOverlay`, `Toaster` / `toaster`
+`Alert`, `LoadingOverlay`, `Toaster` / `toaster`, `Progress`, `Skeleton`, `Spinner`
 
 ### Overlay / Dialog
 
-`Dialog` (compound), `SubmitDialog`, `DeleteDialog`, `Drawer`, `Popover` (compound), `Tooltip`, `ToggleTip`
+`Dialog` (compound), `SubmitDialog`, `DeleteDialog`, `Drawer`, `Popover` (compound), `Tooltip`, `ToggleTip`, `HoverCard`
 
 ### Form
 
-`Field`, `SubmitForm`, `Input`, `Textarea`, `InputGroup`, `PasswordInput`, `SearchInput`, `MultiLineInput`, `NumberInput` (compound), `Checkbox`, `CheckboxCard`, `Switch`, `Radio` / `RadioGroup`, `RadioCard`, `Slider`, `TagsInput`, `Editable`, `EditableText`, `FileUpload`, `FormFileUpload`
+`Form`, `Fieldset`, `Input`, `Textarea`, `InputGroup`, `PasswordInput`, `SearchInput`, `MultiLineInput`, `NumberInput` (compound), `Checkbox`, `CheckboxCard`, `Switch`, `Radio` / `RadioGroup`, `RadioCard`, `Slider`, `TagsInput`, `Editable`, `EditableText`, `FileUpload`, `PinInput`, `ColorPicker`
 
 ### Selection / Dropdowns
 
-`Select`, `SelectList`, `SelectListItem`, `SelectButton`, `TagSelect`, `ApplyInput`, `ApplySelect`, `ListBox`, `ListBoxItem`, `ListBoxSection`
+`Select`, `SelectList`, `SelectListItem`, `SelectButton`, `TagSelect`, `ApplyInput`, `ApplySelect`, `Combobox`
 
 ### Tree
 
-`TreeView`, `useTreeView`, `TreeSelectList`, `createTreeCollection`
+`TreeView` (compound component built on Ark UI), `useTreeView`, `TreeSelectList`, `createTreeCollection`, `createFileTreeCollection`
 
 ### Date Pickers
 
@@ -69,11 +77,11 @@ import { ThemeProvider, designSystem, Toaster } from "@b3/ui";
 
 ### Navigation & Text
 
-`Link`, `Tabs`, `Accordion`, `Menu` (compound), `ContextMenu` (compound), `Text`, `TextLabel`, `TruncatedText`, `SearchHighlight`, `useHighlight`
+`Link`, `Tabs`, `Accordion`, `Breadcrumb`, `Menu` (compound), `ContextMenu` (compound), `Text`, `TextLabel`, `TruncatedText`, `Heading`, `Span`, `SearchHighlight`, `useHighlight`
 
 ### Misc
 
-`Clipboard`, `Collapsible`, `ActionBar`, `ScrollArea`, `Splitter`, `Logo`, `DebugFontSwitcher`, `ThemeProvider`, `ColorPicker`
+`Actionbar`, `Clipboard`, `Collapsible`, `Highlight`, `Icon`, `Logo`, `Pagination`, `RatingGroup`, `ScrollArea`, `SegmentGroup`, `Splitter`, `ToggleGroup`, `DebugFontSwitcher`, `Provider`
 
 ## Hooks
 
@@ -83,10 +91,6 @@ import { ThemeProvider, designSystem, Toaster } from "@b3/ui";
 | `useDebounceQuery` | Immediate + debounced search query state                   |
 | `useFileSelect`    | Opens native file picker, returns parsed files             |
 | `useRowSelection`  | Row selection state for tables (toggle, togglePage, clear) |
-
-## Theme
-
-`designSystem` — Chakra v3 system with custom tokens (`brand`, `brandDark`, `gray`), semantic tokens (light/dark), recipes (`Button`, `Input`), and slot recipes (`Checkbox`, `Tabs`, `Popover`, `Toast`). Body font: `Inter Variable`.
 
 ## Types
 

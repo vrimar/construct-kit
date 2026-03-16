@@ -1,9 +1,8 @@
 import "@fontsource-variable/inter";
 
+import type { Preview } from "@storybook/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { initialize, mswLoader } from "msw-storybook-addon";
-import type { Preview } from "@storybook/react";
-import { ThemeProvider, designSystem } from "@b3/ui";
 
 initialize();
 
@@ -21,9 +20,7 @@ const preview: Preview = {
   decorators: [
     (Story) => (
       <QueryClientProvider client={createTestQueryClient()}>
-        <ThemeProvider value={designSystem}>
-          <Story />
-        </ThemeProvider>
+        <Story />
       </QueryClientProvider>
     ),
   ],

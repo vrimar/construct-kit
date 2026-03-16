@@ -13,21 +13,13 @@ const config: StorybookConfig = {
   docs: {
     autodocs: "tag",
   },
-  refs: {
-    "chakra-ui": {
-      disable: true,
-    },
-  },
+  refs: {},
   viteFinal(config: Parameters<NonNullable<StorybookConfig["viteFinal"]>>[0]) {
     return {
       ...config,
       optimizeDeps: {
         ...config.optimizeDeps,
-        include: [
-          ...(config.optimizeDeps?.include ?? []),
-          "@chakra-ui/react",
-          "@tanstack/react-query",
-        ],
+        include: [...(config.optimizeDeps?.include ?? []), "@tanstack/react-query"],
       },
     };
   },

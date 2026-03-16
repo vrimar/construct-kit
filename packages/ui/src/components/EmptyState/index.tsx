@@ -1,56 +1,15 @@
 import { ark } from "@ark-ui/react/factory";
 import type { ComponentProps } from "react";
-import { styled } from "styled-system/jsx";
+import { createStyleContext } from "styled-system/jsx";
+import { emptyState } from "styled-system/recipes";
 
-const Root = styled(ark.div, {
-  base: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: "3",
-    py: "12",
-    px: "6",
-  },
-});
+const { withProvider, withContext } = createStyleContext(emptyState);
 
-const Content = styled(ark.div, {
-  base: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: "1",
-  },
-});
-
-const Indicator = styled(ark.div, {
-  base: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    color: "fg.muted",
-    "& svg": {
-      width: "8",
-      height: "8",
-    },
-  },
-});
-
-const Title = styled(ark.h3, {
-  base: {
-    fontWeight: "semibold",
-    textStyle: "lg",
-    color: "fg",
-  },
-});
-
-const Description = styled(ark.p, {
-  base: {
-    textStyle: "sm",
-    color: "fg.muted",
-    textAlign: "center",
-  },
-});
+const Root = withProvider(ark.div, "root");
+const Content = withContext(ark.div, "content");
+const Indicator = withContext(ark.div, "indicator");
+const Title = withContext(ark.h3, "title");
+const Description = withContext(ark.p, "description");
 
 export type EmptyStateRootProps = ComponentProps<typeof Root>;
 

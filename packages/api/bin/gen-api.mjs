@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-// @b3/api gen-api bin — fetches OpenAPI spec, runs kubb codegen, cleans up
+// @b3/api api-gen bin — fetches OpenAPI spec, runs kubb codegen, cleans up
 
-import https from "node:https";
 import fs from "node:fs";
+import https from "node:https";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { register } from "tsx/esm/api";

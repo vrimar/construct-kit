@@ -1,7 +1,7 @@
 import {
-    Pagination as ArkPagination,
-    PaginationContext,
-    usePaginationContext,
+  Pagination as ArkPagination,
+  PaginationContext,
+  usePaginationContext,
 } from "@ark-ui/react/pagination";
 import { EllipsisIcon } from "lucide-react";
 import type { ComponentProps } from "react";

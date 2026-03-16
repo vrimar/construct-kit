@@ -1,3 +1,5 @@
+import { useCallback, useRef } from "react";
+
 export interface ParsedFile {
   source: string;
   name: string;
@@ -10,8 +12,6 @@ export interface UseFileUploadOptions<TMultiple extends boolean = false> {
   multiple?: TMultiple;
   onSelect?: (files: TMultiple extends true ? ParsedFile[] : ParsedFile | null) => void;
 }
-
-import { useCallback, useRef } from "react";
 
 function createInput({
   accept,
@@ -27,9 +27,9 @@ function createInput({
   return input;
 }
 
-export function useFileSelect<TMultiple extends boolean = false>(
+export const useFileSelect = <TMultiple extends boolean = false>(
   options: UseFileUploadOptions<TMultiple> = {},
-) {
+) => {
   const optionsRef = useRef(options);
 
   return useCallback(() => {
@@ -59,4 +59,4 @@ export function useFileSelect<TMultiple extends boolean = false>(
 
     input.click();
   }, []);
-}
+};

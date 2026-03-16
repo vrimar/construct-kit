@@ -8,23 +8,33 @@
   ],
   "type": "module",
   "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./handlers": {
-      "types": "./dist/handlers/index.d.ts",
-      "import": "./dist/handlers/index.js",
-      "require": "./dist/handlers/index.cjs"
+      "import": {
+        "types": "./dist/handlers/index.d.mts",
+        "default": "./dist/handlers/index.mjs"
+      },
+      "require": {
+        "types": "./dist/handlers/index.d.cts",
+        "default": "./dist/handlers/index.cjs"
+      }
     }
   },
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "build": "tsdown",
+    "dev": "tsdown --watch",
     "typecheck": "tsgo --noEmit",
     "lint": "oxlint src",
     "format": "oxfmt . -c ../config/oxfmt/index.jsonc"
@@ -37,10 +47,9 @@
   "devDependencies": {
     "@b3/config": "workspace:*",
     "@b3/ui": "workspace:*",
-    "tsup": "^8.5.1"
+    "tsdown": "^0.21.2"
   },
   "peerDependencies": {
-    "@chakra-ui/react": "^3.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   }

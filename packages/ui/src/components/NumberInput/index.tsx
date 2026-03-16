@@ -35,7 +35,6 @@ function NumberInputRoot({ ref, children, ...rest }: WithRef<NumberInputProps>) 
   return (
     <Root
       ref={ref}
-      variant="outline"
       {...rest}
     >
       {children}

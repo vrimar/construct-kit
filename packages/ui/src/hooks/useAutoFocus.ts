@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef } from "react";
 
 export const useAutoFocus = (select: boolean = false) => {
-  const inputRef = useRef<any>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useLayoutEffect(() => {
     if (inputRef.current) {

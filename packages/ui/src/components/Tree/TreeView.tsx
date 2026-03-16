@@ -1,7 +1,7 @@
 import {
-    TreeView as ArkTreeView,
-    TreeViewContext,
-    TreeViewNodeContext,
+  TreeView as ArkTreeView,
+  TreeViewContext,
+  TreeViewNodeContext,
 } from "@ark-ui/react/tree-view";
 import { ChevronDownIcon } from "lucide-react";
 import type { ComponentProps } from "react";

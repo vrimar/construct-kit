@@ -4,7 +4,7 @@ import { styled } from "styled-system/jsx";
 const ListRoot = styled(ark.ul);
 const ListItem = styled(ark.li);
 
-export const List = Object.assign(ListRoot, {
+export const List = {
   Root: ListRoot,
   Item: ListItem,
-});
+};
