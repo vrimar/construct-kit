@@ -1,18 +1,15 @@
-import type { RecipeConfig } from '@pandacss/dev'
+import { defineRecipe } from '@pandacss/dev'
 
-export const input = {
-  className: 'input',
-  jsx: ['Input', 'Field.Input'],
+export const textarea = defineRecipe({
+  className: 'textarea',
   base: {
     appearance: 'none',
     borderRadius: 'l2',
-    height: 'var(--input-height)',
-    minHeight: 'var(--input-height)',
-    minW: 'var(--input-height)',
+    minWidth: '0',
     outline: '0',
     position: 'relative',
-    textAlign: 'start',
     transition: 'colors',
+    transitionProperty: 'box-shadow, border-color',
     width: '100%',
     _disabled: {
       layerStyle: 'disabled',
@@ -20,7 +17,7 @@ export const input = {
   },
   defaultVariants: {
     size: 'md',
-    variant: 'outline',
+    variant: 'surface',
   },
   variants: {
     variant: {
@@ -29,8 +26,8 @@ export const input = {
         borderColor: 'gray.outline.border',
         focusVisibleRing: 'inside',
         _invalid: {
-          focusRingColor: 'error',
           borderColor: 'error',
+          focusRingColor: 'error',
         },
       },
       surface: {
@@ -38,10 +35,9 @@ export const input = {
         borderWidth: '1px',
         borderColor: 'gray.surface.border',
         focusVisibleRing: 'inside',
-
         _invalid: {
-          focusRingColor: 'error',
           borderColor: 'error',
+          focusRingColor: 'error',
         },
       },
       subtle: {
@@ -50,10 +46,9 @@ export const input = {
         bg: 'gray.subtle.bg',
         color: 'gray.subtle.fg',
         focusVisibleRing: 'inside',
-
         _invalid: {
-          focusRingColor: 'error',
           borderColor: 'error',
+          focusRingColor: 'error',
         },
       },
       flushed: {
@@ -77,13 +72,11 @@ export const input = {
       },
     },
     size: {
-      '2xs': { textStyle: 'xs', px: '1.5', '--input-height': 'sizes.7' },
-      xs: { textStyle: 'sm', px: '2', '--input-height': 'sizes.8' },
-      sm: { textStyle: 'sm', px: '2.5', '--input-height': 'sizes.9' },
-      md: { textStyle: 'md', px: '3', '--input-height': 'sizes.10' },
-      lg: { textStyle: 'md', px: '3.5', '--input-height': 'sizes.11' },
-      xl: { textStyle: 'lg', px: '4', '--input-height': 'sizes.12' },
-      '2xl': { textStyle: '3xl', px: '4.5', '--input-height': 'sizes.16' },
+      xs: { textStyle: 'sm', px: '2', py: '5px', scrollPaddingBottom: '5px' },
+      sm: { textStyle: 'sm', px: '2.5', py: '7px', scrollPaddingBottom: '7px' },
+      md: { textStyle: 'md', px: '3', py: '7px', scrollPaddingBottom: '7px' },
+      lg: { textStyle: 'md', px: '3.5', py: '9px', scrollPaddingBottom: '9px' },
+      xl: { textStyle: 'lg', px: '4', py: '9px', scrollPaddingBottom: '9px' },
     },
   },
-} satisfies RecipeConfig
+})

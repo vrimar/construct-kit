@@ -1,27 +1,51 @@
-import { defineSlotRecipe } from "@chakra-ui/react";
-import { toastSlotRecipe } from "@chakra-ui/react/theme";
+import { toastAnatomy } from '@ark-ui/react/anatomy'
+import { defineSlotRecipe } from '@pandacss/dev'
 
-export const toastRecipe = defineSlotRecipe({
-  ...toastSlotRecipe,
+export const toast = defineSlotRecipe({
+  className: 'toast',
+  slots: toastAnatomy.keys(),
   base: {
     root: {
-      "&[data-type=success]": {
-        bg: "bg.panel",
-        borderWidth: "1px",
-        borderColor: "green.solid",
-        color: "fg.success",
-        "--toast-trigger-bg": "{white/10}",
-        "--toast-border-color": "{white/40}",
-      },
-
-      "&[data-type=error]": {
-        bg: "bg.panel",
-        borderWidth: "1px",
-        borderColor: "red.solid",
-        color: "fg.error",
-        "--toast-trigger-bg": "{white/10}",
-        "--toast-border-color": "{white/40}",
-      },
+      alignItems: 'start',
+      background: 'gray.surface.bg',
+      borderRadius: 'l3',
+      boxShadow: 'lg',
+      display: 'flex',
+      gap: '4',
+      height: 'var(--height)',
+      minWidth: 'sm',
+      opacity: 'var(--opacity)',
+      overflowWrap: 'anywhere',
+      p: '4',
+      position: 'relative',
+      scale: 'var(--scale)',
+      transitionDuration: 'slow',
+      transitionProperty: 'translate, scale, opacity, height',
+      transitionTimingFunction: 'default',
+      translate: 'var(--x) var(--y)',
+      width: 'full',
+      willChange: 'translate, opacity, scale',
+      zIndex: 'var(--z-index)',
+    },
+    title: {
+      color: 'fg.default',
+      fontWeight: 'medium',
+      textStyle: 'sm',
+    },
+    description: {
+      color: 'fg.muted',
+      textStyle: 'sm',
+    },
+    actionTrigger: {
+      color: 'colorPalette.plain.fg',
+      cursor: 'pointer',
+      fontWeight: 'semibold',
+      textStyle: 'sm',
+    },
+    closeTrigger: {
+      position: 'absolute',
+      top: '2',
+      insetEnd: '2',
     },
   },
-});
+})
