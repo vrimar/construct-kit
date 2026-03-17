@@ -1,5 +1,7 @@
-import { Box, Logo, Stack, Text } from "@b3/ui";
+import { Box, Stack, Text } from "@b3/ui";
 import type { ReactNode } from "react";
+
+import { DefaultAuthLogo } from "./DefaultAuthLogo";
 
 interface AuthLayoutProps {
   children: ReactNode;
@@ -9,7 +11,7 @@ interface AuthLayoutProps {
 }
 
 export const AuthLayout = ({ children, showTitle, title, logo }: AuthLayoutProps) => {
-  const logoEl = logo ?? <Logo width={200} />;
+  const logoEl = logo ?? <DefaultAuthLogo width={360} />;
 
   return (
     <Box
@@ -20,7 +22,7 @@ export const AuthLayout = ({ children, showTitle, title, logo }: AuthLayoutProps
       justifyContent="center"
       alignItems="center"
     >
-      <Stack>
+      <Stack alignItems="center">
         {logoEl}
         <Stack gap="5">
           {showTitle && title && (

@@ -4,6 +4,7 @@ import { animationStyles } from "./theme/animation-styles";
 import { breakpoints } from "./theme/breakpoints";
 import { conditions } from "./theme/conditions";
 import { globalCss } from "./theme/global-css";
+import { globalFontface } from "./theme/global-fontface";
 import { keyframes } from "./theme/keyframes";
 import { layerStyles } from "./theme/layer-styles";
 import { recipes, slotRecipes } from "./theme/recipes";
@@ -23,6 +24,7 @@ const colorPaletteValues = ["brand", "slate", "gray", "blue", "red", "green", "o
 export const b3Preset = definePreset({
   name: "b3-preset",
   conditions,
+  globalFontface,
   theme: {
     breakpoints,
     tokens,
