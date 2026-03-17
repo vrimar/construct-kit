@@ -51,6 +51,7 @@ export const SubmitForm = ({
           onClick={onSubmit}
           disabled={isSubmitDisabled}
           loading={isSubmitLoading}
+          colorPalette="brand"
         >
           Submit
         </Button>

@@ -1,3 +1,4 @@
+import { Portal } from "@ark-ui/react/portal";
 import React from "react";
 
 import type { ButtonProps } from "../Buttons";
@@ -54,42 +55,45 @@ export const SubmitDialog = ({
       closeOnEscape
       closeOnInteractOutside={false}
     >
-      <Dialog.Backdrop />
-      <Dialog.Positioner>
-        <Dialog.Content maxWidth={width}>
-          <Dialog.Header>
-            <Dialog.Title>{title}</Dialog.Title>
-          </Dialog.Header>
-          <Dialog.Body onKeyDown={handleKeyDown}>{children}</Dialog.Body>
-          {onSubmit && (
-            <Dialog.Footer gap="2">
-              <Button
-                variant="plain"
-                onClick={onClose}
-              >
-                {cancelLabel}
-              </Button>
-              <Button
-                disabled={isSubmitDisabled}
-                loading={isSubmitLoading}
-                onClick={onSubmit}
-                autoFocus={autoFocusButton}
-                {...submitButtonProps}
-              >
-                {submitLabel}
-              </Button>
-            </Dialog.Footer>
-          )}
-          <Dialog.CloseTrigger asChild>
-            <CloseButton
-              size="sm"
-              position="absolute"
-              top="2"
-              insetEnd="2"
-            />
-          </Dialog.CloseTrigger>
-        </Dialog.Content>
-      </Dialog.Positioner>
+      <Portal>
+        <Dialog.Backdrop />
+        <Dialog.Positioner>
+          <Dialog.Content maxWidth={width}>
+            <Dialog.Header>
+              <Dialog.Title>{title}</Dialog.Title>
+            </Dialog.Header>
+            <Dialog.Body onKeyDown={handleKeyDown}>{children}</Dialog.Body>
+            {onSubmit && (
+              <Dialog.Footer gap="2">
+                <Button
+                  variant="plain"
+                  onClick={onClose}
+                >
+                  {cancelLabel}
+                </Button>
+                <Button
+                  disabled={isSubmitDisabled}
+                  loading={isSubmitLoading}
+                  onClick={onSubmit}
+                  autoFocus={autoFocusButton}
+                  colorPalette="brand"
+                  {...submitButtonProps}
+                >
+                  {submitLabel}
+                </Button>
+              </Dialog.Footer>
+            )}
+            <Dialog.CloseTrigger asChild>
+              <CloseButton
+                size="sm"
+                position="absolute"
+                top="2"
+                insetEnd="2"
+              />
+            </Dialog.CloseTrigger>
+          </Dialog.Content>
+        </Dialog.Positioner>
+      </Portal>
     </Dialog.Root>
   );
 };

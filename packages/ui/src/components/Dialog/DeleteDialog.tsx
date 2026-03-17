@@ -24,7 +24,6 @@ export const DeleteDialog = ({
       title={`Delete ${title}`}
       onClose={onClose}
       onSubmit={onSubmit}
-      submitButtonProps={{ colorPalette: "red" }}
       isSubmitLoading={loading}
       autoFocusButton
     >

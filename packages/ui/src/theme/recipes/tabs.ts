@@ -43,6 +43,7 @@ export const tabs = defineSlotRecipe({
       _disabled: {
         layerStyle: "disabled",
       },
+      width: "full",
     },
     content: {
       focusVisibleRing: "inside",
