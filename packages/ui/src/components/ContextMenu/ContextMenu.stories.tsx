@@ -15,10 +15,11 @@ export const Default: Story = {
       <ContextMenu.Trigger
         style={{
           padding: "40px",
-          border: "2px dashed #ccc",
-          borderRadius: "8px",
+          border: "2px dashed",
+          borderRadius: "var(--radii-md)",
           textAlign: "center",
           userSelect: "none",
+          borderColor: "var(--colors-border)",
         }}
       >
         Right-click here

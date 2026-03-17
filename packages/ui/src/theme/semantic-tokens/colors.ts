@@ -72,6 +72,10 @@ export const colors = defineSemanticTokens.colors({
     inverted: tv("{colors.slate.900}", "{colors.slate.50}"),
     control: tv("white", "{colors.slate.700}"),
     hover: tv("{colors.slate.50}", "{colors.slate.600}"),
+    success: {
+      DEFAULT: tv("{colors.green.50}", "{colors.green.900}"),
+      hover: tv("{colors.green.100}", "{colors.green.800}"),
+    },
   },
   // Global foreground tokens
   fg: {
