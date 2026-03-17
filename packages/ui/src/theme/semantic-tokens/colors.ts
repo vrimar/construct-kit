@@ -53,8 +53,8 @@ function colorPalette(color: string) {
     plain: {
       fg: tv(c(700), c(200)),
       bg: {
-        hover: tv(c(50), c(800)),
-        active: tv(c(100), c(700)),
+        hover: tv(c(50), c(700)),
+        active: tv(c(100), c(600)),
       },
     },
     focusRing: tv(c(500), c(500)),
