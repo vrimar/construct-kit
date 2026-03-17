@@ -25,6 +25,7 @@ export function ForgotPasswordPage({
     <AuthLayout
       logo={logo}
       title="Reset password"
+      description="Enter your email and we will send you a reset link."
       showTitle
     >
       {isSuccess ? (
@@ -57,6 +58,12 @@ export function ForgotPasswordPage({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
+                bg="bg.subtle"
+                _focusVisible={{
+                  borderColor: "brand.solid.bg",
+                  boxShadow: "0 0 0 3px rgba(59,114,217,0.12)",
+                  bg: "bg",
+                }}
               />
             </Field>
 

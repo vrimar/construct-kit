@@ -30,6 +30,7 @@ export function ResetPasswordPage({
     <AuthLayout
       logo={logo}
       title="Set new password"
+      description="Choose a new password to secure your account."
       showTitle
     >
       {isSuccess ? (
@@ -62,6 +63,12 @@ export function ResetPasswordPage({
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
+                bg="bg.subtle"
+                _focusVisible={{
+                  borderColor: "brand.solid.bg",
+                  boxShadow: "0 0 0 3px rgba(59,114,217,0.12)",
+                  bg: "bg",
+                }}
               />
             </Field>
 
@@ -70,6 +77,12 @@ export function ResetPasswordPage({
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 type="password"
+                bg="bg.subtle"
+                _focusVisible={{
+                  borderColor: "brand.solid.bg",
+                  boxShadow: "0 0 0 3px rgba(59,114,217,0.12)",
+                  bg: "bg",
+                }}
               />
             </Field>
 

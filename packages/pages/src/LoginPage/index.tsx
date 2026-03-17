@@ -16,7 +16,12 @@ export function LoginPage({ onSubmit, isLoading, logo, onForgotPassword }: Login
   const [password, setPassword] = useState("");
 
   return (
-    <AuthLayout logo={logo}>
+    <AuthLayout
+      logo={logo}
+      title="Welcome back"
+      description="Sign in to continue to your workspace."
+      showTitle
+    >
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -29,6 +34,12 @@ export function LoginPage({ onSubmit, isLoading, logo, onForgotPassword }: Login
               ref={emailInput}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              bg="bg.subtle"
+              _focusVisible={{
+                borderColor: "brand.solid.bg",
+                boxShadow: "0 0 0 3px rgba(59,114,217,0.12)",
+                bg: "bg",
+              }}
             />
           </Field>
 
@@ -37,6 +48,12 @@ export function LoginPage({ onSubmit, isLoading, logo, onForgotPassword }: Login
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               type="password"
+              bg="bg.subtle"
+              _focusVisible={{
+                borderColor: "brand.solid.bg",
+                boxShadow: "0 0 0 3px rgba(59,114,217,0.12)",
+                bg: "bg",
+              }}
             />
           </Field>
 
