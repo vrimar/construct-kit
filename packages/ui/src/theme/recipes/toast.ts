@@ -3,6 +3,7 @@ import { defineSlotRecipe } from "@pandacss/dev";
 
 export const toast = defineSlotRecipe({
   className: "toast",
+  jsx: ["Toaster", /Toast\.+/],
   slots: toastAnatomy.keys(),
   base: {
     root: {
@@ -26,6 +27,21 @@ export const toast = defineSlotRecipe({
       width: "full",
       willChange: "translate, opacity, scale",
       zIndex: "var(--z-index)",
+      _icon: {
+        flexShrink: "0",
+      },
+      "&[data-type=info]": {
+        _icon: { color: "info" },
+      },
+      "&[data-type=success]": {
+        _icon: { color: "success" },
+      },
+      "&[data-type=warning]": {
+        _icon: { color: "warning" },
+      },
+      "&[data-type=error]": {
+        _icon: { color: "error" },
+      },
     },
     title: {
       color: "fg",
@@ -37,7 +53,7 @@ export const toast = defineSlotRecipe({
       textStyle: "sm",
     },
     actionTrigger: {
-      color: "colorPalette.plain.fg",
+      color: "brand.plain.fg",
       cursor: "pointer",
       fontWeight: "semibold",
       textStyle: "sm",
