@@ -112,9 +112,13 @@ export const Select = <T,>({
   };
 
   const handleValueChange = (details: { value: string[] }) => {
-    const newValue = details.value[details.value.length - 1];
-    if (newValue == null) return;
-    const item = items.find((i: T) => String(getValue(i)) === newValue);
+    const prevValues = selectedItems.map(String);
+    const newValues = details.value;
+    const changedValue =
+      newValues.find((v) => !prevValues.includes(v)) ??
+      prevValues.find((v) => !newValues.includes(v));
+    if (changedValue == null) return;
+    const item = items.find((i: T) => String(getValue(i)) === changedValue);
     if (item) {
       onSelect(item);
       if (!isMultiSelect) handleOpenChange(false);
