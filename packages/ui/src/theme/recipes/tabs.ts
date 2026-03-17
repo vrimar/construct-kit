@@ -65,6 +65,24 @@ export const tabs = defineSlotRecipe({
     variant: "line",
   },
   variants: {
+    size: {
+      xs: {
+        list: { gap: "1" },
+        trigger: { h: "8", minW: "8", textStyle: "xs", px: "3", gap: "2" },
+      },
+      sm: {
+        list: { gap: "1" },
+        trigger: { h: "9", minW: "9", textStyle: "sm", px: "3.5", gap: "2" },
+      },
+      md: {
+        list: { gap: "1" },
+        trigger: { h: "10", minW: "10", textStyle: "sm", px: "4", gap: "2" },
+      },
+      lg: {
+        list: { gap: "1" },
+        trigger: { h: "11", minW: "11", textStyle: "md", px: "4.5", gap: "2" },
+      },
+    },
     variant: {
       line: {
         root: {
@@ -111,41 +129,6 @@ export const tabs = defineSlotRecipe({
           borderRadius: "md",
         },
       },
-      outline: {
-        list: {
-          _horizontal: {
-            borderBottomWidth: "1px",
-          },
-          _vertical: {
-            borderStartWidth: "1px",
-          },
-        },
-        trigger: {
-          color: "fg.muted",
-          borderWidth: "1px",
-          borderColor: "transparent",
-          borderRadius: "md",
-          borderBottomRadius: "0",
-          _horizontal: {
-            marginBottom: "-1px",
-          },
-          _vertical: {
-            marginStart: "-1px",
-            borderBottomRadius: "md",
-            borderEndRadius: "0",
-          },
-          _selected: {
-            color: "colorPalette.outline.fg",
-            borderColor: "border",
-            _horizontal: {
-              borderBottomColor: "bg",
-            },
-            _vertical: {
-              borderStartColor: "bg",
-            },
-          },
-        },
-      },
       enclosed: {
         list: {
           bg: "neutral.subtle.bg",
@@ -169,14 +152,6 @@ export const tabs = defineSlotRecipe({
           bg: "bg.control",
         },
       },
-      plain: {
-        trigger: {
-          color: "fg.muted",
-          _selected: {
-            color: "colorPalette.plain.fg",
-          },
-        },
-      },
     },
     fitted: {
       true: {
@@ -188,24 +163,6 @@ export const tabs = defineSlotRecipe({
           textAlign: "center",
           justifyContent: "center",
         },
-      },
-    },
-    size: {
-      xs: {
-        list: { gap: "1" },
-        trigger: { h: "8", minW: "8", textStyle: "xs", px: "3", gap: "2" },
-      },
-      sm: {
-        list: { gap: "1" },
-        trigger: { h: "9", minW: "9", textStyle: "sm", px: "3.5", gap: "2" },
-      },
-      md: {
-        list: { gap: "1" },
-        trigger: { h: "10", minW: "10", textStyle: "sm", px: "4", gap: "2" },
-      },
-      lg: {
-        list: { gap: "1" },
-        trigger: { h: "11", minW: "11", textStyle: "md", px: "4.5", gap: "2" },
       },
     },
   },
