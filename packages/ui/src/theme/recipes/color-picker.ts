@@ -28,7 +28,7 @@ export const colorPicker = defineSlotRecipe({
       flexDirection: "column",
       maxWidth: "sm",
       p: "4",
-      zIndex: "dropdown",
+      zIndex: "popover",
       _open: {
         animation: "fadeIn 0.25s ease-out",
       },

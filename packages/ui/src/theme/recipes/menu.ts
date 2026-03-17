@@ -6,7 +6,7 @@ export const menu = defineSlotRecipe({
   slots: menuAnatomy.keys(),
   base: {
     content: {
-      "--menu-z-index": "zIndex.dropdown",
+      "--menu-z-index": "zIndex.popover",
 
       bg: "neutral.surface.bg",
       borderRadius: "lg",
