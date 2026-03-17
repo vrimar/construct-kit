@@ -131,13 +131,15 @@ export const colorPicker = defineSlotRecipe({
       gridArea: "1 / 1",
       width: "full",
       height: "full",
-      borderRadius: "md",
+      borderRadius: "inherit",
     },
     valueSwatch: {
       gridArea: "1 / 1",
+      display: "block",
       width: "full",
       height: "full",
       borderRadius: "inherit",
+      zIndex: "1",
     },
   },
 });

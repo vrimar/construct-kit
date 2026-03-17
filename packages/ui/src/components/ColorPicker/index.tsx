@@ -1,6 +1,7 @@
 import { ColorPicker as ArkColorPicker, ColorPickerContext } from "@ark-ui/react/color-picker";
+import { ark } from "@ark-ui/react/factory";
 import type { ComponentProps } from "react";
-import { createStyleContext } from "styled-system/jsx";
+import { createStyleContext, styled } from "styled-system/jsx";
 import { colorPicker } from "styled-system/recipes";
 export { parseColor } from "@ark-ui/react/color-picker";
 
@@ -34,9 +35,18 @@ const SwatchIndicator = withContext(ArkColorPicker.SwatchIndicator, "swatchIndic
 const SwatchTrigger = withContext(ArkColorPicker.SwatchTrigger, "swatchTrigger");
 const TransparencyGrid = withContext(ArkColorPicker.TransparencyGrid, "transparencyGrid");
 const Trigger = withContext(ArkColorPicker.Trigger, "trigger");
-const ValueSwatch = ArkColorPicker.ValueSwatch;
+const ValueSwatch = withContext(ArkColorPicker.ValueSwatch, "valueSwatch");
 const ValueText = withContext(ArkColorPicker.ValueText, "valueText");
 const View = withContext(ArkColorPicker.View, "view");
+const TriggerSwatch = styled(ark.div, {
+  base: {
+    display: "grid",
+    width: "full",
+    height: "full",
+    borderRadius: "inherit",
+    overflow: "hidden",
+  },
+});
 
 export type ColorPickerRootProps = ComponentProps<typeof Root>;
 
@@ -50,8 +60,10 @@ export const ColorPicker = ({ withAlpha = false, swatches, ...rest }: ColorPicke
     <ColorPickerParts.Root {...rest}>
       <Control>
         <Trigger>
-          <TransparencyGrid />
-          <ValueSwatch />
+          <TriggerSwatch>
+            <TransparencyGrid />
+            <ValueSwatch />
+          </TriggerSwatch>
         </Trigger>
       </Control>
       <Positioner>
