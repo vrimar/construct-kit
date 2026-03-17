@@ -3,7 +3,6 @@ import { flexRender } from "@tanstack/react-table";
 import { Box, HStack } from "styled-system/jsx";
 import { Text } from "../../Text";
 
-import { dataTableClasses } from "../types";
 import { ColumnSorter } from "./ColumnSorter";
 
 interface HeaderCellProps<TData> {
@@ -46,14 +45,11 @@ export const DataTableHeaderCell = <TData,>({ header }: HeaderCellProps<TData>) 
         minWidth: widthPx,
         maxWidth: widthPx,
       }}
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- dynamic selector unsupported by Panda CSS types
-      css={
-        {
-          [`&:hover .${dataTableClasses.columnSorter}`]: {
-            visibility: "visible",
-          },
-        } as any
-      }
+      css={{
+        "&:hover .data-table__column-sorter": {
+          visibility: "visible",
+        },
+      }}
     >
       <HStack
         alignItems="center"
