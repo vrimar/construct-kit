@@ -1,4 +1,5 @@
 import { ScrollArea as ArkScrollArea } from "@ark-ui/react/scroll-area";
+import type { ComponentProps } from "react";
 import { createStyleContext, type HTMLStyledProps } from "styled-system/jsx";
 import { scrollArea, type ScrollAreaVariantProps } from "styled-system/recipes";
 import type { WithRef } from "../../types";
@@ -13,50 +14,39 @@ const Thumb = withContext(ArkScrollArea.Thumb, "thumb");
 const Corner = withContext(ArkScrollArea.Corner, "corner");
 
 export interface ScrollAreaProps extends HTMLStyledProps<"div">, ScrollAreaVariantProps {
-  horizontalEnabled?: boolean;
-  verticalEnabled?: boolean;
+  /**
+   * @default 'both'
+   */
+  scrollbars?: "vertical" | "horizontal" | "both";
+  contentProps?: ComponentProps<typeof Content>;
 }
 
 export const ScrollArea = ({
   ref,
   children,
-  verticalEnabled = true,
-  horizontalEnabled = true,
+  scrollbars = "both",
+  contentProps,
   ...props
 }: WithRef<ScrollAreaProps>) => {
+  const showVertical = scrollbars === "vertical" || scrollbars === "both";
+  const showHorizontal = scrollbars === "horizontal" || scrollbars === "both";
+
   return (
     <Root {...props}>
-      <Viewport
-        ref={ref}
-        style={{
-          overflowX: horizontalEnabled ? undefined : "hidden",
-          overflowY: verticalEnabled ? undefined : "hidden",
-        }}
-      >
-        <Content
-          width={horizontalEnabled ? undefined : "100%"}
-          minWidth={horizontalEnabled ? undefined : "100%"}
-        >
-          {children}
-        </Content>
+      <Viewport ref={ref}>
+        <Content {...contentProps}>{children}</Content>
       </Viewport>
-      {verticalEnabled && (
-        <Scrollbar
-          key="vertical"
-          orientation="vertical"
-        >
+      {showVertical && (
+        <Scrollbar orientation="vertical">
           <Thumb />
         </Scrollbar>
       )}
-      {horizontalEnabled && (
-        <Scrollbar
-          key="horizontal"
-          orientation="horizontal"
-        >
+      {showHorizontal && (
+        <Scrollbar orientation="horizontal">
           <Thumb />
         </Scrollbar>
       )}
-      <Corner />
+      {showVertical && showHorizontal && <Corner />}
     </Root>
   );
 };
