@@ -31,6 +31,7 @@ export const tabs = defineSlotRecipe({
     },
     trigger: {
       alignItems: "center",
+      justifyContent: "center",
       cursor: "pointer",
       display: "flex",
       fontWeight: "semibold",
@@ -135,13 +136,20 @@ export const tabs = defineSlotRecipe({
           bg: "neutral.subtle.bg",
           boxShadow: "inset 0 0 0px 1px var(--shadow-color)",
           boxShadowColor: "border",
-          borderRadius: "lg",
+          borderRadius: "md",
           p: "1",
         },
         trigger: {
           color: "fg.muted",
+          border: "1px solid transparent",
+          _hover: {
+            color: "brand.solid.bg",
+          },
           _selected: {
             color: "colorPalette.surface.fg",
+            bg: "white",
+            borderColor: "border",
+            borderRadius: "md",
           },
         },
         indicator: {
