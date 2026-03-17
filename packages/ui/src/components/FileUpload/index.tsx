@@ -45,8 +45,8 @@ interface ItemsProps extends Omit<ItemProps, "file">, ItemsBaseProps {}
 
 function Items(props: ItemsProps) {
   const { showSize, clearable, files, ...rest } = props;
-  const fileUpload = useFileUploadContext();
-  const acceptedFiles = files ?? fileUpload.acceptedFiles;
+  const ctx = useFileUploadContext();
+  const acceptedFiles = files ?? ctx.acceptedFiles;
 
   return acceptedFiles.map((file) => (
     <Item
@@ -100,9 +100,9 @@ function FileText({
   fallback = "Select file(s)",
   ...rest
 }: WithRef<FileTextProps, HTMLSpanElement>) {
-  const fileUpload = useFileUploadContext();
+  const ctx = useFileUploadContext();
 
-  const acceptedFiles = fileUpload.acceptedFiles;
+  const acceptedFiles = ctx.acceptedFiles;
 
   const fileText = useMemo(() => {
     if (acceptedFiles.length === 1) {

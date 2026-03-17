@@ -163,6 +163,7 @@ export const Select = <T,>({
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => filter(e.target.value)}
                 size="sm"
                 css={{ flex: 1 }}
+                variant="plain"
               />
               {searchExtra}
             </HStack>

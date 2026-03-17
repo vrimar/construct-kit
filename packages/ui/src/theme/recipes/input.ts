@@ -86,7 +86,7 @@ export const input = {
         },
       },
       plain: {
-        focusVisibleRing: "inside",
+        focusVisibleRing: "none",
         _invalid: {
           focusRingColor: "border.error",
         },

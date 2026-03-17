@@ -6,13 +6,13 @@ import type { WithRef } from "../../types";
 
 const { withProvider, withContext } = createStyleContext(field);
 
-const FieldRoot = withProvider(ArkField.Root, "root");
-const FieldLabel = withContext(ArkField.Label, "label");
-const FieldHelperText = withContext(ArkField.HelperText, "helperText");
-const FieldErrorText = withContext(ArkField.ErrorText, "errorText");
-const FieldRequiredIndicator = withContext(ArkField.RequiredIndicator, "requiredIndicator");
+const Root = withProvider(ArkField.Root, "root");
+const Label = withContext(ArkField.Label, "label");
+const HelperText = withContext(ArkField.HelperText, "helperText");
+const ErrorText = withContext(ArkField.ErrorText, "errorText");
+const RequiredIndicator = withContext(ArkField.RequiredIndicator, "requiredIndicator");
 
-export interface FieldProps extends Omit<React.ComponentProps<typeof FieldRoot>, "label"> {
+export interface FieldProps extends Omit<React.ComponentProps<typeof Root>, "label"> {
   label?: React.ReactNode;
   helperText?: React.ReactNode;
   errorText?: React.ReactNode;
@@ -29,19 +29,19 @@ export const Field = ({
   ...rest
 }: WithRef<FieldProps>) => {
   return (
-    <FieldRoot
+    <Root
       ref={ref}
       {...rest}
     >
       {label && (
-        <FieldLabel>
+        <Label>
           {label}
-          <FieldRequiredIndicator fallback={optionalText} />
-        </FieldLabel>
+          <RequiredIndicator fallback={optionalText} />
+        </Label>
       )}
       {children}
-      {helperText && <FieldHelperText>{helperText}</FieldHelperText>}
-      {errorText && <FieldErrorText>{errorText}</FieldErrorText>}
-    </FieldRoot>
+      {helperText && <HelperText>{helperText}</HelperText>}
+      {errorText && <ErrorText>{errorText}</ErrorText>}
+    </Root>
   );
 };
