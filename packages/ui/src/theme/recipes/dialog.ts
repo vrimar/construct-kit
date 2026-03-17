@@ -66,10 +66,10 @@ export const dialog = defineSlotRecipe({
       py: { base: "4", md: "6" },
       gap: { base: "4", md: "6" },
       _open: {
-        animationDuration: "slowest",
+        animationDuration: "fast",
       },
       _closed: {
-        animationDuration: "normal",
+        animationDuration: "fast",
       },
     },
     header: {
