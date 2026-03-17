@@ -3,6 +3,7 @@ import { defineSlotRecipe } from "@pandacss/dev";
 export const inputGroup = defineSlotRecipe({
   className: "input-group",
   slots: ["root", "element"],
+  jsx: ["InputGroup", "SearchInput", "PasswordInput"],
   base: {
     root: {
       position: "relative",
