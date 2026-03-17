@@ -28,6 +28,19 @@ export interface CheckboxTreeProps<T extends TreeNode> {
 
 const ROW_HEIGHT = 32;
 
+const TreeNodeCheckbox = ({ indeterminate = false }: { indeterminate?: boolean }) => (
+  <TreeView.NodeCheckbox>
+    <TreeView.NodeCheckboxIndicator>
+      <CheckIcon />
+    </TreeView.NodeCheckboxIndicator>
+    {indeterminate && (
+      <TreeView.NodeCheckboxIndicator indeterminate>
+        <MinusIcon />
+      </TreeView.NodeCheckboxIndicator>
+    )}
+  </TreeView.NodeCheckbox>
+);
+
 export const CheckboxTree = <T extends TreeNode>({
   collection,
   checkedValue,
@@ -85,11 +98,7 @@ export const CheckboxTree = <T extends TreeNode>({
                   }}
                 >
                   <TreeView.BranchIndicator />
-                  <TreeView.NodeCheckbox>
-                    <TreeView.NodeCheckboxIndicator indeterminate={<MinusIcon />}>
-                      <CheckIcon />
-                    </TreeView.NodeCheckboxIndicator>
-                  </TreeView.NodeCheckbox>
+                  <TreeNodeCheckbox indeterminate />
                   <TreeView.BranchText>{collection.stringifyNode(node)}</TreeView.BranchText>
                 </TreeView.BranchControl>
               ) : (
@@ -99,11 +108,7 @@ export const CheckboxTree = <T extends TreeNode>({
                     tree.focus(value);
                   }}
                 >
-                  <TreeView.NodeCheckbox>
-                    <TreeView.NodeCheckboxIndicator>
-                      <CheckIcon />
-                    </TreeView.NodeCheckboxIndicator>
-                  </TreeView.NodeCheckbox>
+                  <TreeNodeCheckbox />
                   <TreeView.ItemText>{collection.stringifyNode(node)}</TreeView.ItemText>
                 </TreeView.Item>
               )}

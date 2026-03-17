@@ -15,6 +15,7 @@ export const treeView = defineSlotRecipe({
       display: "flex",
       flexDirection: "column",
       outline: "none",
+      "--tree-padding-inline": "spacing.2",
       "--tree-indent": "spacing.5",
       _icon: {
         boxSize: "var(--tree-icon-size)",
@@ -30,11 +31,14 @@ export const treeView = defineSlotRecipe({
     branchControl: {
       display: "flex",
       alignItems: "center",
-      gap: "1.5",
+      gap: "1",
+      width: "full",
+      minWidth: "0",
+      position: "relative",
       rounded: "sm",
       cursor: "pointer",
       userSelect: "none",
-      ps: "calc(var(--depth) * var(--tree-indent))",
+      ps: "calc(var(--tree-padding-inline) + ((var(--depth) - 1) * var(--tree-indent)))",
       transition: "backgrounds",
       _hover: {
         bg: "bg.subtle",
@@ -52,6 +56,10 @@ export const treeView = defineSlotRecipe({
       },
     },
     branchIndicator: {
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexShrink: 0,
       transition: "rotate 0.2s",
       transformOrigin: "center",
       color: "fg.subtle",
@@ -64,26 +72,36 @@ export const treeView = defineSlotRecipe({
       },
     },
     branchText: {
+      display: "inline-flex",
+      alignItems: "center",
+      flex: "1",
+      minWidth: "0",
       truncate: true,
     },
-    branchContent: {},
+    branchContent: {
+      position: "relative",
+    },
     branchTrigger: {},
     branchIndentGuide: {
       position: "absolute",
       top: "0",
       bottom: "0",
-      start: "calc((var(--depth) + 0.5) * var(--tree-indent))",
+      start:
+        "calc(var(--tree-padding-inline) + ((var(--depth) - 1) * var(--tree-indent)) + (var(--tree-icon-size) * 0.5))",
       width: "1px",
       bg: "border",
     },
     item: {
       display: "flex",
       alignItems: "center",
-      gap: "1.5",
+      gap: "1",
+      width: "full",
+      minWidth: "0",
+      position: "relative",
       rounded: "sm",
       cursor: "pointer",
       userSelect: "none",
-      ps: "calc(var(--depth) * var(--tree-indent))",
+      ps: "calc(var(--tree-padding-inline) + ((var(--depth) - 1) * var(--tree-indent)))",
       transition: "backgrounds",
       _hover: {
         bg: "bg.subtle",
@@ -108,6 +126,10 @@ export const treeView = defineSlotRecipe({
       },
     },
     itemText: {
+      display: "inline-flex",
+      alignItems: "center",
+      flex: "1",
+      minWidth: "0",
       truncate: true,
     },
     nodeCheckbox: {
@@ -115,10 +137,12 @@ export const treeView = defineSlotRecipe({
       alignItems: "center",
       justifyContent: "center",
       flexShrink: 0,
+      bg: "bg",
       borderWidth: "1px",
-      borderColor: "border",
+      borderColor: "border.emphasized",
       borderRadius: "xs",
       cursor: "pointer",
+      transition: "backgrounds, border-color, colors",
       _checked: {
         bg: "colorPalette.solid.bg",
         borderColor: "colorPalette.solid.bg",
@@ -138,7 +162,7 @@ export const treeView = defineSlotRecipe({
     size: {
       sm: {
         tree: {
-          "--tree-icon-size": "sizes.3.5",
+          "--tree-icon-size": "sizes.3",
           "--tree-indent": "spacing.4",
           textStyle: "xs",
         },
@@ -151,13 +175,13 @@ export const treeView = defineSlotRecipe({
           pe: "1.5",
         },
         nodeCheckbox: {
-          boxSize: "3.5",
-          _icon: { boxSize: "2.5" },
+          boxSize: "3",
+          _icon: { boxSize: "2" },
         },
       },
       md: {
         tree: {
-          "--tree-icon-size": "sizes.4",
+          "--tree-icon-size": "sizes.3.5",
           textStyle: "sm",
         },
         branchControl: {

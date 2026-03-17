@@ -40,6 +40,19 @@ interface SelectNode<T> {
   _group?: TreeSelectGroup<T>;
 }
 
+const TreeNodeCheckbox = ({ indeterminate = false }: { indeterminate?: boolean }) => (
+  <TreeView.NodeCheckbox>
+    <TreeView.NodeCheckboxIndicator>
+      <CheckIcon />
+    </TreeView.NodeCheckboxIndicator>
+    {indeterminate && (
+      <TreeView.NodeCheckboxIndicator indeterminate>
+        <MinusIcon />
+      </TreeView.NodeCheckboxIndicator>
+    )}
+  </TreeView.NodeCheckbox>
+);
+
 export const TreeSelectList = <T,>({
   groups,
   selected,
@@ -222,14 +235,8 @@ export const TreeSelectList = <T,>({
               >
                 <TreeView.Branch>
                   <TreeView.BranchControl>
-                    {showCheckboxes && (
-                      <TreeView.NodeCheckbox>
-                        <TreeView.NodeCheckboxIndicator indeterminate={<MinusIcon />}>
-                          <CheckIcon />
-                        </TreeView.NodeCheckboxIndicator>
-                      </TreeView.NodeCheckbox>
-                    )}
                     <TreeView.BranchIndicator />
+                    {showCheckboxes && <TreeNodeCheckbox indeterminate />}
                     <Box
                       flex="1"
                       minWidth="0"
@@ -260,6 +267,7 @@ export const TreeSelectList = <T,>({
                     )}
                   </TreeView.BranchControl>
                   <TreeView.BranchContent>
+                    <TreeView.BranchIndentGuide />
                     {groupNode.children?.map((itemNode, itemIndex) => (
                       <TreeView.NodeProvider
                         key={itemNode.id}
@@ -276,13 +284,7 @@ export const TreeSelectList = <T,>({
                               : undefined
                           }
                         >
-                          {showCheckboxes && (
-                            <TreeView.NodeCheckbox>
-                              <TreeView.NodeCheckboxIndicator>
-                                <CheckIcon />
-                              </TreeView.NodeCheckboxIndicator>
-                            </TreeView.NodeCheckbox>
-                          )}
+                          {showCheckboxes && <TreeNodeCheckbox />}
                           <Box
                             flex="1"
                             minWidth="0"

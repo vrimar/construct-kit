@@ -5,6 +5,9 @@ export const tooltip = defineSlotRecipe({
   className: "tooltip",
   slots: tooltipAnatomy.keys(),
   base: {
+    positioner: {
+      zIndex: "tooltip",
+    },
     content: {
       "--tooltip-bg": "colors.neutral.solid.bg",
       bg: "var(--tooltip-bg)",

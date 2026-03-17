@@ -57,9 +57,10 @@ export const Tooltip = ({
         disabled={!portalled}
         container={portalRef}
       >
-        <Positioner>
+        <Positioner zIndex="tooltip">
           <Content
             ref={ref}
+            zIndex="tooltip"
             {...contentProps}
           >
             {showArrow && (
