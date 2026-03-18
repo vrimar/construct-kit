@@ -1,6 +1,8 @@
 import { treeViewAnatomy } from "@ark-ui/react/anatomy";
 import { defineSlotRecipe } from "@pandacss/dev";
 
+import { checkboxControlBase, checkboxControlCheckedState } from "./checkbox-control";
+
 export const treeView = defineSlotRecipe({
   className: "treeView",
   slots: [...treeViewAnatomy.keys(), "nodeCheckbox", "branchIndentGuide"],
@@ -133,26 +135,13 @@ export const treeView = defineSlotRecipe({
       truncate: true,
     },
     nodeCheckbox: {
-      display: "inline-flex",
-      alignItems: "center",
-      justifyContent: "center",
-      flexShrink: 0,
+      ...checkboxControlBase,
       bg: "bg",
-      borderWidth: "1px",
       borderColor: "border.emphasized",
       borderRadius: "xs",
-      cursor: "pointer",
       transition: "backgrounds, border-color, colors",
-      _checked: {
-        bg: "colorPalette.solid.bg",
-        borderColor: "colorPalette.solid.bg",
-        color: "colorPalette.solid.fg",
-      },
-      _indeterminate: {
-        bg: "colorPalette.solid.bg",
-        borderColor: "colorPalette.solid.bg",
-        color: "colorPalette.solid.fg",
-      },
+      _checked: checkboxControlCheckedState,
+      _indeterminate: checkboxControlCheckedState,
     },
   },
   defaultVariants: {

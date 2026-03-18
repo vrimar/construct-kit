@@ -1,6 +1,8 @@
 import { checkboxAnatomy } from "@ark-ui/react/anatomy";
 import { defineSlotRecipe } from "@pandacss/dev";
 
+import { checkboxControlBase, checkboxControlCheckedState } from "./checkbox-control";
+
 export const checkbox = defineSlotRecipe({
   className: "checkbox",
   slots: checkboxAnatomy.keys(),
@@ -16,14 +18,9 @@ export const checkbox = defineSlotRecipe({
       },
     },
     control: {
-      display: "inline-flex",
-      alignItems: "center",
-      justifyContent: "center",
-      flexShrink: "0",
-      borderWidth: "1px",
+      ...checkboxControlBase,
       borderColor: "transparent",
       borderRadius: "sm",
-      cursor: "pointer",
       focusVisibleRing: "outside",
 
       _icon: {
@@ -64,11 +61,8 @@ export const checkbox = defineSlotRecipe({
       solid: {
         control: {
           borderColor: "border",
-          _checked: {
-            bg: "colorPalette.solid.bg",
-            borderColor: "colorPalette.solid.bg",
-            color: "colorPalette.solid.fg",
-          },
+          _checked: checkboxControlCheckedState,
+          _indeterminate: checkboxControlCheckedState,
           _invalid: {
             background: "fg.error",
           },
