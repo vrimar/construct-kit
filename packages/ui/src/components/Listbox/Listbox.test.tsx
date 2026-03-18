@@ -47,6 +47,19 @@ describe("Listbox", () => {
     expect(onValueChange).toHaveBeenCalledOnce();
   });
 
+  it("renders list content inside a scroll area", () => {
+    const collection = createListCollection({
+      items: [
+        { label: "United States", value: "us" },
+        { label: "Canada", value: "ca" },
+      ],
+    });
+
+    const { container } = render(<Listbox collection={collection} />);
+
+    expect(container.querySelector('[data-scope="scroll-area"][data-part="root"]')).not.toBeNull();
+  });
+
   it("does not select an item when using the primitive item API with an action", async () => {
     const user = userEvent.setup();
     const onAction = vi.fn();

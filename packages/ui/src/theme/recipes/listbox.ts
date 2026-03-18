@@ -21,14 +21,14 @@ export const listbox = defineSlotRecipe({
       display: "flex",
       flexDirection: "column",
       maxH: "96",
+      minH: "0",
       outline: 0,
-      overflowY: "auto",
+      overflow: "hidden",
       _horizontal: {
         flexDirection: "row",
         maxH: "none",
         maxW: "max-content",
-        overflowX: "auto",
-        overflowY: "hidden",
+        overflow: "hidden",
       },
     },
     item: {
@@ -36,6 +36,7 @@ export const listbox = defineSlotRecipe({
       borderRadius: "sm",
       cursor: "pointer",
       display: "flex",
+      minWidth: "0",
       justifyContent: "space-between",
       userSelect: "none",
       outline: "0",
@@ -54,6 +55,7 @@ export const listbox = defineSlotRecipe({
     },
     itemText: {
       flex: "1",
+      minWidth: "0",
       overflow: "hidden",
       textOverflow: "ellipsis",
       whiteSpace: "nowrap",
@@ -69,6 +71,7 @@ export const listbox = defineSlotRecipe({
     itemGroup: {
       display: "flex",
       flexDirection: "column",
+      minWidth: "0",
     },
     itemGroupLabel: {
       alignItems: "flex-start",

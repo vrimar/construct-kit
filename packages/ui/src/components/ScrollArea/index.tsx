@@ -13,15 +13,16 @@ const Scrollbar = withContext(ArkScrollArea.Scrollbar, "scrollbar");
 const Thumb = withContext(ArkScrollArea.Thumb, "thumb");
 const Corner = withContext(ArkScrollArea.Corner, "corner");
 
-export interface ScrollAreaProps extends HTMLStyledProps<"div">, ScrollAreaVariantProps {
-  /**
-   * @default 'both'
-   */
-  scrollbars?: "vertical" | "horizontal" | "both";
-  contentProps?: ComponentProps<typeof Content>;
-}
+export type ScrollAreaProps = Omit<HTMLStyledProps<"div">, "scrollbar"> &
+  ScrollAreaVariantProps & {
+    /**
+     * @default 'both'
+     */
+    scrollbars?: "vertical" | "horizontal" | "both";
+    contentProps?: ComponentProps<typeof Content>;
+  };
 
-export const ScrollArea = ({
+const ScrollAreaRoot = ({
   ref,
   children,
   scrollbars = "both",
@@ -50,3 +51,12 @@ export const ScrollArea = ({
     </Root>
   );
 };
+
+export const ScrollArea = Object.assign(ScrollAreaRoot, {
+  Root,
+  Viewport,
+  Content,
+  Scrollbar,
+  Thumb,
+  Corner,
+});

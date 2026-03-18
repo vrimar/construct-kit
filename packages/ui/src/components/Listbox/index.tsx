@@ -12,6 +12,7 @@ import { listbox, type ListboxVariantProps } from "styled-system/recipes";
 import type { WithRef } from "../../types";
 import { EmptyState } from "../EmptyState";
 import { SearchInput } from "../Input";
+import { ScrollArea, type ScrollAreaProps } from "../ScrollArea";
 
 export { createListCollection, useListCollection } from "@ark-ui/react/collection";
 export type { ListCollection } from "@ark-ui/react/collection";
@@ -27,7 +28,7 @@ const RootProvider = withProvider(
   "root",
 ) as ArkListbox.RootProviderComponent<RootProps>;
 
-const Content = withContext(ArkListbox.Content, "content");
+const StyledContent = withContext(ArkListbox.Content, "content");
 const Empty = withContext(ArkListbox.Empty, "empty");
 const Input = withContext(ArkListbox.Input, "input");
 const StyledItem = withContext(ArkListbox.Item, "item");
@@ -86,6 +87,44 @@ function callItemHandlers(
 }
 
 type ItemProps = ComponentProps<typeof StyledItem>;
+
+type ContentProps = ComponentProps<typeof StyledContent> & {
+  scrollAreaProps?: Omit<ScrollAreaProps, "children">;
+};
+
+function Content({
+  ref,
+  children,
+  scrollAreaProps,
+  ...props
+}: WithRef<ContentProps, HTMLDivElement>) {
+  const { contentProps, ...resolvedScrollAreaProps } = scrollAreaProps ?? {};
+
+  return (
+    <ScrollArea.Root {...resolvedScrollAreaProps}>
+      <ScrollArea.Viewport asChild>
+        <StyledContent
+          ref={ref}
+          {...props}
+        >
+          <ScrollArea.Content
+            {...contentProps}
+            style={{
+              minWidth: "100%",
+              width: "100%",
+              ...(contentProps?.style ?? {}),
+            }}
+          >
+            {children}
+          </ScrollArea.Content>
+        </StyledContent>
+      </ScrollArea.Viewport>
+      <ScrollArea.Scrollbar orientation="vertical">
+        <ScrollArea.Thumb />
+      </ScrollArea.Scrollbar>
+    </ScrollArea.Root>
+  );
+}
 
 function Item({ ref, onMouseDown, onClick, ...props }: WithRef<ItemProps, HTMLDivElement>) {
   return (
