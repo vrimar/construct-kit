@@ -53,7 +53,7 @@ import { token } from "@b3/ui"; // design token accessor
 
 ## Variant Vocabulary
 
-`solid` > `surface` > `subtle` > `outline` > `plain` (no `ghost`). See `src/theme/recipes/README.md` for full reference.
+`solid` > `surface` > `subtle` > `outline` > `plain`. See `src/theme/recipes/README.md` for full reference.
 
 ## Component Structure
 

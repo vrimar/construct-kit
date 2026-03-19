@@ -12,9 +12,6 @@ Standard variant names across all recipes, from most visual weight to least:
 | `outline` | Border only, transparent background | `colorPalette.outline.*` |
 | `plain`   | Text only, no background or border  | `colorPalette.plain.*`   |
 
-Not every recipe supports all variants — only the ones that make visual sense for that component.  
-`ghost` was removed — use `plain` instead.
-
 **Special cases:**
 
 - **Input / Textarea** also have `flushed` (bottom border only) and `colored` (colorPalette-aware outline).
