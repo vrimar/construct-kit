@@ -1,5 +1,5 @@
 import { Field as ArkField } from "@ark-ui/react/field";
-import React from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { createStyleContext } from "styled-system/jsx";
 import { field } from "styled-system/recipes";
 import type { WithRef } from "../../types";
@@ -12,11 +12,11 @@ const HelperText = withContext(ArkField.HelperText, "helperText");
 const ErrorText = withContext(ArkField.ErrorText, "errorText");
 const RequiredIndicator = withContext(ArkField.RequiredIndicator, "requiredIndicator");
 
-export interface FieldProps extends Omit<React.ComponentProps<typeof Root>, "label"> {
-  label?: React.ReactNode;
-  helperText?: React.ReactNode;
-  errorText?: React.ReactNode;
-  optionalText?: React.ReactNode;
+export interface FieldProps extends Omit<ComponentProps<typeof Root>, "label"> {
+  label?: ReactNode;
+  helperText?: ReactNode;
+  errorText?: ReactNode;
+  optionalText?: ReactNode;
 }
 
 export const Field = ({

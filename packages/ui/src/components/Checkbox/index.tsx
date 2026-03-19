@@ -1,6 +1,5 @@
 import { Checkbox as ArkCheckbox, useCheckboxContext } from "@ark-ui/react/checkbox";
-import type { ComponentProps } from "react";
-import React from "react";
+import type { ComponentProps, InputHTMLAttributes, ReactNode, Ref } from "react";
 import { createStyleContext, styled } from "styled-system/jsx";
 import { checkbox } from "styled-system/recipes";
 import type { HTMLStyledProps } from "styled-system/types";
@@ -49,9 +48,9 @@ export const Indicator = ({ ref, ...props }: WithRef<HTMLStyledProps<"svg">, SVG
 };
 
 export interface CheckboxProps extends RootProps {
-  icon?: React.ReactNode;
-  inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
-  rootRef?: React.Ref<HTMLLabelElement>;
+  icon?: ReactNode;
+  inputProps?: InputHTMLAttributes<HTMLInputElement>;
+  rootRef?: Ref<HTMLLabelElement>;
 }
 
 function CheckboxRoot({
@@ -65,14 +64,15 @@ function CheckboxRoot({
   return (
     <Root
       ref={rootRef}
+      cursor="pointer"
       {...rest}
     >
       <HiddenInput
         ref={ref}
         {...inputProps}
       />
-      <Control cursor="pointer">{icon || <Indicator />}</Control>
-      {children != null && <Label cursor="pointer">{children}</Label>}
+      <Control>{icon || <Indicator />}</Control>
+      {children != null && <Label>{children}</Label>}
     </Root>
   );
 }

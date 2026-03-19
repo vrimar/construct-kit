@@ -1,7 +1,6 @@
-import { ark } from "@ark-ui/react";
+import { ark } from "@ark-ui/react/factory";
 import { Switch as ArkSwitch, useSwitchContext } from "@ark-ui/react/switch";
-import type { ComponentProps, ReactNode } from "react";
-import React from "react";
+import type { ComponentProps, InputHTMLAttributes, ReactNode, Ref } from "react";
 import { createStyleContext, styled } from "styled-system/jsx";
 import { switchRecipe } from "styled-system/recipes";
 import type { WithRef } from "../../types";
@@ -36,7 +35,7 @@ function Indicator({ ref, fallback, children, ...rest }: WithRef<IndicatorProps,
 }
 
 interface ThumbIndicatorProps extends ComponentProps<typeof StyledThumbIndicator> {
-  fallback?: React.ReactNode | undefined;
+  fallback?: ReactNode | undefined;
 }
 
 const StyledThumbIndicator = styled(ark.span);
@@ -59,10 +58,10 @@ function ThumbIndicator({
 }
 
 export interface SwitchProps extends RootProps {
-  inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
-  rootRef?: React.Ref<HTMLLabelElement>;
-  trackLabel?: { on: React.ReactNode; off: React.ReactNode };
-  thumbLabel?: { on: React.ReactNode; off: React.ReactNode };
+  inputProps?: InputHTMLAttributes<HTMLInputElement>;
+  rootRef?: Ref<HTMLLabelElement>;
+  trackLabel?: { on: ReactNode; off: ReactNode };
+  thumbLabel?: { on: ReactNode; off: ReactNode };
 }
 
 export const Switch = ({

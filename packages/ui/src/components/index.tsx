@@ -78,4 +78,5 @@ export * from "./Tooltip";
 export * from "./Tree";
 export * from "./utils";
 export * from "./VirtualScrollArea";
+export * from "./Wrap";
 export { Portal } from "@ark-ui/react/portal";

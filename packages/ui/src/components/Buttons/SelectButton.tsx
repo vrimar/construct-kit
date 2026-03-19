@@ -1,5 +1,5 @@
 import { ChevronDownIcon, XIcon } from "lucide-react";
-import React from "react";
+import type { ReactNode } from "react";
 import { Box, HStack } from "styled-system/jsx";
 import type { WithRef } from "../../types";
 
@@ -8,9 +8,9 @@ import { Button } from ".";
 import { Text } from "../Text";
 
 export interface SelectButtonProps extends ButtonProps {
-  sublabel?: React.ReactNode;
+  sublabel?: ReactNode;
   hasValue: boolean;
-  label: React.ReactNode;
+  label: ReactNode;
   onClear?: () => unknown;
 }
 

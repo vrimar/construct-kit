@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useDebounce } from "react-use";
 import { SearchInput } from "../../../Input";
 
+const DEBOUNCE_DELAY_MS = 500;
+
 interface ColumnSearchInputProps {
   name: string;
   value: string;
@@ -15,7 +17,7 @@ export const ColumnSearchInput = ({ name, value, onChange }: ColumnSearchInputPr
     () => {
       if (tempValue !== value) onChange(tempValue);
     },
-    500,
+    DEBOUNCE_DELAY_MS,
     [tempValue, value],
   );
 

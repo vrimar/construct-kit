@@ -1,12 +1,12 @@
 import { Portal } from "@ark-ui/react/portal";
-import React from "react";
+import type { KeyboardEvent, ReactNode } from "react";
 
 import type { ButtonProps } from "../Buttons";
 import { Button, CloseButton } from "../Buttons";
 import { Dialog } from "./Dialog";
 
 export interface SubmitDialogProps {
-  title: React.ReactNode;
+  title: ReactNode;
   onSubmit?: () => unknown;
   submitLabel?: string;
   submitButtonProps?: ButtonProps;
@@ -14,7 +14,7 @@ export interface SubmitDialogProps {
   isSubmitDisabled?: boolean;
   onClose?: () => unknown;
   cancelLabel?: string;
-  children: React.ReactNode;
+  children: ReactNode;
   isOpen?: boolean;
   width?: string;
   autoFocusButton?: boolean;
@@ -34,7 +34,7 @@ export const SubmitDialog = ({
   width,
   autoFocusButton,
 }: SubmitDialogProps) => {
-  const handleKeyDown = (event: React.KeyboardEvent) => {
+  const handleKeyDown = (event: KeyboardEvent) => {
     const target = event.target as HTMLElement;
     if (
       event.key === "Enter" &&

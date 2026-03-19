@@ -1,11 +1,11 @@
-import React from "react";
+import type { KeyboardEvent, ReactNode } from "react";
 import { ApiErrorAlert } from "../Alert";
 import { Button } from "../Buttons";
 import type { StackProps } from "../Layout";
 import { HStack, Stack } from "../Layout";
 
 interface SubmitFormProps extends StackProps {
-  children: React.ReactNode;
+  children: ReactNode;
   onSubmit: () => unknown;
   isSubmitDisabled?: boolean;
   isSubmitLoading?: boolean;
@@ -22,7 +22,7 @@ export const SubmitForm = ({
   onCancel,
   ...props
 }: SubmitFormProps) => {
-  const handleKeyDown = (event: React.KeyboardEvent) => {
+  const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === "Enter" && onSubmit) {
       onSubmit();
     }

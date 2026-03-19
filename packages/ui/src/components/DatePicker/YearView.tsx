@@ -1,4 +1,4 @@
-import { DatePicker } from "@ark-ui/react";
+import { DatePicker } from "@ark-ui/react/date-picker";
 
 export const DatePickerYearView = () => {
   return (

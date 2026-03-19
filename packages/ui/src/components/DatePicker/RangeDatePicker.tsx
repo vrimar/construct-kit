@@ -1,7 +1,8 @@
-import type { DateValue } from "@ark-ui/react";
-import { DatePicker as ArkDatePicker, parseDate, Portal, useDatePicker } from "@ark-ui/react";
+import type { DateValue } from "@ark-ui/react/date-picker";
+import { DatePicker as ArkDatePicker, parseDate, useDatePicker } from "@ark-ui/react/date-picker";
+import { Portal } from "@ark-ui/react/portal";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Box, HStack, Stack } from "styled-system/jsx";
 import { Button, IconButton } from "../Buttons";
 import { Separator } from "../Layout";
@@ -10,7 +11,7 @@ import { Text } from "../Text";
 import { DatePickerDayView } from "./DayView";
 
 export interface RangeDatePickerProps {
-  trigger: React.ReactNode;
+  trigger: ReactNode;
   mode?: "range" | "single" | "multiple";
   value: DateValue[];
   onValueChange: (value: DateValue[]) => unknown;

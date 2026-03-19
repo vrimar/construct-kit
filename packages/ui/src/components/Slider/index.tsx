@@ -1,7 +1,6 @@
 import { ark } from "@ark-ui/react/factory";
 import { Slider as ArkSlider } from "@ark-ui/react/slider";
-import type { ComponentProps } from "react";
-import React from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { createStyleContext, HStack } from "styled-system/jsx";
 import { slider } from "styled-system/recipes";
 import type { WithRef } from "../../types";
@@ -22,8 +21,8 @@ const ValueText = withContext(ArkSlider.ValueText, "valueText");
 const HiddenInput = ArkSlider.HiddenInput;
 
 export interface SliderProps extends RootProps {
-  marks?: Array<number | { value: number; label: React.ReactNode }>;
-  label?: React.ReactNode;
+  marks?: Array<number | { value: number; label: ReactNode }>;
+  label?: ReactNode;
   showValue?: boolean;
 }
 

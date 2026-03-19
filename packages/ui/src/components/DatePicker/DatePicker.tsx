@@ -1,6 +1,7 @@
-import { DatePicker as ArkDatePicker, parseDate, Portal, useDatePicker } from "@ark-ui/react";
+import { DatePicker as ArkDatePicker, parseDate, useDatePicker } from "@ark-ui/react/date-picker";
+import { Portal } from "@ark-ui/react/portal";
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Box, HStack, Stack } from "styled-system/jsx";
 import { IconButton } from "../Buttons";
 import { Text } from "../Text";
@@ -9,7 +10,7 @@ import { Button } from "../Buttons";
 import { DatePickerDayView } from "./DayView";
 
 export interface DatePickerProps {
-  trigger?: React.ReactNode;
+  trigger?: ReactNode;
   value?: Date;
   onValueChange: (value: Date | undefined) => unknown;
 }

@@ -1,6 +1,5 @@
 import { RadioGroup } from "@ark-ui/react/radio-group";
-import type { ComponentProps } from "react";
-import React from "react";
+import type { ComponentProps, InputHTMLAttributes, Ref } from "react";
 import { createStyleContext } from "styled-system/jsx";
 import { radioGroup } from "styled-system/recipes";
 import type { WithRef } from "../../types";
@@ -15,8 +14,8 @@ const ItemText = withContext(RadioGroup.ItemText, "itemText");
 const ItemHiddenInput = RadioGroup.ItemHiddenInput;
 
 export interface RadioProps extends ItemProps {
-  rootRef?: React.Ref<HTMLLabelElement>;
-  inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
+  rootRef?: Ref<HTMLLabelElement>;
+  inputProps?: InputHTMLAttributes<HTMLInputElement>;
 }
 
 export const Radio = ({
